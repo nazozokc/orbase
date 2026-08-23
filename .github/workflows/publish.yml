@@ -10,10 +10,16 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v5
 
       - uses: oven-sh/setup-bun@v2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
 
       - name: Extract version from release tag
         id: version
@@ -21,10 +27,12 @@ jobs:
           TAG: ${{ github.event.release.tag_name }}
         run: |
           VERSION="${TAG#v}"
+
           if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
             echo "::error::Tag '${TAG}' is not valid semver"
             exit 1
           fi
+
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Bump apps/orbase/package.json version
@@ -34,8 +42,14 @@ jobs:
           bun -e '
             const file = "apps/orbase/package.json";
             const pkg = await Bun.file(file).json();
+
             pkg.version = process.env.VERSION;
-            await Bun.write(file, JSON.stringify(pkg, null, 2) + "\n");
+
+            await Bun.write(
+              file,
+              JSON.stringify(pkg, null, 2) + "\n"
+            );
+
             console.log("version -> " + pkg.version);
           '
 
@@ -49,5 +63,5 @@ jobs:
       - name: Publish to npm
         working-directory: apps/orbase
         env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
