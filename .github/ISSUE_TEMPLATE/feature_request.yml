@@ -1,0 +1,44 @@
+name: 機能リクエスト
+description: 新しい機能や改善の提案をする
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 関連領域
+      multiple: true
+      options:
+        - task（タスク管理）
+        - note（メモ管理）
+        - diary（日記）
+        - search（横断検索）
+        - tag（タグ）
+        - エディタ連携 ($EDITOR)
+        - CLI 全般 / UX
+        - インストール・配布 (npm / Nix)
+        - その他
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 提案する機能
+      description: どのような機能・改善が欲しいか記述してください。コマンド例があると助かります。
+      placeholder: |
+        `orbase task done <id>` でタスクを完了にしたい。
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: 背景・ユースケース
+      description: なぜこの機能が必要か、どんな場面で使うか記述してください。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 代替案
+      description: 他に考えられる解決策があれば記述してください。
+    validations:
+      required: false

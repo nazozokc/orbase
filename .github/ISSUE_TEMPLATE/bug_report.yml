@@ -1,0 +1,76 @@
+name: バグ報告
+description: orbase の不具合を報告する
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 概要
+      description: 発生した不具合を簡潔に記述してください。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 不具合が再現する手順を記述してください。
+      placeholder: |
+        1. `orbase task add` を実行
+        2. タイトルに「テスト」を入力
+        3. エラーが発生
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待する動作
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 実際の動作
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options:
+        - Linux
+        - macOS
+        - Windows (WSL 含む)
+        - その他
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: インストール方法
+      options:
+        - npm (`npm install -g orbase`)
+        - bun (`bun add -g orbase`)
+        - Nix flake (`nix run` / `nix profile install`)
+        - ソースから (`bun run src/index.ts`)
+    validations:
+      required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: バージョン
+      description: 各コマンドの出力を貼り付けてください。
+      placeholder: |
+        $ orbase --version
+        x.y.z
+        $ bun --version
+        1.x.x
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: エラーログ・出力
+      description: スタックトレースやターミナル出力があれば貼り付けてください。
+      render: shell
+    validations:
+      required: false
