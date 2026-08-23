@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Extract version from release tag
+        id: version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION="${TAG#v}"
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Tag '${TAG}' is not valid semver"
+            exit 1
+          fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Bump apps/orbase/package.json version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          bun -e '
+            const file = "apps/orbase/package.json";
+            const pkg = await Bun.file(file).json();
+            pkg.version = process.env.VERSION;
+            await Bun.write(file, JSON.stringify(pkg, null, 2) + "\n");
+            console.log("version -> " + pkg.version);
+          '
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build
+        working-directory: apps/orbase
+        run: bun run build
+
+      - name: Publish to npm
+        working-directory: apps/orbase
+        env:
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: bun publish
