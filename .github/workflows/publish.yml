@@ -20,7 +20,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org/
+
+      - name: Update npm
+        run: npm install --global npm@latest
+
+      - name: Check npm version
+        run: npm --version
 
       - name: Extract version from release tag
         id: version
