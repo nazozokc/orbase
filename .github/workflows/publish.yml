@@ -50,4 +50,4 @@ jobs:
         working-directory: apps/orbase
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: bun publish
+        run: npm publish
