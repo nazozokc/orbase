@@ -9,7 +9,8 @@
 - **タスク管理** — タスクの追加・編集・削除・一覧表示
 - **メモ管理** — Markdown 形式のメモを追加・編集・削除
 - **日記** — 日付ごとの Markdown 日記を作成・編集・削除
-- **検索** — タスク・メモ・日記を横断してキーワード検索
+- **タグ** — タスク・メモにタグを付け、タグで横断検索
+- **検索** — キーワード / タグでタスク・メモ・日記を横断検索
 - **エディタ連携** — 編集は `$EDITOR` でファイルを直接開く
 - **データは全てローカル** — `~/.orbase/` 配下に JSON / Markdown で保存
 
@@ -45,30 +46,34 @@ orbase <command> <subcommand>
 
 タスクは `~/.orbase/task/*.json` に保存される。
 
-| コマンド           | 説明                                             |
-| :----------------- | :----------------------------------------------- |
-| `orbase task add`  | タスクを追加（見出し・本文・期限を対話的に入力） |
-| `orbase task edit` | タスクを選択してエディタで編集                   |
-| `orbase task del`  | タスクを選択して削除                             |
-| `orbase task list` | タスク一覧をテーブル表示                         |
+| コマンド           | 説明                                                       |
+| :----------------- | :--------------------------------------------------------- |
+| `orbase task add`  | タスクを追加（見出し・本文・期限・タグを対話的に入力）     |
+| `orbase task edit` | タスクを選択してエディタで編集                             |
+| `orbase task del`  | タスクを選択して削除                                       |
+| `orbase task list` | タスク一覧をテーブル表示                                   |
 
 ```bash
 $ orbase task add
-? task head 買い物
+? task title 買い物
 ? task text 牛乳と卵を買う
 ? goal date 2026-08-21
+? create or select? create
+? create and select tags 買い物
 
-$ orbasetask list
-┌────────┬──────────────────┬────────────┬───────┐
-│ head   │ text             │ date       │ done  │
-├────────┼──────────────────┼────────────┼───────┤
-│ 買い物 │ 牛乳と卵を買う    │ 2026-08-21 │ false │
-└────────┴──────────────────┴────────────┴───────┘
+$ orbase task list
+┌───────┬──────────────────┬────────────┬────────┬──────┐
+│ title │ text             │ dueDate    │ tag    │ done │
+├───────┼──────────────────┼────────────┼────────┼──────┤
+│ 買い物 │ 牛乳と卵を買う   │ 2026-08-21 │ 買い物 │ ✓    │
+└───────┴──────────────────┴────────────┴────────┴──────┘
 ```
+
+タグは作成済みのタグから選ぶこともできる。
 
 ### note — メモ管理
 
-メモは `~/.orbase/note/*.md` に保存される。
+メモは front matter（`name` / `date` / `tags`）付きの Markdown として `~/.orbase/note/*.md` に保存される。
 
 | コマンド           | 説明                                           |
 | :----------------- | :--------------------------------------------- |
@@ -87,22 +92,27 @@ $ orbasetask list
 | `orbase diary del`  | 年・月・日を入力して日記を削除   |
 
 ```bash
-$ orbasediary add
+$ orbase diary add
 # ~/.orbase/diary/2026/08/2026-08-20.md がエディタで開く
 ```
 
 ### search — 横断検索
 
-タスク・メモ・日記からキーワードに一致する内容を検索して表示する。
+キーワードまたはタグでタスク・メモ・日記を検索して表示する。
 
 | コマンド                         | 説明                                       |
 | :------------------------------- | :----------------------------------------- |
 | `orbase search string <keyword>` | タスク・メモ・日記を横断してキーワード検索 |
+| `orbase search tags <tag>`       | タグが一致するタスク・メモのパスを表示     |
 
 ```bash
 $ orbase search string 牛乳
 /home/user/.orbase/note/買い物.md
 # 牛乳と卵を買う
+
+$ orbase search tags 買い物
+/home/user/.orbase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
+/home/user/.orbase/note/買い物.md
 ```
 
 ### ヘルプ / バージョン
@@ -120,12 +130,13 @@ orbase --version
 ~/.orbase/
 ├── task/            # タスク (JSON)
 │   └── <uuid>.json
-├── note/            # メモ (Markdown)
+├── note/            # メモ (Markdown + front matter)
 │   └── <name>.md
-└── diary/           # 日記 (Markdown)
-    └── YYYY/
-        └── MM/
-            └── YYYY-MM-DD.md
+├── diary/           # 日記 (Markdown)
+│   └── YYYY/
+│       └── MM/
+│           └── YYYY-MM-DD.md
+└── tags.json        # タグ一覧 (JSON)
 ```
 
 タスクの JSON は以下の形式。
@@ -133,12 +144,26 @@ orbase --version
 ```json
 {
   "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-  "head": "買い物",
+  "title": "買い物",
   "text": "牛乳と卵を買う",
-  "date": "2026-08-21",
+  "dueDate": "2026-08-21",
   "done": false,
+  "tag": ["買い物"],
   "createdAt": "2026-08-20T04:00:00.000Z"
 }
+```
+
+メモは gray-matter 形式の front matter を持つ。
+
+```markdown
+---
+name: ""
+date: "2026-8-20"
+tags:
+  - 買い物
+---
+
+# 本文
 ```
 
 ## 開発
