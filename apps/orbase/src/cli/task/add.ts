@@ -60,6 +60,7 @@ export const add = async (): Promise<void> => {
       { name: "Extra High", value: "extra-high" },
     ],
   });
+
   const tag = await tagAction();
 
   const task = {
