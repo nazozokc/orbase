@@ -51,6 +51,15 @@ export const add = async (): Promise<void> => {
     message: "goal date",
   });
 
+  const priority = await select({
+    message: "Select priority",
+    choices: [
+      { name: "Low", value: "low" },
+      { name: "Medium", value: "medium" },
+      { name: "High", value: "high" },
+      { name: "Extra High", value: "extra-high" },
+    ],
+  });
   const tag = await tagAction();
 
   const task = {
@@ -59,6 +68,7 @@ export const add = async (): Promise<void> => {
     text,
     dueDate,
     done: false,
+    priority,
     tag,
     createdAt: new Date().toISOString(),
   };
