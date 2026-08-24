@@ -1,6 +1,7 @@
 import type { Command } from "gunshi";
 import { add } from "./add.ts";
 import { del } from "./del.ts";
+import { priority } from "./priority.ts";
 import { edit } from "./edit.ts";
 import { taskTable } from "../../task/table.ts";
 
@@ -26,6 +27,11 @@ export const taskCommand: Command = {
     del: {
       name: "del",
       run: del,
+    },
+
+    priority: {
+      name: "priority",
+      run: priority,
     },
 
     list: {
