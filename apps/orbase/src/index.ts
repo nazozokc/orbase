@@ -1,4 +1,4 @@
-#!/usr/bin/env/ node
+#!/usr/bin/env node
 
 import { cli, define } from "gunshi";
 import { taskCommand } from "./cli/task/index.ts";
