@@ -2,7 +2,7 @@
   "name": "@nazozokc/orbase",
   "module": "src/index.ts",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.4.8",
   "packageManager": "bun@latest",
   "license": "MIT",
   "bin": {
@@ -24,8 +24,7 @@
     "README.md",
     "package.json"
   ],
-  "keywords": [
-    "cli",
+7
     "life",
     "management",
     "terminal"
