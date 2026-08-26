@@ -1,8 +1,8 @@
 import type { Command } from "gunshi";
-import { init } from "./init.ts";
+import { template } from "./init.ts";
 
-export const initCommand: Command = {
-  name: "init",
-  description: "add init",
-  run: init,
+export const templateCommand: Command = {
+  name: "template",
+  description: "copy a template",
+  run: template,
 };
