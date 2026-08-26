@@ -5,13 +5,8 @@ import process from "node:process";
 import { join } from "node:path";
 
 export const template = async (): Promise<void> => {
-  const choices = [];
   const currentDir = process.cwd();
-  const readed = await readdir(TEMPLATE_DIR);
-
-  for (const file of readed) {
-    choices.push(file);
-  }
+  const choices = await readdir(TEMPLATE_DIR);
 
   const selected = await checkbox({
     message: "template files",
@@ -26,7 +21,10 @@ export const template = async (): Promise<void> => {
     if (source.isDirectory()) {
       const dir = await readdir(sourcefiles);
       for (const sourcefile of dir) {
-        await cp(sourcefile, toinit, { recursive: true });
+        const sourcedir = join(sourcefiles, sourcefile);
+        const currentdirectory = join(currentDir, sourcefile);
+
+        await cp(sourcedir, currentdirectory, { recursive: true });
       }
     } else {
       await cp(sourcefiles, toinit, { recursive: true });
