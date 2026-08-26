@@ -17,22 +17,22 @@ const tagAction = async (): Promise<TagType> => {
       message: "create and select tags",
     });
 
-    const tagsplit = tag.split(",").map((tag) => tag.trim());
+    const splitTags = tag.split(",").map((tag) => tag.trim());
 
-    await tagSave(tagsplit);
+    await tagSave(splitTags);
 
-    tags.push(...tagsplit);
+    tags.push(...splitTags);
   }
 
   if (action === "select") {
-    const read = await tagRead();
+    const availableTags = await tagRead();
 
-    const selectcli = await checkbox({
+    const selectedTags = await checkbox({
       message: "select tags",
-      choices: read,
+      choices: availableTags,
     });
 
-    tags.push(...selectcli);
+    tags.push(...selectedTags);
   }
 
   return tags;

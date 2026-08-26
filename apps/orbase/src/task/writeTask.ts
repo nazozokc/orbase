@@ -6,8 +6,8 @@ import consola from "consola";
 export const writeTask = async (task: Task): Promise<void> => {
   try {
     await mkdir(TASK_DIR, { recursive: true });
-    const format = JSON.stringify(task, null, 2);
-    await writeFile(`${TASK_DIR}/${task.id}.json`, format, "utf-8");
+    const taskJson = JSON.stringify(task, null, 2);
+    await writeFile(`${TASK_DIR}/${task.id}.json`, taskJson, "utf-8");
   } catch (error) {
     consola.error(error);
     return;

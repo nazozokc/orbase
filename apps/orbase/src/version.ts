@@ -5,11 +5,11 @@ type packagejson = {
 };
 
 export const version = async (): Promise<string> => {
-  const fileread = await readFile(
+  const packageJsonText = await readFile(
     new URL("../package.json", import.meta.url),
     "utf-8",
   );
-  const parse: packagejson = JSON.parse(fileread);
+  const packageJson: packagejson = JSON.parse(packageJsonText);
 
-  return parse.version;
+  return packageJson.version;
 };

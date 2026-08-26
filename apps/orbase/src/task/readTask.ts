@@ -5,20 +5,20 @@ import { join } from "node:path";
 
 export const readTask = async (): Promise<Task[]> => {
   try {
-    const dir = TASK_DIR;
-    const files = await readdir(dir);
-    const result = [];
+    const taskDir = TASK_DIR;
+    const files = await readdir(taskDir);
+    const tasks = [];
 
     for (const file of files) {
       if (!file.endsWith(".json")) continue;
 
-      const text = await readFile(join(dir, file), "utf-8");
-      const parse = JSON.parse(text);
+      const taskJson = await readFile(join(taskDir, file), "utf-8");
+      const task = JSON.parse(taskJson);
 
-      result.push(parse);
+      tasks.push(task);
     }
 
-    return result;
+    return tasks;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
       return [];

@@ -7,10 +7,10 @@ import { deleteTask } from "../../task/deleteTask.ts";
 
 export const del = async (): Promise<void> => {
   try {
-    const dir = await readdir(TASK_DIR);
+    const taskFiles = await readdir(TASK_DIR);
     const choices = [];
 
-    for (const file of dir) {
+    for (const file of taskFiles) {
       const filepath = join(TASK_DIR, file);
       const content = await readFile(filepath, "utf-8");
       const task = JSON.parse(content);

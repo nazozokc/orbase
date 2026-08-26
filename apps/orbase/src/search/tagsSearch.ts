@@ -7,13 +7,13 @@ import matter from "gray-matter";
 
 export const tagsString = async (search: string): Promise<void> => {
   try {
-    const task = await readdir(TASK_DIR, "utf-8");
+    const taskFiles = await readdir(TASK_DIR, "utf-8");
 
-    for (const task_file of task) {
-      const path = join(TASK_DIR, task_file);
-      const task = await readFile(path, "utf-8");
-      const parse = JSON.parse(task);
-      const tags = parse.tag;
+    for (const taskFile of taskFiles) {
+      const path = join(TASK_DIR, taskFile);
+      const taskJson = await readFile(path, "utf-8");
+      const task = JSON.parse(taskJson);
+      const tags = task.tag;
 
       if (tags.includes(search)) {
         consola.log(path);
@@ -22,11 +22,11 @@ export const tagsString = async (search: string): Promise<void> => {
 
     const notes = await readdir(NOTE_DIR, "utf-8");
 
-    for (const note_file of notes) {
-      const path = join(NOTE_DIR, note_file);
+    for (const noteFile of notes) {
+      const path = join(NOTE_DIR, noteFile);
       const content = await readFile(path, "utf-8");
-      const mdtags = matter(content);
-      const meta = mdtags.data as MarkdownMeta;
+      const parsedMarkdown = matter(content);
+      const meta = parsedMarkdown.data as MarkdownMeta;
 
       if (meta.tags.includes(search)) {
         consola.log(path);

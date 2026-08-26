@@ -14,20 +14,20 @@ export const template = async (): Promise<void> => {
   });
 
   for (const file of selected) {
-    const sourcefiles = join(TEMPLATE_DIR, file);
-    const source = await stat(sourcefiles);
-    const toinit = join(currentDir, file);
+    const sourcePath = join(TEMPLATE_DIR, file);
+    const sourceStats = await stat(sourcePath);
+    const destinationPath = join(currentDir, file);
 
-    if (source.isDirectory()) {
-      const dir = await readdir(sourcefiles);
-      for (const sourcefile of dir) {
-        const sourcedir = join(sourcefiles, sourcefile);
-        const currentdirectory = join(currentDir, sourcefile);
+    if (sourceStats.isDirectory()) {
+      const sourceFiles = await readdir(sourcePath);
+      for (const sourceFile of sourceFiles) {
+        const sourceFilePath = join(sourcePath, sourceFile);
+        const destinationFilePath = join(currentDir, sourceFile);
 
-        await cp(sourcedir, currentdirectory, { recursive: true });
+        await cp(sourceFilePath, destinationFilePath, { recursive: true });
       }
     } else {
-      await cp(sourcefiles, toinit, { recursive: true });
+      await cp(sourcePath, destinationPath, { recursive: true });
     }
   }
 };

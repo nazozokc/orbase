@@ -6,10 +6,10 @@ import { consola } from "consola";
 
 export const del = async (): Promise<void> => {
   try {
-    const dir = await readdir(NOTE_DIR);
+    const noteFiles = await readdir(NOTE_DIR);
     const choices = [];
 
-    for (const sel of dir) {
+    for (const sel of noteFiles) {
       choices.push({
         name: sel, // 画面に表示される
         value: sel, // 選択時に返ってくる値
