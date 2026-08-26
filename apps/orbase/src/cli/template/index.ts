@@ -1,5 +1,5 @@
 import type { Command } from "gunshi";
-import { template } from "./init.ts";
+import { template } from "./temp.ts";
 
 export const templateCommand: Command = {
   name: "template",
