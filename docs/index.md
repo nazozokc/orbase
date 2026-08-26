@@ -47,6 +47,18 @@ orbase task add
 orbase task list
 ```
 
+`orbase` の各コマンドは対話形式です。タスクは JSON、メモと日記は Markdown として `~/.orbase/` に保存されるため、使い始めるときにアカウント登録やデータベースの準備は必要ありません。
+
+## まず覚えるコマンド
+
+| やりたいこと | コマンド |
+| --- | --- |
+| タスクを追加・確認する | `orbase task add` / `orbase task list` |
+| メモを作成する | `orbase note add` |
+| 今日の日記を書く | `orbase diary add` |
+| キーワードを探す | `orbase search string <キーワード>` |
+| 操作方法を確認する | `orbase --help` |
+
 ## 主な機能
 
 - タスクの追加・編集・削除・一覧表示

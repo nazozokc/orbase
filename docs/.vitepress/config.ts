@@ -7,7 +7,9 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: "ホーム", link: "/" },
+      { text: "ガイド", link: "/guides" },
       { text: "コマンド一覧", link: "/commands" },
+      { text: "FAQ", link: "/faq" },
       { text: "GitHub", link: "https://github.com/nazozokc/orbase" },
     ],
     sidebar: [
@@ -15,7 +17,11 @@ export default defineConfig({
         text: "ドキュメント",
         items: [
           { text: "はじめに", link: "/" },
+          { text: "インストール", link: "/installation" },
+          { text: "基本ガイド", link: "/guides" },
           { text: "コマンド一覧", link: "/commands" },
+          { text: "データ形式", link: "/data" },
+          { text: "FAQ", link: "/faq" },
         ],
       },
     ],
