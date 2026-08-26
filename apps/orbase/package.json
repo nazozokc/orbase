@@ -41,7 +41,6 @@
     "cli-table3": "^0.6.5",
     "commander": "^15.0.0",
     "consola": "^3.4.2",
-    "crypto": "^1.0.1",
     "date-fns": "^4.4.0",
     "gray-matter": "^4.0.3",
     "gunshi": "^0.37.1",
