@@ -1,5 +1,5 @@
 import { TEMPLATE_DIR } from "../../constant/app.ts";
-import { checkbox, input } from "@inquirer/prompts";
+import { checkbox } from "@inquirer/prompts";
 import { readdir, cp, stat } from "node:fs/promises";
 import process from "node:process";
 import { join } from "node:path";
@@ -19,9 +19,17 @@ export const template = async (): Promise<void> => {
   });
 
   for (const file of selected) {
-    const source = join(TEMPLATE_DIR, file);
+    const sourcefiles = join(TEMPLATE_DIR, file);
+    const source = await stat(sourcefiles);
     const toinit = join(currentDir, file);
 
-    await cp(source, toinit, { recursive: true });
+    if (source.isDirectory()) {
+      const dir = await readdir(sourcefiles);
+      for (const sourcefile of dir) {
+        await cp(sourcefile, toinit, { recursive: true });
+      }
+    } else {
+      await cp(sourcefiles, toinit, { recursive: true });
+    }
   }
 };
