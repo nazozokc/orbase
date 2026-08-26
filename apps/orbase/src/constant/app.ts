@@ -6,3 +6,4 @@ export const ROOT_DIR = join(`${homedir()}`, ".orbase");
 export const TASK_DIR = join(`${homedir()}`, ".orbase", "task");
 export const NOTE_DIR = join(`${homedir()}`, ".orbase", "note");
 export const DIARY_DIR = join(`${homedir()}`, ".orbase", "diary");
+export const INIT_DIR = join(`${homedir()}`, ".orbase", "init");
