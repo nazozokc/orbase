@@ -42,6 +42,23 @@ nix profile install github:nazozokc/orbase
 orbase <command> <subcommand>
 ```
 
+主なコマンドは次のとおり。
+
+| コマンド | 説明 |
+| :------- | :--- |
+| `orbase task` | タスクを管理 |
+| `orbase note` | メモを管理 |
+| `orbase diary` | 日記を管理 |
+| `orbase search` | タスク・メモ・日記を検索 |
+| `orbase template` | 登録したテンプレートを選択してカレントディレクトリへコピー |
+
+メモや日記の編集には環境変数 `$EDITOR` に設定されたエディタが使われる。未設定の場合は、利用するエディタを設定してから実行する。
+
+```bash
+export EDITOR=vim
+orbase note add
+```
+
 ### task — タスク管理
 
 タスクは `~/.orbase/task/*.json` に保存される。
@@ -117,6 +134,14 @@ $ orbase search tags 買い物
 /home/user/.orbase/note/買い物.md
 ```
 
+### template — テンプレートの再利用
+
+よく使うファイルやディレクトリをあらかじめ `~/.orbase/template/` にテンプレートとして登録しておくと、`template` から選択してカレントディレクトリへコピーできる。同じ構成のファイルを複数のプロジェクトで使い回したい場合に利用する。
+
+```bash
+orbase template
+```
+
 ### ヘルプ / バージョン
 
 ```bash
@@ -188,7 +213,7 @@ cd .. && bun2nix -l bun.lock -o bun.nix
 bun run build
 
 # ローカルで実行
-bun run src/index.ts
+bun run apps/orbase/src/index.ts --help
 
 # フォーマット / チェック
 nix fmt
@@ -198,6 +223,13 @@ nix flake check
 `bun2nix` は devShell に同梱されている。`bun.nix` を再生成したら `nix build` で動作確認すること。
 
 テストは `bun test`。テストファイルは `test/` 以下に置く。
+
+パッケージ単体で開発する場合は `apps/orbase` で次のように実行できる。
+
+```bash
+cd apps/orbase
+bun run src/index.ts --help
+```
 
 ## License
 
