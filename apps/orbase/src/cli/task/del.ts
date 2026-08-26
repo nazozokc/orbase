@@ -16,7 +16,7 @@ export const del = async (): Promise<void> => {
       const task = JSON.parse(content);
 
       choices.push({
-        name: task.head,
+        name: task.text,
         value: file,
       });
     }
