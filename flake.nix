@@ -56,7 +56,7 @@
               let
                 rel = pkgs.lib.removePrefix (toString ./. + "/") (toString path);
               in
-              builtins.match "package.json|bun.lock" rel != null
+              builtins.match "package.json|bun.lock|apps/orbase/tsconfig.json" rel != null
               || (
                 builtins.match "apps(/orbase(/.*)?)?" rel != null
                 && builtins.match ".*/node_modules(/.*)?" rel == null
@@ -135,6 +135,16 @@
             program = "${pkgs.lib.getExe self'.packages.default}";
           };
 
+          # bun.lock を更新した後に、Nix ビルド用の依存定義も更新する。
+          # リポジトリのルートで実行することを前提にしている。
+          apps.update = {
+            type = "app";
+            program = pkgs.writeShellScript "orbase-update-bun-nix" ''
+              set -euo pipefail
+              ${pkgs.lib.getExe bun2nix'} -l bun.lock -o bun.nix
+            '';
+          };
+
           # -----------------------------------------------------------------
           # checks
           # -----------------------------------------------------------------
@@ -170,6 +180,34 @@
               if find . -type f \( -name "*.test.ts" -o -name "*.spec.ts" \) | grep -q .; then
                 bun test
               fi
+            '';
+
+            installPhase = ''
+              mkdir -p $out
+            '';
+          };
+
+          checks.typecheck = pkgs.stdenv.mkDerivation {
+            pname = "orbase-typecheck";
+            inherit src version bunDeps;
+
+            nativeBuildInputs = [
+              pkgs.bun
+              pkgs.typescript
+              bun2nix'.hook
+            ];
+
+            dontUseBunBuild = true;
+            dontUseBunCheck = true;
+            doCheck = true;
+            bunInstallFlags = "--linker=isolated --offline --frozen-lockfile";
+
+            postBunSetInstallCacheDirPhase = ''
+              chmod -R u+rwx "$BUN_INSTALL_CACHE_DIR"
+            '';
+
+            checkPhase = ''
+              tsc --project apps/orbase/tsconfig.json --noEmit
             '';
 
             installPhase = ''
