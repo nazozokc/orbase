@@ -18,13 +18,9 @@ export const template = async (): Promise<void> => {
     choices,
   });
 
-  for (const select of selected) {
-    const read = join(`${TEMPLATE_DIR}`, select);
-    const files = await readdir(read);
-    for (const file of files) {
-      const source = join(read, file);
-      const toinit = join(currentDir, file);
-      await cp(source, toinit, { recursive: true });
-    }
+  for (const file of selected) {
+    const source = join(TEMPLATE_DIR, file);
+    const toinit = join(currentDir, file);
+    await cp(source, toinit, { recursive: true });
   }
 };
