@@ -39,7 +39,7 @@ nix profile install github:nazozokc/orbase
 ## 使い方
 
 ```bash
-orbase <command> <subcommand>
+orbase <command> [subcommand] [arguments]
 ```
 
 主なコマンドは次のとおり。
@@ -50,7 +50,7 @@ orbase <command> <subcommand>
 | `orbase note` | メモを管理 |
 | `orbase diary` | 日記を管理 |
 | `orbase search` | タスク・メモ・日記を検索 |
-| `orbase template` | 登録したテンプレートを選択してカレントディレクトリへコピー |
+| `orbase template <name>` | 登録したテンプレートをカレントディレクトリへコピー |
 
 メモや日記の編集には環境変数 `$EDITOR` に設定されたエディタが使われる。未設定の場合は、利用するエディタを設定してから実行する。
 
@@ -136,11 +136,13 @@ $ orbase search tags 買い物
 
 ### template — テンプレートの再利用
 
-よく使うファイルやディレクトリをあらかじめ `~/.orbase/template/` にテンプレートとして登録しておくと、`template` から選択してカレントディレクトリへコピーできる。同じ構成のファイルを複数のプロジェクトで使い回したい場合に利用する。
+よく使うファイルやディレクトリをあらかじめ `~/.orbase/template/` にテンプレートとして登録しておくと、名前を指定してカレントディレクトリへコピーできる。同じ構成のファイルを複数のプロジェクトで使い回したい場合に利用する。
 
 ```bash
-orbase template
+orbase template project
 ```
+
+テンプレート名は `~/.orbase/template/` 配下のファイルまたはディレクトリ名です。
 
 ### ヘルプ / バージョン
 

@@ -15,7 +15,7 @@ description: orbase CLI のコマンドリファレンス。
 | `note` | Markdown メモの作成、編集、削除 |
 | `diary` | 日付ごとの日記の作成、編集、削除 |
 | `search` | キーワードまたはタグで横断検索 |
-| `template` | 登録済みテンプレートをカレントディレクトリへコピー |
+| `template <name>` | 登録済みテンプレートをカレントディレクトリへコピー |
 
 <details>
 <summary><strong>クイックナビゲーション</strong></summary>
@@ -89,10 +89,10 @@ orbase search string "買い物 メモ"
 
 ## `template`
 
-`~/.orbase/template/` にテンプレート用のディレクトリを作成しておくと、選択したテンプレートの中身をカレントディレクトリへコピーできます。
+`~/.orbase/template/` にテンプレート用のファイルまたはディレクトリを作成しておくと、指定したテンプレートをカレントディレクトリへコピーできます。
 
 ```bash
-orbase template
+orbase template project
 ```
 
 ## エディタの設定
