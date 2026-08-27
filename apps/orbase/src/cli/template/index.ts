@@ -1,13 +1,14 @@
-import type { Command } from "gunshi";
+import { define } from "gunshi";
 import { template } from "./temp.ts";
 
-export const templateCommand: Command = {
+export const templateCommand = define({
   name: "template",
   description: "copy a template",
   args: {
     temp: {
-      type: "positional",
-      description: "template name",
+      type: "string",
+      description: "template_name",
+      required: true,
     },
   },
 
@@ -16,4 +17,4 @@ export const templateCommand: Command = {
 
     await template(temp);
   },
-};
+});

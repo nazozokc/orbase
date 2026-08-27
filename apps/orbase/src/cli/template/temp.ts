@@ -1,5 +1,4 @@
 import { TEMPLATE_DIR } from "../../constant/app.ts";
-import { checkbox } from "@inquirer/prompts";
 import { readdir, cp, stat } from "node:fs/promises";
 import process from "node:process";
 import { join } from "node:path";
