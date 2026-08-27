@@ -8,9 +8,9 @@ import consola from "consola";
 export const template = async (directory: string): Promise<void> => {
   const currentDir = process.cwd();
   const dir = join(TEMPLATE_DIR, directory);
-  const sourcestat = await stat(dir);
+  const sourceStat = await stat(dir);
 
-  if (sourcestat.isDirectory()) {
+  if (sourceStat.isDirectory()) {
     const sourceFiles = await readdir(dir);
     for (const sourceFile of sourceFiles) {
       const sourceFilePath = join(dir, sourceFile);

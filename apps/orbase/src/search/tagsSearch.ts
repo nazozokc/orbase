@@ -5,7 +5,7 @@ import { join } from "path";
 import { consola } from "consola";
 import matter from "gray-matter";
 
-export const tagsString = async (search: string): Promise<void> => {
+export const searchTags = async (search: string): Promise<void> => {
   try {
     const taskFiles = await readdir(TASK_DIR, "utf-8");
 

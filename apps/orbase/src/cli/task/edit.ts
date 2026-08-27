@@ -11,8 +11,8 @@ export const edit = async (): Promise<void> => {
     const choices = [];
 
     for (const file of files) {
-      const filepath = join(TASK_DIR, file);
-      const content = await readFile(filepath, "utf-8");
+      const filePath = join(TASK_DIR, file);
+      const content = await readFile(filePath, "utf-8");
       const task = JSON.parse(content);
 
       choices.push({

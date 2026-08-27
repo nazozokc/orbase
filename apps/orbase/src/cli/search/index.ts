@@ -1,6 +1,6 @@
 import type { Command } from "gunshi";
 import { searchString } from "../../search/stringSearch.ts";
-import { tagsString } from "../../search/tagsSearch.ts";
+import { searchTags } from "../../search/tagsSearch.ts";
 
 export const searchCommand: Command = {
   name: "search",
@@ -35,7 +35,7 @@ export const searchCommand: Command = {
       async run(ctx) {
         const search = ctx.values.search;
 
-        await tagsString(search);
+        await searchTags(search);
       },
     },
   },
