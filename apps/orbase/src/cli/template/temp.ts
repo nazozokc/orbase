@@ -3,6 +3,7 @@ import { checkbox } from "@inquirer/prompts";
 import { readdir, cp, stat } from "node:fs/promises";
 import process from "node:process";
 import { join } from "node:path";
+import consola from "consola";
 
 export const template = async (directory: string): Promise<void> => {
   const currentDir = process.cwd();
@@ -21,4 +22,6 @@ export const template = async (directory: string): Promise<void> => {
     const destinationPath = join(currentDir, directory);
     await cp(dir, destinationPath, { recursive: true });
   }
+
+  consola.success("success template file");
 };
