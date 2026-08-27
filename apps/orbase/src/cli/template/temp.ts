@@ -3,31 +3,25 @@ import { checkbox } from "@inquirer/prompts";
 import { readdir, cp, stat } from "node:fs/promises";
 import process from "node:process";
 import { join } from "node:path";
+import consola from "consola";
 
-export const template = async (): Promise<void> => {
+export const template = async (directory: string): Promise<void> => {
   const currentDir = process.cwd();
-  const choices = await readdir(TEMPLATE_DIR);
+  const dir = join(TEMPLATE_DIR, directory);
+  const sourcestat = await stat(dir);
 
-  const selected = await checkbox({
-    message: "template files",
-    choices,
-  });
+  if (sourcestat.isDirectory()) {
+    const sourceFiles = await readdir(dir);
+    for (const sourceFile of sourceFiles) {
+      const sourceFilePath = join(dir, sourceFile);
+      const destinationFilePath = join(currentDir, sourceFile);
 
-  for (const file of selected) {
-    const sourcePath = join(TEMPLATE_DIR, file);
-    const sourceStats = await stat(sourcePath);
-    const destinationPath = join(currentDir, file);
-
-    if (sourceStats.isDirectory()) {
-      const sourceFiles = await readdir(sourcePath);
-      for (const sourceFile of sourceFiles) {
-        const sourceFilePath = join(sourcePath, sourceFile);
-        const destinationFilePath = join(currentDir, sourceFile);
-
-        await cp(sourceFilePath, destinationFilePath, { recursive: true });
-      }
-    } else {
-      await cp(sourcePath, destinationPath, { recursive: true });
+      await cp(sourceFilePath, destinationFilePath, { recursive: true });
     }
+  } else {
+    const destinationPath = join(currentDir, directory);
+    await cp(dir, destinationPath, { recursive: true });
   }
+
+  consola.success("success template file");
 };
