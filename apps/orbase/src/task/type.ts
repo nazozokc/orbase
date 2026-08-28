@@ -4,7 +4,7 @@ export type Task = {
   text: string;
   dueDate: string;
   priority: "low" | "medium" | "high" | "extra-high";
-  tag: string;
+  tag: string[];
   status: "todo" | "pending" | "inprogress" | "done";
   createdAt: string;
 };
