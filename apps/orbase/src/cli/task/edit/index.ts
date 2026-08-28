@@ -83,7 +83,7 @@ export const edit = async (): Promise<void> => {
       createdAt: task.createdAt,
     };
 
-    const taskJsonStringify = JSON.stringify(tasks);
+    const taskJsonStringify = JSON.stringify(tasks, null, 2);
 
     await writeFile(filePath, taskJsonStringify, "utf-8");
   } catch (error) {
