@@ -29,7 +29,6 @@ export const edit = async (): Promise<void> => {
     const filePath = join(TASK_DIR, selected);
     const taskRead = await readFile(filePath, "utf-8");
     const task = JSON.parse(taskRead);
-    const tasks = [];
 
     const title = await input({
       message: "change title?",
@@ -72,7 +71,7 @@ export const edit = async (): Promise<void> => {
       default: task.status,
     });
 
-    tasks.push({
+    const tasks = {
       id: task.id,
       title,
       text,
@@ -81,9 +80,11 @@ export const edit = async (): Promise<void> => {
       tag,
       status,
       createAt: task.createAt,
-    });
+    };
 
-    await writeFile(filePath, tasks, "utf-8");
+    const taskJsonStringify = JSON.stringify(tasks);
+
+    await writeFile(filePath, taskJsonStringify, "utf-8");
   } catch (error) {
     consola.error(error);
   }
