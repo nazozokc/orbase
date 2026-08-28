@@ -20,7 +20,7 @@ export const taskTable = async (get?: Task[]): Promise<void> => {
       task.title,
       task.text,
       task.dueDate,
-      task.tag,
+      task.tag.join(","),
       task.priority,
       task.status,
     ]);
