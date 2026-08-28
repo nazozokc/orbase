@@ -1,4 +1,4 @@
-import { input, select, checkbox } from "@inquirer/prompts";
+import { input, select } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
 import { tagSave, type TagType } from "../../tags/tagSave.ts";
 import { randomUUID } from "crypto";
@@ -27,12 +27,12 @@ const tagAction = async (): Promise<TagType> => {
   if (action === "select") {
     const availableTags = await tagRead();
 
-    const selectedTags = await checkbox({
+    const selectedTags = await select({
       message: "select tags",
       choices: availableTags,
     });
 
-    tags.push(...selectedTags);
+    tags.push(selectedTags);
   }
 
   return tags;
@@ -63,14 +63,24 @@ export const add = async (): Promise<void> => {
 
   const tag = await tagAction();
 
+  const status = await select({
+    message: "Select status",
+    choices: [
+      { name: "To Do", value: "todo" },
+      { name: "Pending", value: "pending" },
+      { name: "In Progress", value: "inprogress" },
+      { name: "Done", value: "done" },
+    ],
+  });
+
   const task = {
     id: randomUUID(),
     title,
     text,
     dueDate,
-    done: false,
     priority,
     tag,
+    status,
     createdAt: new Date().toISOString(),
   };
 
