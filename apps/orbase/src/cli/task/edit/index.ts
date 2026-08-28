@@ -16,7 +16,7 @@ export const edit = async (): Promise<void> => {
       const task = JSON.parse(content);
 
       choices.push({
-        name: task.name,
+        name: task.title,
         value: file,
       });
     }
