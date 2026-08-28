@@ -3,6 +3,7 @@ import { add } from "./add.ts";
 import { del } from "./del.ts";
 import { priority } from "./priority.ts";
 import { edit } from "./edit.ts";
+import { statuschange } from "./status.ts";
 import { taskTable } from "../../task/table.ts";
 
 const listTasks = async (): Promise<void> => {
@@ -37,6 +38,11 @@ export const taskCommand: Command = {
     list: {
       name: "list",
       run: listTasks,
+    },
+
+    status: {
+      name: "status",
+      run: statuschange,
     },
   },
 };

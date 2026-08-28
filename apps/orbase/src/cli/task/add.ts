@@ -63,14 +63,24 @@ export const add = async (): Promise<void> => {
 
   const tag = await tagAction();
 
+  const status = await select({
+    message: "Select priority",
+    choices: [
+      { name: "To Do", value: "todo" },
+      { name: "Pending", value: "pending" },
+      { name: "In Progress", value: "inprogress" },
+      { name: "Done", value: "done" },
+    ],
+  });
+
   const task = {
     id: randomUUID(),
     title,
     text,
     dueDate,
-    done: false,
     priority,
     tag,
+    status,
     createdAt: new Date().toISOString(),
   };
 
