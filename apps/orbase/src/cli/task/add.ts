@@ -4,7 +4,7 @@ import { tagSave, type TagType } from "../../tags/tagSave.ts";
 import { randomUUID } from "crypto";
 import { tagRead } from "../../tags/tagRead.ts";
 
-const tagAction = async (): Promise<TagType> => {
+export const tagAction = async (): Promise<TagType> => {
   const action = await select({
     message: "create or select?",
     choices: ["create", "select"],
