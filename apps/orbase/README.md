@@ -66,7 +66,7 @@ orbase note add
 | コマンド                | 説明                                                       |
 | :---------------------- | :--------------------------------------------------------- |
 | `orbase task add`       | タスクを追加（見出し・本文・期限・優先度・タグを対話的に入力） |
-| `orbase task edit`      | タスクを選択してエディタで編集                             |
+| `orbase task edit`      | タスクを選択して項目を対話的に編集                         |
 | `orbase task del`       | タスクを選択して削除                                       |
 | `orbase task list`      | タスク一覧をテーブル表示                                   |
 | `orbase task priority`  | 優先度でタスクをフィルタして表示                           |
@@ -143,7 +143,7 @@ $ orbase search tags 買い物
 orbase template project
 ```
 
-テンプレート名は `~/.orbase/template/` 配下のファイルまたはディレクトリ名です。
+テンプレート名は `~/.orbase/template/` 配下のファイルまたはディレクトリ名です。テンプレートはあらかじめ手動で配置してください。
 
 ### ヘルプ / バージョン
 
