@@ -11,7 +11,7 @@ description: orbase CLI のコマンドリファレンス。
 
 | コマンド | 用途 |
 | --- | --- |
-| `task` | タスクの追加、編集、削除、一覧、優先度での絞り込み |
+| `task` | タスクの追加、編集、削除、一覧、優先度・状態での絞り込み |
 | `note` | Markdown メモの作成、編集、削除 |
 | `diary` | 日付ごとの日記の作成、編集、削除 |
 | `search` | キーワードまたはタグで横断検索 |
@@ -36,13 +36,14 @@ orbase task edit
 orbase task del
 orbase task list
 orbase task priority
+orbase task status
 ```
 
 タスクを管理します。タスクは `~/.orbase/task/` に JSON 形式で保存されます。
 
-`add` ではタイトル、本文、期限、優先度（`low` / `medium` / `high` / `extra-high`）、タグを入力します。`list` は一覧を表示し、`priority` は優先度を選んで絞り込みます。
+`add` ではタイトル、本文、期限、優先度（`low` / `medium` / `high` / `extra-high`）、タグ、状態を入力します。`list` は一覧を表示し、`priority` は優先度、`status` は状態を選んで絞り込みます。
 
-追加直後のタスクは未完了（`done: false`）です。タスクの編集では対象を選択して内容を更新できます。
+状態は `todo`（未着手）、`pending`（保留）、`inprogress`（進行中）、`done`（完了）から選択します。タスクの編集では対象を選択して内容を更新できます。
 
 ```bash
 orbase task add

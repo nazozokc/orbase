@@ -22,6 +22,12 @@ orbase task list
 orbase task priority
 ```
 
+状態で絞り込むには `orbase task status` を使います。`todo`、`pending`、`inprogress`、`done` から状態を選択できます。
+
+```bash
+orbase task status
+```
+
 追加時に期限、優先度、タグを設定できます。タグを新規作成するか、既存のタグから選択できます。
 
 ## メモを作る

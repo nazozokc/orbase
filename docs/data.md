@@ -27,12 +27,14 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
   "title": "買い物",
   "text": "牛乳と卵を買う",
   "dueDate": "2026-08-21",
-  "done": false,
   "priority": "medium",
   "tag": ["買い物"],
+  "status": "todo",
   "createdAt": "2026-08-20T04:00:00.000Z"
 }
 ```
+
+`status` は `todo`、`pending`、`inprogress`、`done` のいずれかです。
 
 ## メモ
 
