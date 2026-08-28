@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { select, input } from "@inquirer/prompts";
 import { tagChangeAction } from "./edit.ts";
 import consola from "consola";
+import type { Task } from "../../../task/type.ts";
 
 export const edit = async (): Promise<void> => {
   try {
@@ -71,7 +72,7 @@ export const edit = async (): Promise<void> => {
       default: task.status,
     });
 
-    const tasks = {
+    const tasks: Task = {
       id: task.id,
       title,
       text,
@@ -79,7 +80,7 @@ export const edit = async (): Promise<void> => {
       priority,
       tag,
       status,
-      createAt: task.createAt,
+      createdAt: task.createdAt,
     };
 
     const taskJsonStringify = JSON.stringify(tasks);
