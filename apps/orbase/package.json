@@ -40,7 +40,6 @@
     "calendarize": "^1.1.1",
     "cli-table3": "^0.6.5",
     "consola": "^3.4.2",
-    "date-fns": "^4.4.0",
     "gray-matter": "^4.0.3",
     "gunshi": "^0.37.1",
     "open-editor": "^6.0.0",
