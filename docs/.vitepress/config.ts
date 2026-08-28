@@ -4,6 +4,8 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "orbase",
   description: "ローカルで使えるライフ管理 CLI",
+  // GitHub Pages serves this project under https://nazozokc.github.io/orbase/.
+  base: "/orbase/",
   themeConfig: {
     nav: [
       { text: "ホーム", link: "/" },
