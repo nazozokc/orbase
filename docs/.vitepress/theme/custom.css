@@ -1,0 +1,20 @@
+/* Keep the home hero aligned with the centered documentation presentation. */
+.VPHero .container {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.VPHero .main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.VPHero .tagline {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.VPHero .actions {
+  justify-content: center;
+}
