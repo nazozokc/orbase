@@ -8,10 +8,10 @@ export const statuschange = async (): Promise<void> => {
   const selected = await select({
     message: "Select priority",
     choices: [
-      { name: "To Do", value: "todo" },
-      { name: "Pending", value: "pending" },
-      { name: "In Progress", value: "inprogress" },
-      { name: "Done", value: "done" },
+      { name: "To Do", value: "Todo" },
+      { name: "Pending", value: "Pending" },
+      { name: "In Progress", value: "In-Progress" },
+      { name: "Done", value: "Done" },
     ],
   });
 

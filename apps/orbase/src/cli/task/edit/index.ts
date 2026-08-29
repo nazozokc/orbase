@@ -49,10 +49,10 @@ export const edit = async (): Promise<void> => {
     const priority = await select({
       message: "change priority?",
       choices: [
-        { name: "Low", value: "low" },
-        { name: "Medium", value: "medium" },
-        { name: "High", value: "high" },
-        { name: "Extra High", value: "extra-high" },
+        { name: "Low", value: "Low" },
+        { name: "Medium", value: "Medium" },
+        { name: "High", value: "High" },
+        { name: "Extra High", value: "Extra-high" },
       ],
 
       default: task.priority,
@@ -63,10 +63,10 @@ export const edit = async (): Promise<void> => {
     const status = await select({
       message: "Select priority",
       choices: [
-        { name: "To Do", value: "todo" },
-        { name: "Pending", value: "pending" },
-        { name: "In Progress", value: "inprogress" },
-        { name: "Done", value: "done" },
+        { name: "To Do", value: "Todo" },
+        { name: "Pending", value: "Pending" },
+        { name: "In Progress", value: "In-Progress" },
+        { name: "Done", value: "Done" },
       ],
 
       default: task.status,

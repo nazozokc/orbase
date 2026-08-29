@@ -3,8 +3,8 @@ export type Task = {
   title: string;
   text: string;
   dueDate: string;
-  priority: "low" | "medium" | "high" | "extra-high";
+  priority: "Low" | "Medium" | "High" | "Extra-high";
   tag: string[];
-  status: "todo" | "pending" | "inprogress" | "done";
+  status: "Todo" | "Pending" | "In-Progress" | "Done";
   createdAt: string;
 };

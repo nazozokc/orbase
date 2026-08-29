@@ -8,10 +8,10 @@ export const priority = async (): Promise<void> => {
   const selected = await select({
     message: "Select priority",
     choices: [
-      { name: "Low", value: "low" },
-      { name: "Medium", value: "medium" },
-      { name: "High", value: "high" },
-      { name: "Extra High", value: "extra-high" },
+      { name: "Low", value: "Low" },
+      { name: "Medium", value: "Medium" },
+      { name: "High", value: "High" },
+      { name: "Extra High", value: "Extra-high" },
     ],
   });
 
