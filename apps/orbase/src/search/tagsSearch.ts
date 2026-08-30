@@ -22,14 +22,19 @@ export const searchTags = async (search: string): Promise<void> => {
 
     const notes = await readdir(NOTE_DIR, "utf-8");
 
-    for (const noteFile of notes) {
-      const path = join(NOTE_DIR, noteFile);
-      const content = await readFile(path, "utf-8");
-      const parsedMarkdown = matter(content);
-      const meta = parsedMarkdown.data as MarkdownMeta;
+    for (const noteDir of notes) {
+      const path = join(NOTE_DIR, noteDir);
+      const contentReadDir = await readdir(path, "utf-8");
 
-      if (meta.tags.includes(search)) {
-        consola.log(path);
+      for (const iterator of contentReadDir) {
+        const path = join(NOTE_DIR, noteDir, iterator);
+        const content = await readFile(path);
+        const parsedMarkdown = matter(content);
+        const meta = parsedMarkdown.data as MarkdownMeta;
+
+        if (meta.tags.includes(search)) {
+          consola.log(path);
+        }
       }
     }
   } catch (error) {
