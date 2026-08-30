@@ -5,10 +5,19 @@ import { join } from "node:path";
 import openeditor from "open-editor";
 
 export const edit = async (): Promise<void> => {
-  const noteFiles = await readdir(NOTE_DIR);
+  const choicesBook = await readdir(NOTE_DIR);
+  const selectedBook = await select({
+    message: "select book",
+    choices: choicesBook,
+  });
+
+  const Path = join(NOTE_DIR, selectedBook);
+
+  const selectedFile = await readdir(Path);
+
   const selected = await select({
     message: "Select to edit memo",
-    choices: noteFiles
+    choices: selectedFile
       .filter((file) => file.endsWith(".md"))
       .map((file) => ({
         name: file.replace(/\.md$/, ""),
