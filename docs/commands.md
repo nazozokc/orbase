@@ -12,7 +12,7 @@ description: orbase CLI のコマンドリファレンス。
 | コマンド | 用途 |
 | --- | --- |
 | `task` | タスクの追加、編集、削除、一覧、優先度・状態での絞り込み |
-| `note` | Markdown メモの作成、編集、削除 |
+| `note` | 本棚ごとの Markdown メモの作成、編集、削除 |
 | `diary` | 日付ごとの日記の作成、編集、削除 |
 | `search` | キーワードまたはタグで横断検索 |
 | `template <name>` | 登録済みテンプレートをカレントディレクトリへコピー |
@@ -41,11 +41,11 @@ orbase task status
 
 タスクを管理します。タスクは `~/.orbase/task/` に JSON 形式で保存されます。
 
-`add` ではタイトル、本文、期限、優先度（`low` / `medium` / `high` / `extra-high`）、タグ、状態を入力します。`list` は一覧を表示し、`priority` は優先度、`status` は状態を選んで絞り込みます。
+`add` ではタイトル、本文、期限、優先度（`Low` / `Medium` / `High` / `Extra-high`）、タグ、状態を入力します。`list` は一覧を表示し、`priority` は優先度、`status` は状態を選んで絞り込みます。
 
 `edit` は編集するタスクを選択したあと、タイトル、本文、期限、優先度、タグ、状態を順番に更新します。タグは新規作成または既存タグから選択できます。
 
-状態は `todo`（未着手）、`pending`（保留）、`inprogress`（進行中）、`done`（完了）から選択します。タスクの編集では対象を選択して内容を更新できます。
+状態は `Todo`（未着手）、`Pending`（保留）、`In-Progress`（進行中）、`Done`（完了）から選択します。タスクの編集では対象を選択して内容を更新できます。
 
 ```bash
 orbase task add
@@ -57,7 +57,7 @@ orbase task del
 
 ## `note`
 
-メモを Markdown で管理します。`add` はファイル名を尋ねてファイルを作成し、`$EDITOR` で開きます。`edit` は既存メモを選択して開き、`del` は複数選択して削除します。
+メモを本棚ごとに Markdown で管理します。`add` はファイル名と本棚を尋ねて `~/.orbase/note/<book>/` にファイルを作成し、`$EDITOR` で開きます。`edit` は本棚と既存メモを選択して開き、`del` は本棚内のメモを複数選択して削除します。
 
 ```bash
 orbase note add

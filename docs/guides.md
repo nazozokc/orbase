@@ -22,7 +22,7 @@ orbase task list
 orbase task priority
 ```
 
-状態で絞り込むには `orbase task status` を使います。`todo`、`pending`、`inprogress`、`done` から状態を選択できます。
+状態で絞り込むには `orbase task status` を使います。`Todo`、`Pending`、`In-Progress`、`Done` から状態を選択できます。
 
 ```bash
 orbase task status
@@ -39,7 +39,7 @@ export EDITOR=vim
 orbase note add
 ```
 
-ファイル名を入力すると `~/.orbase/note/` に Markdown ファイルが作成され、エディタが開きます。
+ファイル名と本棚を入力すると `~/.orbase/note/<book>/` に Markdown ファイルが作成され、エディタが開きます。本棚は新規作成するか、既存のものを選択できます。
 
 ## 日記を書く
 

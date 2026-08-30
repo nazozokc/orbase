@@ -12,11 +12,13 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
 ├── task/            # タスク（JSON）
 │   └── <uuid>.json
 ├── note/            # メモ（Markdown + front matter）
-│   └── <name>.md
+│   └── <book>/
+│       └── <name>.md
 ├── diary/           # 日記（Markdown）
 │   └── YYYY/MM/YYYY-MM-DD.md
 ├── template/        # テンプレート（任意）
-└── tags.json        # タグ一覧（JSON）
+├── tags.json        # タグ一覧（JSON）
+└── book.json        # 本棚名（JSON）
 ```
 
 ## タスク
@@ -27,18 +29,18 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
   "title": "買い物",
   "text": "牛乳と卵を買う",
   "dueDate": "2026-08-21",
-  "priority": "medium",
+  "priority": "Medium",
   "tag": ["買い物"],
-  "status": "todo",
+  "status": "Todo",
   "createdAt": "2026-08-20T04:00:00.000Z"
 }
 ```
 
-`status` は `todo`、`pending`、`inprogress`、`done` のいずれかです。
+`priority` は `Low`、`Medium`、`High`、`Extra-high`、`status` は `Todo`、`Pending`、`In-Progress`、`Done` のいずれかです。
 
 ## メモ
 
-メモは front matter 付き Markdown です。本文は自由に編集できます。
+メモは本棚（`~/.orbase/note/<book>/`）内に保存される front matter 付き Markdown です。本文は自由に編集できます。
 
 ```markdown
 ---

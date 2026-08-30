@@ -7,7 +7,7 @@
 ## 特徴
 
 - **タスク管理** — タスクの追加・編集・削除・一覧表示（優先度・状態フィルタ付き）
-- **メモ管理** — Markdown 形式のメモを追加・編集・削除
+- **メモ管理** — 本棚（book）ごとに Markdown 形式のメモを追加・編集・削除
 - **日記** — 日付ごとの Markdown 日記を作成・編集・削除
 - **タグ** — タスク・メモにタグを付け、タグで横断検索
 - **検索** — キーワード / タグでタスク・メモ・日記を横断検索
@@ -47,7 +47,7 @@ orbase <command> [subcommand] [arguments]
 | コマンド | 説明 |
 | :------- | :--- |
 | `orbase task` | タスクを管理 |
-| `orbase note` | メモを管理 |
+| `orbase note` | 本棚ごとのメモを管理 |
 | `orbase diary` | 日記を管理 |
 | `orbase search` | タスク・メモ・日記を検索 |
 | `orbase template <name>` | 登録したテンプレートをカレントディレクトリへコピー |
@@ -93,7 +93,7 @@ $ orbase task list
 
 ### note — メモ管理
 
-メモは front matter（`name` / `date` / `tags`）付きの Markdown として `~/.orbase/note/*.md` に保存される。
+メモは本棚ごとのディレクトリに、front matter（`name` / `date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
 
 | コマンド           | 説明                                           |
 | :----------------- | :--------------------------------------------- |
@@ -127,12 +127,12 @@ $ orbase diary add
 
 ```bash
 $ orbase search string 牛乳
-/home/user/.orbase/note/買い物.md
+/home/user/.orbase/note/personal/買い物.md
 # 牛乳と卵を買う
 
 $ orbase search tags 買い物
 /home/user/.orbase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
-/home/user/.orbase/note/買い物.md
+/home/user/.orbase/note/personal/買い物.md
 ```
 
 ### template — テンプレートの再利用
@@ -161,12 +161,14 @@ orbase --version
 ├── task/            # タスク (JSON)
 │   └── <uuid>.json
 ├── note/            # メモ (Markdown + front matter)
-│   └── <name>.md
+│   └── <book>/
+│       └── <name>.md
 ├── diary/           # 日記 (Markdown)
 │   └── YYYY/
 │       └── MM/
 │           └── YYYY-MM-DD.md
-└── tags.json        # タグ一覧 (JSON)
+├── tags.json        # タグ一覧 (JSON)
+└── book.json        # 本棚名 (JSON)
 ```
 
 タスクの JSON は以下の形式。
@@ -177,14 +179,14 @@ orbase --version
   "title": "買い物",
   "text": "牛乳と卵を買う",
   "dueDate": "2026-08-21",
-  "priority": "medium",
+  "priority": "Medium",
   "tag": ["買い物"],
-  "status": "todo",
+  "status": "Todo",
   "createdAt": "2026-08-20T04:00:00.000Z"
 }
 ```
 
-メモは gray-matter 形式の front matter を持つ。
+メモは本棚ディレクトリ内に保存され、gray-matter 形式の front matter を持つ。
 
 ```markdown
 ---
