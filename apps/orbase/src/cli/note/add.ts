@@ -4,6 +4,7 @@ import { readdir } from "node:fs/promises";
 import { select } from "@inquirer/prompts";
 import { NOTE_DIR } from "../../constant/app.ts";
 import consola from "consola";
+import { bookSave } from "../../note/book/bookSave.ts";
 
 export const add = async (): Promise<void> => {
   try {
@@ -21,9 +22,13 @@ export const add = async (): Promise<void> => {
     });
 
     if (CreateorSelect === "create") {
-      selected = await input({
+      const createSel = await input({
         message: "Enter a book name",
       });
+
+      bookSave(createSel);
+
+      selected = createSel;
     }
 
     if (CreateorSelect === "select") {
