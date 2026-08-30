@@ -27,7 +27,7 @@ export const edit = async (): Promise<void> => {
 
   await openeditor([
     {
-      file: join(NOTE_DIR, selected),
+      file: join(NOTE_DIR, selectedBook, selected),
       line: 1,
       column: 1,
     },
