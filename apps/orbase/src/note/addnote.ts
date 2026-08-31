@@ -13,7 +13,6 @@ export const addNote = async (
   const now = new Date();
 
   const md = matter.stringify("# 本文", {
-    name: "",
     date: `"${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}"`,
     tags: [],
   });
