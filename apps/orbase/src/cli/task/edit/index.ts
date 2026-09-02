@@ -36,7 +36,7 @@ export const edit = async (): Promise<void> => {
       default: task.title,
     });
 
-    const text = await input({
+    const detail = await input({
       message: "change text?",
       default: task.text,
     });
@@ -75,7 +75,7 @@ export const edit = async (): Promise<void> => {
     const tasks: Task = {
       id: task.id,
       title,
-      text,
+      detail,
       dueDate,
       priority,
       tag,

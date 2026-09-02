@@ -43,8 +43,8 @@ export const add = async (): Promise<void> => {
     message: "task title",
   });
 
-  const text = await input({
-    message: "task text",
+  const detail = await input({
+    message: "task detail",
   });
 
   const dueDate = await input({
@@ -76,7 +76,7 @@ export const add = async (): Promise<void> => {
   const task = {
     id: randomUUID(),
     title,
-    text,
+    detail,
     dueDate,
     priority,
     tag,

@@ -12,13 +12,13 @@ export const taskTable = async (get?: Task[]): Promise<void> => {
   }
 
   const table = new Table({
-    head: ["title", "text", "dueDate", "tag", "priority", "status"],
+    head: ["title", "detail", "dueDate", "tag", "priority", "status"],
   });
 
   for (const task of list) {
     table.push([
       task.title,
-      task.text,
+      task.detail,
       task.dueDate,
       task.tag.join(","),
       task.priority,
