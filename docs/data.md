@@ -27,7 +27,7 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
 {
   "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "title": "買い物",
-  "text": "牛乳と卵を買う",
+  "detail": "牛乳と卵を買う",
   "dueDate": "2026-08-21",
   "priority": "Medium",
   "tag": ["買い物"],
