@@ -4,6 +4,7 @@ import { readFile, readdir } from "node:fs/promises";
 import { join } from "path";
 import { consola } from "consola";
 import matter from "gray-matter";
+import { TaskSchema } from "../task/type.ts";
 
 export const searchTags = async (search: string): Promise<void> => {
   try {
@@ -13,7 +14,16 @@ export const searchTags = async (search: string): Promise<void> => {
       const path = join(TASK_DIR, taskFile);
       const taskJson = await readFile(path, "utf-8");
       const task = JSON.parse(taskJson);
-      const tags = task.tag;
+
+      const result = TaskSchema.safeParse(task);
+
+      if (!result.success) {
+        consola.error(`Invalid file ${path}`);
+        consola.error(result.error);
+        continue;
+      }
+
+      const tags = result.data.tag;
 
       if (tags.includes(search)) {
         consola.log(path);
