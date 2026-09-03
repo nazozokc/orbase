@@ -20,7 +20,7 @@ export const readTask = async (): Promise<Task[]> => {
 
       if (!result.success) {
         consola.error(`Invalid task: ${file}`);
-        consola.error(result);
+        consola.error(result.error);
         continue;
       }
 
