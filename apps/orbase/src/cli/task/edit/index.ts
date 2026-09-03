@@ -38,7 +38,7 @@ export const edit = async (): Promise<void> => {
 
     const detail = await input({
       message: "change text?",
-      default: task.text,
+      default: task.detail,
     });
 
     const dueDate = await input({
