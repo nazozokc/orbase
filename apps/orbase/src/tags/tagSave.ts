@@ -1,11 +1,11 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { ROOT_DIR } from "../constant/app.ts";
 import consola from "consola";
-import z from "zod";
+import { z } from "zod";
 import { tagRead } from "./tagRead.ts";
 
 export const TagTypeSchema = z.string().or(z.array(z.string()));
-export type TagType = string[];
+export const TagType = z.infer<typeof TagTypeSchema>;
 
 export const tagSave = async (tags: TagType): Promise<void> => {
   try {
