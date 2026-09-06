@@ -17,12 +17,7 @@ export const edit = async (): Promise<void> => {
 
   const selected = await select({
     message: "Select to edit memo",
-    choices: selectedFile
-      .filter((file) => file.endsWith(".md"))
-      .map((file) => ({
-        name: file.replace(/\.md$/, ""),
-        value: file,
-      })),
+    choices: selectedFile,
   });
 
   await openeditor([
