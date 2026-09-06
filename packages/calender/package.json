@@ -1,0 +1,46 @@
+{
+  "name": "@nazozokc/calender",
+  "module": "src/index.ts",
+  "type": "module",
+  "version": "0.6.3",
+  "packageManager": "bun@1.4.0",
+  "license": "MIT",
+  "bin": {
+    "orbase": "./dist/index.mjs"
+  },
+  "scripts": {
+    "build": "bunx tsdown"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nazozokc/orbase.git"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
+  "keywords": [
+    "life",
+    "management",
+    "terminal"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "cli-table3": "^0.6.5",
+    "consola": "^3.4.2",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "tsdown": "^0.22.14",
+    "zod": "^4.5.4"
+  }
+}
