@@ -1,5 +1,5 @@
 # orbase
-
+[![Publish](https://github.com/nazozokc/orbase/actions/workflows/publish.yml/badge.svg)](https://github.com/nazozokc/orbase/actions/workflows/publish.yml)
 タスク・メモ・日記を CLI から管理する個人用ライフ管理ツール。
 
 すべてのデータはローカルの `~/.orbase/` にプレーンテキスト形式で保存される。エディタで直接編集することもできる。
