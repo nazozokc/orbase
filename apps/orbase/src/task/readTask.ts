@@ -1,7 +1,8 @@
-import { type Task } from "./type.ts";
+import { TaskSchema, type Task } from "./type.ts";
 import { TASK_DIR } from "../constant/app.ts";
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
+import consola from "consola";
 
 export const readTask = async (): Promise<Task[]> => {
   try {
@@ -15,7 +16,15 @@ export const readTask = async (): Promise<Task[]> => {
       const taskJson = await readFile(join(taskDir, file), "utf-8");
       const task = JSON.parse(taskJson);
 
-      tasks.push(task);
+      const result = TaskSchema.safeParse(task);
+
+      if (!result.success) {
+        consola.error(`Invalid task: ${file}`);
+        consola.error(result.error);
+        continue;
+      }
+
+      tasks.push(result.data);
     }
 
     return tasks;

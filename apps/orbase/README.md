@@ -75,7 +75,7 @@ orbase note add
 ```bash
 $ orbase task add
 ? task title 買い物
-? task text 牛乳と卵を買う
+? task detail 牛乳と卵を買う
 ? goal date 2026-08-21
 ? Select priority Medium
 ? create or select? create
@@ -83,7 +83,7 @@ $ orbase task add
 
 $ orbase task list
 ┌───────┬──────────────────┬────────────┬────────┬──────────┬──────┐
-│ title │ text             │ dueDate    │ tag    │ priority │ status │
+│ title │ detail           │ dueDate    │ tag    │ priority │ status │
 ├───────┼──────────────────┼────────────┼────────┼──────────┼──────┤
 │ 買い物 │ 牛乳と卵を買う   │ 2026-08-21 │ 買い物 │ medium   │ todo   │
 └───────┴──────────────────┴────────────┴────────┴──────────┴──────┘
@@ -93,7 +93,7 @@ $ orbase task list
 
 ### note — メモ管理
 
-メモは本棚ごとのディレクトリに、front matter（`name` / `date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
+メモは本棚ごとのディレクトリに、front matter（`date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
 
 | コマンド           | 説明                                           |
 | :----------------- | :--------------------------------------------- |
@@ -177,7 +177,7 @@ orbase --version
 {
   "id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "title": "買い物",
-  "text": "牛乳と卵を買う",
+  "detail": "牛乳と卵を買う",
   "dueDate": "2026-08-21",
   "priority": "Medium",
   "tag": ["買い物"],
@@ -190,7 +190,6 @@ orbase --version
 
 ```markdown
 ---
-name: ""
 date: "2026-8-20"
 tags:
   - 買い物

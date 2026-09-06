@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { select, input } from "@inquirer/prompts";
 import { tagChangeAction } from "./edit.ts";
 import consola from "consola";
-import type { Task } from "../../../task/type.ts";
+import { TaskSchema, type Task } from "../../../task/type.ts";
 
 export const edit = async (): Promise<void> => {
   try {
@@ -83,7 +83,14 @@ export const edit = async (): Promise<void> => {
       createdAt: task.createdAt,
     };
 
-    const taskJsonStringify = JSON.stringify(tasks, null, 2);
+    const result = TaskSchema.safeParse(tasks);
+
+    if (!result.success) {
+      consola.error(result.error);
+      return;
+    }
+
+    const taskJsonStringify = JSON.stringify(result.data, null, 2);
 
     await writeFile(filePath, taskJsonStringify, "utf-8");
   } catch (error) {

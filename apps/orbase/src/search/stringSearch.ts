@@ -2,6 +2,7 @@ import { TASK_DIR, NOTE_DIR, DIARY_DIR } from "../constant/app.ts";
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "path";
 import { consola } from "consola";
+import { TaskSchema } from "../task/type.ts";
 
 export const searchString = async (search: string): Promise<void> => {
   try {
@@ -10,6 +11,15 @@ export const searchString = async (search: string): Promise<void> => {
     for (const taskFile of taskFiles) {
       const path = join(TASK_DIR, taskFile);
       const taskContent = await readFile(path, "utf-8");
+      const taskContentParse = JSON.parse(taskContent);
+
+      const resultTaskSearch = TaskSchema.safeParse(taskContentParse);
+
+      if (!resultTaskSearch.success) {
+        consola.error(`Invalid file ${path}`);
+        consola.error(resultTaskSearch.error);
+
+      }
 
       if (taskContent.includes(search)) {
         consola.log(path);

@@ -37,7 +37,6 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^8.5.2",
-    "calendarize": "^1.1.1",
     "cli-table3": "^0.6.5",
     "consola": "^3.4.2",
     "gray-matter": "^4.0.3",
