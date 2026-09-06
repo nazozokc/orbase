@@ -39,7 +39,7 @@ export const searchTags = async (search: string): Promise<void> => {
       const path = join(NOTE_DIR, noteDir, iterator);
       const content = await readFile(path);
       const parsedMarkdown = matter(content);
-      const result = MarkdownMetaSchema.safeParse(parsedMarkdown);
+      const result = MarkdownMetaSchema.safeParse(parsedMarkdown.data);
 
       if (!result.success) {
         consola.error(`Invalid file ${path}`);
