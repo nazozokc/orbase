@@ -44,7 +44,6 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
 
 ```markdown
 ---
-name: ""
 date: "2026-8-20"
 tags: []
 ---
