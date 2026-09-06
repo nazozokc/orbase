@@ -32,7 +32,6 @@ export const tagChangeAction = async (filePath: string): Promise<TagType> => {
     const selectedTags = await checkbox({
       message: "select tags",
       choices: availableTags,
-      default: task.tag,
     });
 
     tags.push(...selectedTags);
