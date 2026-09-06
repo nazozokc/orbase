@@ -5,7 +5,7 @@ import { z } from "zod";
 import { tagRead } from "./tagRead.ts";
 
 export const TagTypeSchema = z.string().or(z.array(z.string()));
-export const TagType = z.infer<typeof TagTypeSchema>;
+export type TagType = z.infer<typeof TagTypeSchema>;
 
 export const tagSave = async (tags: TagType): Promise<void> => {
   try {
