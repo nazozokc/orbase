@@ -93,7 +93,7 @@ $ orbase task list
 
 ### note — メモ管理
 
-メモは本棚ごとのディレクトリに、front matter（`name` / `date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
+メモは本棚ごとのディレクトリに、front matter（`date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
 
 | コマンド           | 説明                                           |
 | :----------------- | :--------------------------------------------- |
@@ -190,7 +190,6 @@ orbase --version
 
 ```markdown
 ---
-name: ""
 date: "2026-8-20"
 tags:
   - 買い物
