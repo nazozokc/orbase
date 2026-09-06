@@ -1,13 +1,9 @@
 {
-  "name": "@nazozokc/calender",
-  "module": "src/index.ts",
+  "name": "@nazozokc/cli-calendar",
   "type": "module",
-  "version": "0.6.3",
+  "version": "0.0.1",
   "packageManager": "bun@1.4.0",
   "license": "MIT",
-  "bin": {
-    "orbase": "./dist/index.mjs"
-  },
   "scripts": {
     "build": "bunx tsdown"
   },
