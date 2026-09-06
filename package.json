@@ -6,7 +6,8 @@
   },
   "workspaces": [
     "docs/*",
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "peerDependencies": {
     "typescript": "^5"
