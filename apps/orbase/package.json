@@ -45,7 +45,6 @@
     "os": "^0.1.2",
     "path": "^0.12.7",
     "tsdown": "^0.22.14",
-    "zod": "^4.5.4",
-    "@nazozokc/cli-calendar": "workspace:*"
+    "zod": "^4.5.4"
   }
 }
