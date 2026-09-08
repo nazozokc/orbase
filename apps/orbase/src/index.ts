@@ -6,6 +6,7 @@ import { noteCommand } from "./cli/note/index.ts";
 import { diaryCommand } from "./cli/diary/index.ts";
 import { searchCommand } from "./cli/search/index.ts";
 import { templateCommand } from "./cli/template/index.ts";
+import { calendarCommand } from "./cli/calendar/index.ts";
 import { version } from "./version.ts";
 import { CLI_COMMAND_NAME } from "./constant/app.ts";
 
@@ -23,5 +24,6 @@ await cli(process.argv.slice(2), mainCommand, {
     diary: diaryCommand,
     template: templateCommand,
     search: searchCommand,
+    calendar: calendarCommand,
   },
 });
