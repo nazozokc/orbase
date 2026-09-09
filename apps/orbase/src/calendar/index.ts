@@ -2,7 +2,7 @@ import Table from "cli-table3";
 import { consola } from "consola";
 
 export const calendar = (year: number, month: number): void => {
-  const firstDay = new Date(year, month - 1, 1).getDay();
+  const firstDay = new Date(year, month - 1, 0).getDay();
   const dateInMonth = new Date(year, month - 1, 0).getDate();
 
   const table = new Table({
