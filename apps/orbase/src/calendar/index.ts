@@ -9,7 +9,6 @@ export const calendar = (year: number, month: number): void => {
     head: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fry", "Sat"],
   });
 
-  const rows = [];
   let row: string[] = [];
 
   for (let i = 0; i < firstDay; i++) {
@@ -20,8 +19,7 @@ export const calendar = (year: number, month: number): void => {
     row.push(String(day));
 
     if (row.length === 7) {
-      rows.push(row);
-      table.push(rows);
+      table.push(row);
       row = [];
     }
   }
@@ -30,7 +28,6 @@ export const calendar = (year: number, month: number): void => {
     while (row.length < 7) {
       row.push("");
     }
-    rows.push(row);
-    table.push(rows);
+    table.push(row);
   }
 };
