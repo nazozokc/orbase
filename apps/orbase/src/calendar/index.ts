@@ -1,18 +1,18 @@
 import { consola } from "consola";
 
-export const calendar = (year: number, month: number) => {
+export const calendar = (year: number, month: number): void => {
   const firstDay = new Date(year, month - 1, 1).getDay();
   const dateInMonth = new Date(year, month - 1, 0).getDate();
 
   const rows = [];
   let row: string[] = [];
 
-  for (let i = 1; i < firstDay; i++) {
+  for (let i = 0; i < firstDay; i++) {
     row.push("");
   }
 
-  for (let day = 1; day <= dateInMonth; day++) {
-    row.push(String(day));
+  for (let day = 0; day < dateInMonth; day++) {
+    rows.push(String(day));
 
     if (row.length === 7) {
       rows.push(row);
