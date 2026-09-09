@@ -1,5 +1,5 @@
-import { consola } from "consola";
 import Table from "cli-table3";
+import { consola } from "consola";
 
 export const calendar = (year: number, month: number): void => {
   const firstDay = new Date(year, month - 1, 1).getDay();
@@ -30,4 +30,6 @@ export const calendar = (year: number, month: number): void => {
     }
     table.push(row);
   }
+
+  consola.log(table.toString());
 };
