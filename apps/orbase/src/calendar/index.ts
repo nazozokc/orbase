@@ -1,9 +1,13 @@
 import { consola } from "consola";
+import Table from "cli-table3";
 
 export const calendar = (year: number, month: number): void => {
   const firstDay = new Date(year, month - 1, 1).getDay();
   const dateInMonth = new Date(year, month - 1, 0).getDate();
-  consola.log("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat");
+
+  const table = new Table({
+    head: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fry", "Sat"],
+  });
 
   const rows = [];
   let row: string[] = [];
@@ -13,10 +17,11 @@ export const calendar = (year: number, month: number): void => {
   }
 
   for (let day = 0; day < dateInMonth; day++) {
-    rows.push(String(day));
+    row.push(String(day));
 
     if (row.length === 7) {
-      consola.log(`${row}\n`);
+      rows.push(row);
+      table.push(rows);
       row = [];
     }
   }
@@ -25,6 +30,6 @@ export const calendar = (year: number, month: number): void => {
     while (row.length < 7) {
       row.push("");
     }
-    consola.log("");
+    rows.push(row);
   }
 };
