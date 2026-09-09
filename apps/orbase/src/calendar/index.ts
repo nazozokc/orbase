@@ -31,5 +31,6 @@ export const calendar = (year: number, month: number): void => {
       row.push("");
     }
     rows.push(row);
+    table.push(rows);
   }
 };
