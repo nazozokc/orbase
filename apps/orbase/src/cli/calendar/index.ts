@@ -7,7 +7,6 @@ export const calendarCommand = define({
   args: {
     year: {
       type: "number",
-      required: true,
     },
     month: {
       type: "number",
