@@ -9,13 +9,14 @@ description: orbase CLI のコマンドリファレンス。
 
 ## コマンド早見表
 
-| コマンド | 用途 |
-| --- | --- |
-| `task` | タスクの追加、編集、削除、一覧、優先度・状態での絞り込み |
-| `note` | 本棚ごとの Markdown メモの作成、編集、削除 |
-| `diary` | 日付ごとの日記の作成、編集、削除 |
-| `search` | キーワードまたはタグで横断検索 |
-| `template <name>` | 登録済みテンプレートをカレントディレクトリへコピー |
+| コマンド                  | 用途                                                     |
+| ------------------------- | -------------------------------------------------------- |
+| `task`                    | タスクの追加、編集、削除、一覧、優先度・状態での絞り込み |
+| `note`                    | 本棚ごとの Markdown メモの作成、編集、削除               |
+| `diary`                   | 日付ごとの日記の作成、編集、削除                         |
+| `search`                  | キーワードまたはタグで横断検索                           |
+| `calendar <year> <month>` | 指定した年月のカレンダーを表示                           |
+| `template <name>`         | 登録済みテンプレートをカレントディレクトリへコピー       |
 
 <details>
 <summary><strong>クイックナビゲーション</strong></summary>
@@ -24,6 +25,7 @@ description: orbase CLI のコマンドリファレンス。
 - [`note`](#note)
 - [`diary`](#diary)
 - [`search`](#search)
+- [`calendar`](#calendar)
 - [`template`](#template)
 
 </details>
@@ -88,6 +90,18 @@ orbase search tags <tag>
 
 ```bash
 orbase search string "買い物 メモ"
+```
+
+## `calendar`
+
+```bash
+orbase calendar <year> <month>
+```
+
+指定した年月のカレンダーをテーブル表示します。年と月は必須の引数です。
+
+```bash
+orbase calendar 2026 9
 ```
 
 ## `template`

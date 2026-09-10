@@ -1,4 +1,5 @@
 # orbase
+
 [![Publish](https://github.com/nazozokc/orbase/actions/workflows/publish.yml/badge.svg)](https://github.com/nazozokc/orbase/actions/workflows/publish.yml)<br>
 タスク・メモ・日記を CLI から管理する個人用ライフ管理ツール。
 
@@ -11,6 +12,7 @@
 - **日記** — 日付ごとの Markdown 日記を作成・編集・削除
 - **タグ** — タスク・メモにタグを付け、タグで横断検索
 - **検索** — キーワード / タグでタスク・メモ・日記を横断検索
+- **カレンダー** — 指定した年月のカレンダーをターミナルに表示
 - **エディタ連携** — 編集は `$EDITOR` でファイルを直接開く
 - **データは全てローカル** — `~/.orbase/` 配下に JSON / Markdown で保存
 
@@ -44,13 +46,14 @@ orbase <command> [subcommand] [arguments]
 
 主なコマンドは次のとおり。
 
-| コマンド | 説明 |
-| :------- | :--- |
-| `orbase task` | タスクを管理 |
-| `orbase note` | 本棚ごとのメモを管理 |
-| `orbase diary` | 日記を管理 |
-| `orbase search` | タスク・メモ・日記を検索 |
-| `orbase template <name>` | 登録したテンプレートをカレントディレクトリへコピー |
+| コマンド                         | 説明                                               |
+| :------------------------------- | :------------------------------------------------- |
+| `orbase task`                    | タスクを管理                                       |
+| `orbase note`                    | 本棚ごとのメモを管理                               |
+| `orbase diary`                   | 日記を管理                                         |
+| `orbase search`                  | タスク・メモ・日記を検索                           |
+| `orbase calendar <year> <month>` | 指定した年月のカレンダーを表示                     |
+| `orbase template <name>`         | 登録したテンプレートをカレントディレクトリへコピー |
 
 メモや日記の編集には環境変数 `$EDITOR` に設定されたエディタが使われる。未設定の場合は、利用するエディタを設定してから実行する。
 
@@ -63,14 +66,14 @@ orbase note add
 
 タスクは `~/.orbase/task/*.json` に保存される。
 
-| コマンド                | 説明                                                       |
-| :---------------------- | :--------------------------------------------------------- |
-| `orbase task add`       | タスクを追加（見出し・本文・期限・優先度・タグを対話的に入力） |
-| `orbase task edit`      | タスクを選択して項目を対話的に編集                         |
-| `orbase task del`       | タスクを選択して削除                                       |
-| `orbase task list`      | タスク一覧をテーブル表示                                   |
-| `orbase task priority`  | 優先度でタスクをフィルタして表示                           |
-| `orbase task status`    | 状態でタスクをフィルタして表示                             |
+| コマンド               | 説明                                                           |
+| :--------------------- | :------------------------------------------------------------- |
+| `orbase task add`      | タスクを追加（見出し・本文・期限・優先度・タグを対話的に入力） |
+| `orbase task edit`     | タスクを選択して項目を対話的に編集                             |
+| `orbase task del`      | タスクを選択して削除                                           |
+| `orbase task list`     | タスク一覧をテーブル表示                                       |
+| `orbase task priority` | 優先度でタスクをフィルタして表示                               |
+| `orbase task status`   | 状態でタスクをフィルタして表示                                 |
 
 ```bash
 $ orbase task add
@@ -133,6 +136,31 @@ $ orbase search string 牛乳
 $ orbase search tags 買い物
 /home/user/.orbase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
 /home/user/.orbase/note/personal/買い物.md
+```
+
+### calendar — カレンダー表示
+
+指定した年月のカレンダーをターミナルのテーブルとして表示する。
+
+```bash
+orbase calendar <year> <month>
+```
+
+```bash
+$ orbase calendar 2026 9
+┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+│ Sun │ Mon │ Tue │ Wed │ Thu │ Fri │ Sat │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │  1  │  2  │  3  │  4  │  5  │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│  6  │  7  │  8  │  9  │ 10  │ 11  │ 12  │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│ 13  │ 14  │ 15  │ 16  │ 17  │ 18  │ 19  │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│ 20  │ 21  │ 22  │ 23  │ 24  │ 25  │ 26  │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│ 27  │ 28  │ 29  │ 30  │     │     │     │
+└─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
 ### template — テンプレートの再利用

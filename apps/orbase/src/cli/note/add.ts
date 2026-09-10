@@ -13,7 +13,7 @@ export const add = async (): Promise<void> => {
       message: "Enter a file name",
     });
 
-    const CreateorSelect = await select({
+    const CreateOrSelect = await select({
       message: "create or select book?",
       choices: [
         { name: "create", value: "create" },
@@ -21,17 +21,18 @@ export const add = async (): Promise<void> => {
       ],
     });
 
-    if (CreateorSelect === "create") {
+    if (CreateOrSelect === "create") {
       const createSel = await input({
         message: "Enter a book name",
       });
 
-      bookSave(createSel);
-
       selected = createSel;
+      bookSave(createSel);
+    } else {
+      selected = "home";
     }
 
-    if (CreateorSelect === "select") {
+    if (CreateOrSelect === "select") {
       const choices = await readdir(NOTE_DIR);
 
       selected = await select({

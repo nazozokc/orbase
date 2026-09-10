@@ -1,21 +1,21 @@
-# lefthook.yml - Git hooks configuration
-# https://lefthook.com/
-
 pre-commit:
   parallel: true
   commands:
-    format:
-      glob: "*.{ts,tsx,js,jsx,json,md,yml,yaml}"
-      run: nix fmt -- {staged_files}
+    treefmt:
+      glob: "*.{ts,js,json,nix,md}"
+      run: treefmt --fail-on-change {staged_files}
       stage_fixed: true
-
     typecheck:
-      glob: "*.{ts,tsx}"
-      run: tsc --noEmit --project apps/orbase/tsconfig.json
-      stage_fixed: false
+      glob: "*.ts"
+      run: tsc --project apps/orbase/tsconfig.json --noEmit
 
 pre-push:
+  parallel: true
   commands:
+    typecheck:
+      run: tsc --project apps/orbase/tsconfig.json --noEmit
     test:
-      run: bun test
-      stage_fixed: false
+      run: |
+        if find . -type f \( -name "*.test.ts" -o -name "*.spec.ts" \) | grep -q .; then
+          bun test
+        fi
