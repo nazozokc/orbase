@@ -57,6 +57,7 @@ orbase task list
 | メモを作成する | `orbase note add` |
 | 今日の日記を書く | `orbase diary add` |
 | キーワードを探す | `orbase search string <キーワード>` |
+| カレンダーを表示する | `orbase calendar <year> <month>` |
 | 操作方法を確認する | `orbase --help` |
 
 ## 主な機能
@@ -65,6 +66,7 @@ orbase task list
 - Markdown メモの管理
 - 日付ごとの日記の管理
 - タスク・メモ・日記の横断検索
+- カレンダーの表示
 - テンプレートの登録と再利用
 
 インストール方法は [インストール](./installation)、詳しい使い方は [コマンド一覧](./commands) を参照してください。
