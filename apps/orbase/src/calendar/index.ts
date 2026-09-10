@@ -20,15 +20,15 @@ export const calendar = (year?: number, month?: number): void => {
   }
 
   for (let day = 1; day < dateInMonth; day++) {
-    row.push(String(day));
-
     if (
       years === now.getFullYear() &&
       months === now.getMonth() &&
       day === now.getDate()
     ) {
-      row.push(String(`[${day}]`));
+      const days = day;
     }
+
+    row.push(String(days) ?? String(day));
 
     if (row.length === 7) {
       table.push(row);
