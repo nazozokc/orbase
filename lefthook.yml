@@ -1,0 +1,21 @@
+pre-commit:
+  parallel: true
+  commands:
+    treefmt:
+      glob: "*.{ts,js,json,nix,md}"
+      run: treefmt --fail-on-change {staged_files}
+      stage_fixed: true
+    typecheck:
+      glob: "*.ts"
+      run: tsc --project apps/orbase/tsconfig.json --noEmit
+
+pre-push:
+  parallel: true
+  commands:
+    typecheck:
+      run: tsc --project apps/orbase/tsconfig.json --noEmit
+    test:
+      run: |
+        if find . -type f \( -name "*.test.ts" -o -name "*.spec.ts" \) | grep -q .; then
+          bun test
+        fi

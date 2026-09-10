@@ -1,4 +1,5 @@
 # orbase
+
 [![Publish](https://github.com/nazozokc/orbase/actions/workflows/publish.yml/badge.svg)](https://github.com/nazozokc/orbase/actions/workflows/publish.yml)<br>
 タスク・メモ・日記を CLI から管理する個人用ライフ管理ツール。
 
@@ -45,14 +46,14 @@ orbase <command> [subcommand] [arguments]
 
 主なコマンドは次のとおり。
 
-| コマンド | 説明 |
-| :------- | :--- |
-| `orbase task` | タスクを管理 |
-| `orbase note` | 本棚ごとのメモを管理 |
-| `orbase diary` | 日記を管理 |
-| `orbase search` | タスク・メモ・日記を検索 |
-| `orbase calendar <year> <month>` | 指定した年月のカレンダーを表示 |
-| `orbase template <name>` | 登録したテンプレートをカレントディレクトリへコピー |
+| コマンド                         | 説明                                               |
+| :------------------------------- | :------------------------------------------------- |
+| `orbase task`                    | タスクを管理                                       |
+| `orbase note`                    | 本棚ごとのメモを管理                               |
+| `orbase diary`                   | 日記を管理                                         |
+| `orbase search`                  | タスク・メモ・日記を検索                           |
+| `orbase calendar <year> <month>` | 指定した年月のカレンダーを表示                     |
+| `orbase template <name>`         | 登録したテンプレートをカレントディレクトリへコピー |
 
 メモや日記の編集には環境変数 `$EDITOR` に設定されたエディタが使われる。未設定の場合は、利用するエディタを設定してから実行する。
 
@@ -65,14 +66,14 @@ orbase note add
 
 タスクは `~/.orbase/task/*.json` に保存される。
 
-| コマンド                | 説明                                                       |
-| :---------------------- | :--------------------------------------------------------- |
-| `orbase task add`       | タスクを追加（見出し・本文・期限・優先度・タグを対話的に入力） |
-| `orbase task edit`      | タスクを選択して項目を対話的に編集                         |
-| `orbase task del`       | タスクを選択して削除                                       |
-| `orbase task list`      | タスク一覧をテーブル表示                                   |
-| `orbase task priority`  | 優先度でタスクをフィルタして表示                           |
-| `orbase task status`    | 状態でタスクをフィルタして表示                             |
+| コマンド               | 説明                                                           |
+| :--------------------- | :------------------------------------------------------------- |
+| `orbase task add`      | タスクを追加（見出し・本文・期限・優先度・タグを対話的に入力） |
+| `orbase task edit`     | タスクを選択して項目を対話的に編集                             |
+| `orbase task del`      | タスクを選択して削除                                           |
+| `orbase task list`     | タスク一覧をテーブル表示                                       |
+| `orbase task priority` | 優先度でタスクをフィルタして表示                               |
+| `orbase task status`   | 状態でタスクをフィルタして表示                                 |
 
 ```bash
 $ orbase task add

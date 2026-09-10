@@ -51,14 +51,14 @@ orbase task list
 
 ## まず覚えるコマンド
 
-| やりたいこと | コマンド |
-| --- | --- |
+| やりたいこと           | コマンド                               |
+| ---------------------- | -------------------------------------- |
 | タスクを追加・確認する | `orbase task add` / `orbase task list` |
-| メモを作成する | `orbase note add` |
-| 今日の日記を書く | `orbase diary add` |
-| キーワードを探す | `orbase search string <キーワード>` |
-| カレンダーを表示する | `orbase calendar <year> <month>` |
-| 操作方法を確認する | `orbase --help` |
+| メモを作成する         | `orbase note add`                      |
+| 今日の日記を書く       | `orbase diary add`                     |
+| キーワードを探す       | `orbase search string <キーワード>`    |
+| カレンダーを表示する   | `orbase calendar <year> <month>`       |
+| 操作方法を確認する     | `orbase --help`                        |
 
 ## 主な機能
 
