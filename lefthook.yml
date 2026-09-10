@@ -1,0 +1,21 @@
+# lefthook.yml - Git hooks configuration
+# https://lefthook.com/
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{ts,tsx,js,jsx,json,md,yml,yaml}"
+      run: nix fmt -- {staged_files}
+      stage_fixed: true
+
+    typecheck:
+      glob: "*.{ts,tsx}"
+      run: tsc --noEmit --project apps/orbase/tsconfig.json
+      stage_fixed: false
+
+pre-push:
+  commands:
+    test:
+      run: bun test
+      stage_fixed: false
