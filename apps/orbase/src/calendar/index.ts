@@ -11,7 +11,7 @@ export const calendar = (year?: number, month?: number): void => {
     const dateInMonth = new Date(years, months, 0).getDate();
 
     const table = new Table({
-      head: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fry", "Sat"],
+      head: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     });
 
     let row: string[] = [];
