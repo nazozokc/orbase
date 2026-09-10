@@ -25,10 +25,12 @@ export const calendar = (year?: number, month?: number): void => {
       months === now.getMonth() &&
       day === now.getDate()
     ) {
-      const days = day;
+      row.push(`[${String(day)}]`);
     }
 
-    row.push(String(days) ?? String(day));
+    if (day !== now.getDate()) {
+      row.push(String(day));
+    }
 
     if (row.length === 7) {
       table.push(row);
