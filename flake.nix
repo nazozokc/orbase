@@ -241,7 +241,11 @@
               pkgs.lefthook
             ];
             shellHook = ''
-              echo "[devShell:orbase] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version)"
+              echo "[devShell:orbase] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version), lefthook $(lefthook --version)"
+              # Git hooks を自動インストール
+              if [ -d .git ] && [ -f lefthook.yml ]; then
+                lefthook install
+              fi
             '';
           };
 
