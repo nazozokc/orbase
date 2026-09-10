@@ -6,12 +6,11 @@ export const calendarCommand = define({
   description: "spread calendar",
   args: {
     year: {
-      type: "positional",
+      type: "number",
       required: true,
     },
     month: {
-      type: "positional",
-      required: true,
+      type: "number",
     },
   },
 

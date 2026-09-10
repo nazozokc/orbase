@@ -1,7 +1,7 @@
 import Table from "cli-table3";
 import { consola } from "consola";
 
-export const calendar = (year: number, month: number): void => {
+export const calendar = (year?: number, month?: number): void => {
   const now = new Date();
   const years = year ?? now.getFullYear();
   const months = `${month - 1}` ?? now.getMonth();
