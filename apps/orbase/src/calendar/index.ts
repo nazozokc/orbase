@@ -29,7 +29,7 @@ export const calendar = (year?: number, month?: number): void => {
         row.push(`[${String(day)}]`);
       }
 
-      if (day !== now.getDate()) {
+      if (day !== now.getDate() && months !== now.getMonth()) {
         row.push(String(day));
       }
 
