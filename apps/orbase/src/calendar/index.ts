@@ -21,15 +21,14 @@ export const calendar = (year?: number, month?: number): void => {
     }
 
     for (let day = 1; day <= dateInMonth; day++) {
-      if (
+      const isToday =
         years === now.getFullYear() &&
         months === now.getMonth() &&
-        day === now.getDate()
-      ) {
-        row.push(`[${String(day)}]`);
-      }
+        day === now.getDate();
 
-      if (day !== now.getDate() && months !== now.getMonth()) {
+      if (isToday) {
+        row.push(`[${String(day)}]`);
+      } else {
         row.push(String(day));
       }
 

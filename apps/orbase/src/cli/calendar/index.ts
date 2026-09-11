@@ -13,7 +13,7 @@ export const calendarCommand = define({
     },
   },
 
-  async run(ctx) {
+  run(ctx) {
     const year = ctx.values.year;
     const month = ctx.values.month;
 
