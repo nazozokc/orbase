@@ -5,10 +5,10 @@ export const calendar = (year?: number, month?: number): void => {
   try {
     const now = new Date();
     const years = year ?? now.getFullYear();
-    const months = month !== undefined ? month : now.getMonth() + 1;
+    const months = month !== undefined ? month - 1 : now.getMonth();
 
     const firstDay = new Date(years, months, 1).getDay();
-    const dateInMonth = new Date(years, months, 0).getDate();
+    const dateInMonth = new Date(years, months + 1, 0).getDate();
 
     const table = new Table({
       head: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
