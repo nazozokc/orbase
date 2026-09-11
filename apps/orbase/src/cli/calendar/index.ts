@@ -7,9 +7,11 @@ export const calendarCommand = define({
   args: {
     year: {
       type: "positional",
+      required: false,
     },
     month: {
       type: "positional",
+      required: false,
     },
   },
 
