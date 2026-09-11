@@ -17,6 +17,6 @@ export const calendarCommand = define({
     const year = ctx.values.year;
     const month = ctx.values.month;
 
-    await calendar(year, month);
+    calendar(year, month);
   },
 });
