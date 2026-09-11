@@ -6,16 +6,18 @@ export const calendarCommand = define({
   description: "spread calendar",
   args: {
     year: {
-      type: "number",
+      type: "positional",
+      required: false,
     },
     month: {
-      type: "number",
+      type: "positional",
+      required: false,
     },
   },
 
   run(ctx) {
-    const year = ctx.values.year;
-    const month = ctx.values.month;
+    const year = Number(ctx.values.year);
+    const month = Number(ctx.values.month);
 
     calendar(year, month);
   },
