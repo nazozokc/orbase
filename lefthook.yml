@@ -16,6 +16,6 @@ pre-push:
       run: tsc --project apps/orbase/tsconfig.json --noEmit
     test:
       run: |
-        if find . -type f \( -name "*.test.ts" -o -name "*.spec.ts" \) | grep -q .; then
+        if find . -path ./node_modules -prune -o -type f \( -name "*.test.ts" -o -name "*.spec.ts" \) -print | grep -q .; then
           bun test
         fi
