@@ -16,8 +16,11 @@ export const calendarCommand = define({
   },
 
   run(ctx) {
-    const year = Number(ctx.values.year);
-    const month = Number(ctx.values.month);
+    const year =
+      ctx.values.year !== undefined ? Number(ctx.values.year) : undefined;
+
+    const month =
+      ctx.values.month !== undefined ? Number(ctx.values.month) : undefined;
 
     calendar(year, month);
   },
