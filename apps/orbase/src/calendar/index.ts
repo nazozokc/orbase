@@ -1,7 +1,11 @@
 import Table from "cli-table3";
 import { consola } from "consola";
+import { displaytask } from "./displaytask.ts";
 
-export const calendar = (year?: number, month?: number): void => {
+export const calendar = async (
+  year?: number,
+  month?: number,
+): Promise<void> => {
   try {
     const now = new Date();
     const years = year ?? now.getFullYear();
@@ -47,6 +51,8 @@ export const calendar = (year?: number, month?: number): void => {
     }
 
     consola.log(table.toString());
+
+    await displaytask(String(years), String(months));
   } catch (error) {
     consola.error(error);
   }

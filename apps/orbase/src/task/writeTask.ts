@@ -1,5 +1,4 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { z } from "zod";
 import { TaskSchema, type Task } from "./type.ts";
 import { TASK_DIR } from "../constant/app.ts";
 import consola from "consola";
