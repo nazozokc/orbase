@@ -12,7 +12,7 @@ export const displaytask = async (
   });
   for (const forofreadtask of readtask) {
     const splitday = forofreadtask.dueDate.split("-");
-    if (splitday[0] === year && splitday[1] === month + 1) {
+    if (splitday[0] === year && splitday[1] === String(+month + 1)) {
       table.push([
         forofreadtask.title,
         forofreadtask.detail,
