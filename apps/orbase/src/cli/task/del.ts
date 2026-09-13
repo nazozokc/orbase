@@ -4,6 +4,8 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { TASK_DIR } from "../../constant/app.ts";
 import { deleteTask } from "../../task/deleteTask.ts";
+import { z } from "zod";
+import { TaskSchema } from "../../task/type.ts";
 
 export const del = async (): Promise<void> => {
   try {
@@ -13,10 +15,18 @@ export const del = async (): Promise<void> => {
     for (const file of taskFiles) {
       const filePath = join(TASK_DIR, file);
       const content = await readFile(filePath, "utf-8");
-      const task = JSON.parse(content);
+      const read = TaskSchema.safeParse(JSON.parse(content));
+
+      if (!read.success) {
+        consola.error(`Invalid task: ${filePath}`);
+        consola.error(read.error);
+        continue;
+      }
+
+      const task = read.data;
 
       choices.push({
-        name: task.head,
+        name: task.title,
         value: file,
       });
     }
