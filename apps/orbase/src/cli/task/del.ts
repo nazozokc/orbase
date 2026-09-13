@@ -27,7 +27,7 @@ export const del = async (): Promise<void> => {
     for (const select of selected) {
       const filePath = join(TASK_DIR, select);
 
-      await deleteTask(filePath);
+      await deleteTask(`${filePath}.json`);
 
       consola.success(`${filePath}, delete success!`);
     }
