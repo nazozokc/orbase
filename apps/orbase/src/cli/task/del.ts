@@ -4,20 +4,18 @@ import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { TASK_DIR } from "../../constant/app.ts";
 import { deleteTask } from "../../task/deleteTask.ts";
+import { TaskSchema } from "../../task/type.ts";
+import { readTask } from "../../task/readTask.ts";
 
 export const del = async (): Promise<void> => {
   try {
-    const taskFiles = await readdir(TASK_DIR);
+    const taskFiles = await readTask();
     const choices = [];
 
-    for (const file of taskFiles) {
-      const filePath = join(TASK_DIR, file);
-      const content = await readFile(filePath, "utf-8");
-      const task = JSON.parse(content);
-
+    for (const data of taskFiles) {
       choices.push({
-        name: task.text,
-        value: file,
+        name: data.title,
+        value: data.id,
       });
     }
 
@@ -29,7 +27,7 @@ export const del = async (): Promise<void> => {
     for (const select of selected) {
       const filePath = join(TASK_DIR, select);
 
-      await deleteTask(filePath);
+      await deleteTask(`${filePath}.json`);
 
       consola.success(`${filePath}, delete success!`);
     }

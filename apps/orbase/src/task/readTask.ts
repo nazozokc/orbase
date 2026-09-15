@@ -14,9 +14,8 @@ export const readTask = async (): Promise<Task[]> => {
       if (!file.endsWith(".json")) continue;
 
       const taskJson = await readFile(join(taskDir, file), "utf-8");
-      const task = JSON.parse(taskJson);
 
-      const result = TaskSchema.safeParse(task);
+      const result = TaskSchema.safeParse(JSON.parse(taskJson));
 
       if (!result.success) {
         consola.error(`Invalid task: ${file}`);

@@ -47,8 +47,11 @@ export const add = async (): Promise<void> => {
     message: "task detail",
   });
 
+  const now = new Date();
+
   const dueDate = await input({
     message: "goal date",
+    default: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate() + 1}`,
   });
 
   const priority = await select({
