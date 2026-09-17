@@ -55,7 +55,9 @@
 .VPFeature {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
 }
 
 .VPFeature:hover {
@@ -91,8 +93,8 @@
 }
 
 .vp-doc code {
-  font-family: "JetBrains Mono", "Fira Code", "SF Mono", ui-monospace,
-    monospace;
+  font-family:
+    "JetBrains Mono", "Fira Code", "SF Mono", ui-monospace, monospace;
 }
 
 /* ── Inline Code ── */
@@ -147,7 +149,10 @@
 
 /* ── Transition polish ── */
 .VPButton {
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
 }
 
 /* ── Search ── */
