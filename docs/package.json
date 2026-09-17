@@ -1,5 +1,5 @@
 {
-  "name": "vitepress-project",
+  "name": "orbase-docs",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,14 +8,7 @@
     "serve": "vitepress serve ."
   },
   "devDependencies": {
-    "vue": "3.2.44",
-    "vitepress": "1.0.0-alpha.28"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "@algolia/client-search"
-      ]
-    }
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.43"
   }
 }
