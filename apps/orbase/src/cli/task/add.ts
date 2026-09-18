@@ -67,7 +67,7 @@ export const add = async (): Promise<void> => {
   const tag = await tagAction();
 
   const status = await select({
-    message: "Select priority",
+    message: "Select status",
     choices: [
       { name: "To Do", value: "Todo" },
       { name: "Pending", value: "Pending" },
