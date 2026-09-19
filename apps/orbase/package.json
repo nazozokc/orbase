@@ -30,9 +30,7 @@
     "terminal"
   ],
   "devDependencies": {
-    "@types/bun": "latest",
-    "zod": "^4.5.4",
-    "gunshi": "^0.37.1"
+    "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
@@ -42,6 +40,8 @@
     "cli-table3": "^0.6.5",
     "consola": "^3.4.2",
     "gray-matter": "^4.0.3",
-    "open-editor": "^6.0.0"
+    "open-editor": "^6.0.0",
+    "zod": "^4.5.4",
+    "gunshi": "^0.37.1"
   }
 }
