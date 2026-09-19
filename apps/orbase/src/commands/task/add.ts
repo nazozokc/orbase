@@ -1,8 +1,8 @@
 import { input, select, checkbox } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
 import { tagSave, type TagType } from "../../tags/tagSave.ts";
-import { randomUUID } from "crypto";
 import { tagRead } from "../../tags/tagRead.ts";
+import type { TaskCreate } from "../../task/type.ts";
 
 export const tagAction = async (): Promise<TagType> => {
   const action = await select({
@@ -76,15 +76,13 @@ export const add = async (): Promise<void> => {
     ],
   });
 
-  const task = {
-    id: randomUUID(),
+  const task: TaskCreate = {
     title,
     detail,
     dueDate,
     priority,
     tag,
     status,
-    createdAt: new Date().toISOString(),
   };
 
   await writeTask(task);

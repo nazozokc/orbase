@@ -1,20 +1,38 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { TaskSchema, type Task } from "./type.ts";
+import { TaskSchema, TaskSchemaCreate, type TaskCreate } from "./type.ts";
 import { TASK_DIR } from "../constant/app.ts";
+import { randomUUID } from "crypto";
 import consola from "consola";
 
-export const writeTask = async (task: Task): Promise<void> => {
+export const writeTask = async (task: TaskCreate): Promise<void> => {
+  const resultCreateSchema = TaskSchemaCreate.safeParse(task);
+
+  if (!resultCreateSchema.success) {
+    consola.error(resultCreateSchema.error);
+    return;
+  }
+
+  const taskDoneCreateSchema = {
+    id: randomUUID(),
+    ...resultCreateSchema.data,
+    createdAt: new Date().toISOString(),
+  };
+
+  const resultDoneSchema = TaskSchema.safeParse(taskDoneCreateSchema);
+
+  if (!resultDoneSchema.success) {
+    consola.error(resultDoneSchema.error);
+    return;
+  }
+
   try {
-    const result = TaskSchema.safeParse(task);
-
-    if (!result.success) {
-      consola.error(result.error);
-      return;
-    }
-
     await mkdir(TASK_DIR, { recursive: true });
-    const taskJson = JSON.stringify(task, null, 2);
-    await writeFile(`${TASK_DIR}/${task.id}.json`, taskJson, "utf-8");
+    const taskJson = JSON.stringify(resultDoneSchema.data, null, 2);
+    await writeFile(
+      `${TASK_DIR}/${resultDoneSchema.data.id}.json`,
+      taskJson,
+      "utf-8",
+    );
   } catch (error) {
     consola.error(error);
     return;

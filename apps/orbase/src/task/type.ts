@@ -11,4 +11,11 @@ export const TaskSchema = z.object({
   createdAt: z.string(),
 });
 
+export const TaskSchemaCreate = TaskSchema.omit({
+  id: true,
+  createdAt: true,
+});
+
 export type Task = z.infer<typeof TaskSchema>;
+
+export type TaskCreate = z.infer<typeof TaskSchemaCreate>;
