@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const ConfigSchema = z.object({
-  save_directory: z.string().optional(),
+  save_directory: z.string(),
 });
 
-export type Config = z.infer<typeof ConfigSchema>;
+export type ConfigType = z.infer<typeof ConfigSchema>;

@@ -1,19 +1,18 @@
-import consola from "consola";
-import { ROOT_DIR } from "../constant/app.ts";
-import type { Config } from "./type.ts";
-import { mkdir, writeFile } from "node:fs/promises";
+import { homedir } from "os";
+import { CONFIG_DIR, CONFIG_DIR_NAME } from "../constant/app.ts";
+import type { ConfigType } from "./type.ts";
+import { join } from "path";
+import { mkdir } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 
-export const ConfigGenerate = async (): Promise<void> => {
-  const generateTemplate: Config = {
-    save_directory: "~/.orbase",
+export const generateConfig = async (): Promise<void> => {
+  const confDir = CONFIG_DIR_NAME;
+
+  const defaultSchema: ConfigType = {
+    save_directory: join(`${homedir()}`, ".orbase"),
   };
 
-  try {
-    await mkdir(ROOT_DIR, { recursive: true });
-    const stringify = JSON.stringify(generateTemplate, null, 2);
-    await writeFile(`${ROOT_DIR}/config.json`, stringify, "utf-8");
-  } catch (error) {
-    consola.error(error);
-    return;
-  }
+  await mkdir(CONFIG_DIR, { recursive: true });
+  const stringify = JSON.stringify(defaultSchema, null, 2);
+  await writeFile(confDir, stringify, "utf-8");
 };
