@@ -13,12 +13,14 @@
 - **タグ** — タスク・メモにタグを付け、タグで横断検索
 - **検索** — キーワード / タグでタスク・メモ・日記を横断検索
 - **カレンダー** — 指定した年月のカレンダーをターミナルに表示
+- **テンプレート** — よく使うファイルやディレクトリをカレントディレクトリへコピー
+- **初期設定** — orbase の設定ファイルを作成
 - **エディタ連携** — 編集は `$EDITOR` でファイルを直接開く
 - **データは全てローカル** — `~/.orbase/` 配下に JSON / Markdown で保存
 
 ## インストール
 
-### npm / bun
+### npm / Bun
 
 Node.js 22 以上が必要。
 
@@ -54,6 +56,7 @@ orbase <command> [subcommand] [arguments]
 | `orbase search`                  | タスク・メモ・日記を検索                           |
 | `orbase calendar <year> <month>` | 指定した年月のカレンダーを表示                     |
 | `orbase template <name>`         | 登録したテンプレートをカレントディレクトリへコピー |
+| `orbase init`                    | 設定ファイルを作成                                 |
 
 メモや日記の編集には環境変数 `$EDITOR` に設定されたエディタが使われる。未設定の場合は、利用するエディタを設定してから実行する。
 
@@ -173,6 +176,14 @@ orbase template project
 
 テンプレート名は `~/.orbase/template/` 配下のファイルまたはディレクトリ名です。テンプレートはあらかじめ手動で配置してください。
 
+### init — 初期設定
+
+`~/.config/orbase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は、最初に実行してください。
+
+```bash
+orbase init
+```
+
 ### ヘルプ / バージョン
 
 ```bash
@@ -183,6 +194,8 @@ orbase --version
 ## データの保存場所
 
 すべてのデータは `~/.orbase/` 配下に保存される。
+
+設定ファイルは `~/.config/orbase/config.json` に保存される。
 
 ```
 ~/.orbase/
@@ -195,6 +208,7 @@ orbase --version
 │   └── YYYY/
 │       └── MM/
 │           └── YYYY-MM-DD.md
+├── template/        # テンプレート（任意）
 ├── tags.json        # タグ一覧 (JSON)
 └── book.json        # 本棚名 (JSON)
 ```
@@ -241,8 +255,8 @@ bun install
 # bun.nix はリポジトリルートに置く（bun2nix は workspace パッケージを bun.nix からの相対パスで参照する）
 cd .. && bun2nix -l bun.lock -o bun.nix
 
-# ビルド (dist/index.mjs を生成)
-bun run build
+# ビルド (apps/orbase/dist/index.mjs を生成)
+bun run --cwd apps/orbase build
 
 # ローカルで実行
 bun run apps/orbase/src/index.ts --help
@@ -254,7 +268,7 @@ nix flake check
 
 `bun2nix` は devShell に同梱されている。`bun.nix` を再生成したら `nix build` で動作確認すること。
 
-テストは `bun test`。テストファイルは `test/` 以下に置く。
+テストは `bun test` で実行する。
 
 パッケージ単体で開発する場合は `apps/orbase` で次のように実行できる。
 

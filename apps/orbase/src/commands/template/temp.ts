@@ -4,23 +4,23 @@ import process from "node:process";
 import { join } from "node:path";
 import consola from "consola";
 
-export const template = async (directory: string): Promise<void> => {
-  const currentDir = process.cwd();
-  const dir = join(TEMPLATE_DIR, directory);
+export const copyTemplate = async (templateName: string): Promise<void> => {
+  const destinationDirectory = process.cwd();
+  const templatePath = join(TEMPLATE_DIR, templateName);
   // statで情報を手に入れる
-  const sourceStat = await stat(dir);
+  const templateStats = await stat(templatePath);
 
-  if (sourceStat.isDirectory()) {
-    const sourceFiles = await readdir(dir);
-    for (const sourceFile of sourceFiles) {
-      const sourceFilePath = join(dir, sourceFile);
-      const destinationFilePath = join(currentDir, sourceFile);
+  if (templateStats.isDirectory()) {
+    const templateEntries = await readdir(templatePath);
+    for (const entryName of templateEntries) {
+      const sourceEntryPath = join(templatePath, entryName);
+      const destinationEntryPath = join(destinationDirectory, entryName);
 
-      await cp(sourceFilePath, destinationFilePath, { recursive: true });
+      await cp(sourceEntryPath, destinationEntryPath, { recursive: true });
     }
   } else {
-    const destinationPath = join(currentDir, directory);
-    await cp(dir, destinationPath, { recursive: true });
+    const destinationPath = join(destinationDirectory, templateName);
+    await cp(templatePath, destinationPath, { recursive: true });
   }
 
   consola.success("success template file");

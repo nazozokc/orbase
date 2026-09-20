@@ -9,15 +9,14 @@ const defaultConfig: ConfigType = {
   save_directory: join(`${homedir()}`, ".orbase"),
 };
 
-export const ConfigRead = async (): Promise<ConfigType> => {
-  const ConfigFileName = CONFIG_DIR_NAME;
-  const ConfigFileRead = await readFile(ConfigFileName, "utf-8");
-  const stringifySchema = ConfigSchema.safeParse(JSON.parse(ConfigFileRead));
+export const readConfig = async (): Promise<ConfigType> => {
+  const configFileContent = await readFile(CONFIG_DIR_NAME, "utf-8");
+  const parsedConfig = ConfigSchema.safeParse(JSON.parse(configFileContent));
 
-  if (!stringifySchema.success) {
-    consola.error(stringifySchema.error);
+  if (!parsedConfig.success) {
+    consola.error(parsedConfig.error);
     return defaultConfig;
   }
 
-  return stringifySchema.data;
+  return parsedConfig.data;
 };

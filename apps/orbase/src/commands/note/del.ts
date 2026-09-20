@@ -8,33 +8,33 @@ import { join } from "node:path";
 export const del = async (): Promise<void> => {
   try {
     const noteDirs = await readdir(NOTE_DIR);
-    const choicesBook = [];
+    const bookChoices = [];
 
-    for (const sel of noteDirs) {
-      choicesBook.push({
-        name: sel, // 画面に表示される
-        value: sel, // 選択時に返ってくる値
+    for (const bookName of noteDirs) {
+      bookChoices.push({
+        name: bookName,
+        value: bookName,
       });
     }
 
     const selectedBooks = await select({
       message: "select book",
-      choices: choicesBook,
+      choices: bookChoices,
     });
 
     const noteFilesPath = join(NOTE_DIR, selectedBooks);
     const noteFiles = await readdir(noteFilesPath);
-    const choicesFiles = [];
+    const noteChoices = [];
 
-    for (const selfile of noteFiles) {
-      choicesFiles.push({
-        name: selfile,
-        value: selfile,
+    for (const noteFileName of noteFiles) {
+      noteChoices.push({
+        name: noteFileName,
+        value: noteFileName,
       });
     }
     const selected = await checkbox({
       message: "select book",
-      choices: choicesFiles,
+      choices: noteChoices,
     });
 
     for (const file of selected) {

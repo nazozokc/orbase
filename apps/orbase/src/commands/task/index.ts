@@ -3,11 +3,11 @@ import { add } from "./add.ts";
 import { del } from "./del.ts";
 import { priority } from "./priority.ts";
 import { edit } from "./edit/index.ts";
-import { statuschange } from "./status.ts";
-import { taskTable } from "../../task/table.ts";
+import { filterTasksByStatus } from "./status.ts";
+import { displayTaskTable } from "../../task/table.ts";
 
 const listTasks = async (): Promise<void> => {
-  await taskTable();
+  await displayTaskTable();
 };
 
 export const taskCommand: Command = {
@@ -42,7 +42,7 @@ export const taskCommand: Command = {
 
     status: {
       name: "status",
-      run: statuschange,
+      run: filterTasksByStatus,
     },
   },
 };

@@ -3,10 +3,10 @@ import { consola } from "consola";
 import { type Task } from "./type.ts";
 import { readTask } from "./readTask.ts";
 
-export const taskTable = async (get?: Task[]): Promise<void> => {
-  const list = get ?? (await readTask());
+export const displayTaskTable = async (tasks?: Task[]): Promise<void> => {
+  const taskList = tasks ?? (await readTask());
 
-  if (list.length === 0) {
+  if (taskList.length === 0) {
     consola.info("No tasks found");
     return;
   }
@@ -15,22 +15,22 @@ export const taskTable = async (get?: Task[]): Promise<void> => {
     head: ["title", "detail", "dueDate", "tag", "priority", "status"],
   });
 
-  for (const task of list) {
-    let taskstatus;
+  for (const task of taskList) {
+    let statusLabel;
     if (task.status === "Todo") {
-      taskstatus = "\x1b[44m\x1b[30m Todo \x1b[0m";
+      statusLabel = "\x1b[44m\x1b[30m Todo \x1b[0m";
     }
 
     if (task.status === "Pending") {
-      taskstatus = "\x1b[101m\x1b[30m Pending \x1b[0m";
+      statusLabel = "\x1b[101m\x1b[30m Pending \x1b[0m";
     }
 
     if (task.status === "In-Progress") {
-      taskstatus = "\x1b[106m\x1b[30m In-Progress \x1b[0m";
+      statusLabel = "\x1b[106m\x1b[30m In-Progress \x1b[0m";
     }
 
     if (task.status === "Done") {
-      taskstatus = "\x1b[102m\x1b[30m Done \x1b[0m";
+      statusLabel = "\x1b[102m\x1b[30m Done \x1b[0m";
     }
 
     table.push([
@@ -39,7 +39,7 @@ export const taskTable = async (get?: Task[]): Promise<void> => {
       task.dueDate,
       task.tag.join(","),
       task.priority,
-      taskstatus,
+      statusLabel,
     ]);
   }
 
