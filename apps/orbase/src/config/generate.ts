@@ -6,13 +6,11 @@ import { mkdir } from "node:fs/promises";
 import { writeFile } from "node:fs/promises";
 
 export const generateConfig = async (): Promise<void> => {
-  const confDir = CONFIG_DIR_NAME;
-
   const defaultSchema: ConfigType = {
     save_directory: join(`${homedir()}`, ".orbase"),
   };
 
   await mkdir(CONFIG_DIR, { recursive: true });
   const stringify = JSON.stringify(defaultSchema, null, 2);
-  await writeFile(confDir, stringify, "utf-8");
+  await writeFile(CONFIG_DIR_NAME, stringify, "utf-8");
 };
