@@ -7,6 +7,7 @@ import consola from "consola";
 export const template = async (directory: string): Promise<void> => {
   const currentDir = process.cwd();
   const dir = join(TEMPLATE_DIR, directory);
+  // statで情報を手に入れる
   const sourceStat = await stat(dir);
 
   if (sourceStat.isDirectory()) {

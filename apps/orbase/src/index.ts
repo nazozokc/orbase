@@ -8,7 +8,16 @@ import { searchCommand } from "./commands/search/index.ts";
 import { templateCommand } from "./commands/template/index.ts";
 import { calendarCommand } from "./commands/calendar/index.ts";
 import { version } from "./version.ts";
-import { CLI_COMMAND_NAME } from "./constant/app.ts";
+import { CLI_COMMAND_NAME, ROOT_DIR } from "./constant/app.ts";
+import { access } from "node:fs/promises";
+import { join } from "node:path";
+import { ConfigGenerate } from "./config/generate.ts";
+
+const accessConfigFile = access(`${join(ROOT_DIR, "config.json")}`);
+
+if (accessConfigFile === undefined) {
+  await ConfigGenerate();
+}
 
 const mainCommand = define({
   name: CLI_COMMAND_NAME,
