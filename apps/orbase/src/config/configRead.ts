@@ -1,5 +1,5 @@
 import { homedir } from "node:os";
-import { CONFIG_DIR_NAME, ROOT_DIR } from "../constant/app.ts";
+import { CONFIG_DIR_NAME } from "../constant/appconfig.ts";
 import { ConfigSchema, type ConfigType } from "./type.ts";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
