@@ -31,7 +31,8 @@
     "terminal"
   ],
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "tsdown": "^0.22.14"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
