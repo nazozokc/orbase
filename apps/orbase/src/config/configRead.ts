@@ -24,7 +24,7 @@ export const readConfig = async (): Promise<ConfigType> => {
     return parsedConfig.data;
   } catch (error) {
     consola.error(error);
-    consola.log("read a default config schema");
+    consola.info("Failed readConfig");
     return defaultConfig;
   }
 };
