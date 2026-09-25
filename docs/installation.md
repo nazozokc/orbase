@@ -44,6 +44,14 @@ orbase --version
 export EDITOR=vim
 ```
 
+## 初期設定
+
+`~/.config/orbase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は実行してください。
+
+```bash
+orbase init
+```
+
 毎回設定するのが面倒な場合は、使用しているシェルの設定ファイル（例: `~/.bashrc`、`~/.zshrc`）に追加します。`nvim` や `code --wait` など、終了するまで待機するエディタも利用できます。
 
 ## アンインストール

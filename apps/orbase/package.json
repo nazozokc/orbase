@@ -5,6 +5,7 @@
   "version": "0.6.3",
   "packageManager": "bun@1.4.0",
   "license": "MIT",
+  "author": "nazozokc",
   "bin": {
     "orbase": "./dist/index.mjs"
   },
@@ -30,7 +31,8 @@
     "terminal"
   ],
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "tsdown": "^0.22.14"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
@@ -40,11 +42,8 @@
     "cli-table3": "^0.6.5",
     "consola": "^3.4.2",
     "gray-matter": "^4.0.3",
-    "gunshi": "^0.37.1",
     "open-editor": "^6.0.0",
-    "os": "^0.1.2",
-    "path": "^0.12.7",
-    "tsdown": "^0.22.14",
-    "zod": "^4.5.4"
+    "zod": "^4.5.4",
+    "gunshi": "^0.37.1"
   }
 }

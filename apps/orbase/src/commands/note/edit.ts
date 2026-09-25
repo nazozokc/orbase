@@ -5,10 +5,10 @@ import { join } from "node:path";
 import openeditor from "open-editor";
 
 export const edit = async (): Promise<void> => {
-  const choicesBook = await readdir(NOTE_DIR);
+  const bookNames = await readdir(NOTE_DIR);
   const selectedBook = await select({
     message: "select book",
-    choices: choicesBook,
+    choices: bookNames,
   });
 
   const Path = join(NOTE_DIR, selectedBook);

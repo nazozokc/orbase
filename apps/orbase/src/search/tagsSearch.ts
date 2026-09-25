@@ -6,49 +6,49 @@ import { consola } from "consola";
 import matter from "gray-matter";
 import { TaskSchema } from "../task/type.ts";
 
-export const searchTags = async (search: string): Promise<void> => {
+export const searchTags = async (tagName: string): Promise<void> => {
   const taskFiles = await readdir(TASK_DIR, "utf-8");
 
   for (const taskFile of taskFiles) {
-    const path = join(TASK_DIR, taskFile);
-    const taskJson = await readFile(path, "utf-8");
+    const taskFilePath = join(TASK_DIR, taskFile);
+    const taskJson = await readFile(taskFilePath, "utf-8");
     const task = JSON.parse(taskJson);
 
     const result = TaskSchema.safeParse(task);
 
     if (!result.success) {
-      consola.error(`Invalid file ${path}`);
+      consola.error(`Invalid file ${taskFilePath}`);
       consola.error(result.error);
       continue;
     }
 
     const tags = result.data.tag;
 
-    if (tags.includes(search)) {
-      consola.log(path);
+    if (tags.includes(tagName)) {
+      consola.log(taskFilePath);
     }
   }
 
-  const notes = await readdir(NOTE_DIR, "utf-8");
+  const noteBooks = await readdir(NOTE_DIR, "utf-8");
 
-  for (const noteDir of notes) {
-    const path = join(NOTE_DIR, noteDir);
-    const contentReadDir = await readdir(path, "utf-8");
+  for (const bookName of noteBooks) {
+    const bookPath = join(NOTE_DIR, bookName);
+    const noteFileNames = await readdir(bookPath, "utf-8");
 
-    for (const iterator of contentReadDir) {
-      const path = join(NOTE_DIR, noteDir, iterator);
-      const content = await readFile(path);
+    for (const noteFileName of noteFileNames) {
+      const noteFilePath = join(bookPath, noteFileName);
+      const content = await readFile(noteFilePath);
       const parsedMarkdown = matter(content);
       const result = MarkdownMetaSchema.safeParse(parsedMarkdown.data);
 
       if (!result.success) {
-        consola.error(`Invalid file ${path}`);
+        consola.error(`Invalid file ${noteFilePath}`);
         consola.error(result.error);
         continue;
       }
 
-      if (result.data.tags.includes(search)) {
-        consola.log(path);
+      if (result.data.tags.includes(tagName)) {
+        consola.log(noteFilePath);
       }
     }
   }

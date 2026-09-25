@@ -1,6 +1,6 @@
 import { select } from "@inquirer/prompts";
 import { readTask } from "../../task/readTask.ts";
-import { taskTable } from "../../task/table.ts";
+import { displayTaskTable } from "../../task/table.ts";
 
 export const priority = async (): Promise<void> => {
   const task = await readTask();
@@ -17,5 +17,5 @@ export const priority = async (): Promise<void> => {
 
   const filter = task.filter((task) => task.priority === selected);
 
-  await taskTable(filter);
+  await displayTaskTable(filter);
 };

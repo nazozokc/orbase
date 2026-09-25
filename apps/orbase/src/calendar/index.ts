@@ -1,6 +1,6 @@
 import Table from "cli-table3";
 import { consola } from "consola";
-import { displaytask } from "./displaytask.ts";
+import { displayTasksForMonth } from "./displaytask.ts";
 
 export const calendar = async (
   year?: number,
@@ -8,12 +8,16 @@ export const calendar = async (
 ): Promise<void> => {
   try {
     const now = new Date();
-    const years = year ?? now.getFullYear();
-    const months = month !== undefined ? month - 1 : now.getMonth();
-    const monthDateInMonth = month !== undefined ? month : now.getMonth() + 1;
+    const displayYear = year ?? now.getFullYear();
+    const displayMonthIndex = month !== undefined ? month - 1 : now.getMonth();
+    const displayMonth = month !== undefined ? month : now.getMonth() + 1;
 
-    const firstDay = new Date(years, months, 1).getDay();
-    const dateInMonth = new Date(years, monthDateInMonth, 0).getDate();
+    const firstDayOfMonth = new Date(
+      displayYear,
+      displayMonthIndex,
+      1,
+    ).getDay();
+    const daysInMonth = new Date(displayYear, displayMonth, 0).getDate();
 
     const table = new Table({
       head: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -21,14 +25,14 @@ export const calendar = async (
 
     let row: string[] = [];
 
-    for (let i = 0; i < firstDay; i++) {
+    for (let i = 0; i < firstDayOfMonth; i++) {
       row.push("");
     }
 
-    for (let day = 1; day <= dateInMonth; day++) {
+    for (let day = 1; day <= daysInMonth; day++) {
       const isToday =
-        years === now.getFullYear() &&
-        months === now.getMonth() &&
+        displayYear === now.getFullYear() &&
+        displayMonthIndex === now.getMonth() &&
         day === now.getDate();
 
       if (isToday) {
@@ -52,7 +56,7 @@ export const calendar = async (
 
     consola.log(table.toString());
 
-    await displaytask(String(years), String(months));
+    await displayTasksForMonth(String(displayYear), String(displayMonthIndex));
   } catch (error) {
     consola.error(error);
   }

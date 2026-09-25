@@ -1,11 +1,11 @@
 import { define } from "gunshi";
-import { template } from "./temp.ts";
+import { copyTemplate } from "./temp.ts";
 
 export const templateCommand = define({
   name: "template",
   description: "copy a template",
   args: {
-    temp: {
+    templateName: {
       type: "string",
       description: "template_name",
       required: true,
@@ -13,8 +13,8 @@ export const templateCommand = define({
   },
 
   async run(ctx) {
-    const temp = ctx.values.temp;
+    const templateName = ctx.values.templateName;
 
-    await template(temp);
+    await copyTemplate(templateName);
   },
 });

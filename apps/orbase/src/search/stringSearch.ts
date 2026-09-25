@@ -4,39 +4,39 @@ import { join } from "path";
 import { consola } from "consola";
 import { TaskSchema } from "../task/type.ts";
 
-export const searchString = async (search: string): Promise<void> => {
+export const searchString = async (searchTerm: string): Promise<void> => {
   try {
     const taskFiles = await readdir(TASK_DIR, "utf-8");
 
-    for (const taskFile of taskFiles) {
-      const path = join(TASK_DIR, taskFile);
-      const taskContent = await readFile(path, "utf-8");
-      const taskContentParse = JSON.parse(taskContent);
+    for (const taskFileName of taskFiles) {
+      const taskFilePath = join(TASK_DIR, taskFileName);
+      const taskContent = await readFile(taskFilePath, "utf-8");
+      const parsedTask = JSON.parse(taskContent);
 
-      const resultTaskSearch = TaskSchema.safeParse(taskContentParse);
+      const parsedTaskResult = TaskSchema.safeParse(parsedTask);
 
-      if (!resultTaskSearch.success) {
-        consola.error(`Invalid file ${path}`);
-        consola.error(resultTaskSearch.error);
+      if (!parsedTaskResult.success) {
+        consola.error(`Invalid file ${taskFilePath}`);
+        consola.error(parsedTaskResult.error);
       }
 
-      if (taskContent.includes(search)) {
-        consola.log(path);
+      if (taskContent.includes(searchTerm)) {
+        consola.log(taskFilePath);
         consola.log(taskContent);
       }
     }
 
-    const notes = await readdir(NOTE_DIR, "utf-8");
+    const noteBooks = await readdir(NOTE_DIR, "utf-8");
 
-    for (const noteDir of notes) {
-      const path = join(NOTE_DIR, noteDir);
-      const File = await readdir(path, "utf-8");
+    for (const bookName of noteBooks) {
+      const bookPath = join(NOTE_DIR, bookName);
+      const noteFileNames = await readdir(bookPath, "utf-8");
 
-      for (const contentRead of File) {
-        const path = join(NOTE_DIR, noteDir, contentRead);
-        const content = await readFile(path, "utf-8");
-        if (content.includes(search)) {
-          consola.log(path);
+      for (const noteFileName of noteFileNames) {
+        const noteFilePath = join(bookPath, noteFileName);
+        const content = await readFile(noteFilePath, "utf-8");
+        if (content.includes(searchTerm)) {
+          consola.log(noteFilePath);
           consola.log(content);
         }
       }
@@ -45,13 +45,13 @@ export const searchString = async (search: string): Promise<void> => {
     const diaryYears = await readdir(DIARY_DIR, "utf-8");
 
     for (const year of diaryYears) {
-      const diaryMonths = await readdir(join(DIARY_DIR, year));
-      for (const month of diaryMonths) {
-        const path = join(DIARY_DIR, year, month);
-        const diaryContent = await readFile(path, "utf-8");
+      const diaryMonthNames = await readdir(join(DIARY_DIR, year));
+      for (const month of diaryMonthNames) {
+        const diaryFilePath = join(DIARY_DIR, year, month);
+        const diaryContent = await readFile(diaryFilePath, "utf-8");
 
-        if (diaryContent.includes(search)) {
-          consola.log(path);
+        if (diaryContent.includes(searchTerm)) {
+          consola.log(diaryFilePath);
           consola.log(diaryContent);
         }
       }

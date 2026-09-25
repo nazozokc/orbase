@@ -17,6 +17,7 @@ description: orbase CLI のコマンドリファレンス。
 | `search`                  | キーワードまたはタグで横断検索                           |
 | `calendar <year> <month>` | 指定した年月のカレンダーを表示                           |
 | `template <name>`         | 登録済みテンプレートをカレントディレクトリへコピー       |
+| `init`                    | 設定ファイルを作成                                       |
 
 <details>
 <summary><strong>クイックナビゲーション</strong></summary>
@@ -27,6 +28,7 @@ description: orbase CLI のコマンドリファレンス。
 - [`search`](#search)
 - [`calendar`](#calendar)
 - [`template`](#template)
+- [`init`](#init)
 
 </details>
 
@@ -110,6 +112,14 @@ orbase calendar 2026 9
 
 ```bash
 orbase template project
+```
+
+## `init`
+
+`~/.config/orbase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は実行してください。
+
+```bash
+orbase init
 ```
 
 ## エディタの設定
