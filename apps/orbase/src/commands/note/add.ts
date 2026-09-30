@@ -31,7 +31,6 @@ export const add = async (): Promise<void> => {
     } else {
       selected = "home";
     }
-
     if (CreateOrSelect === "select") {
       const choices = await readdir(NOTE_DIR);
 

@@ -1,10 +1,8 @@
 import { checkbox } from "@inquirer/prompts";
 import consola from "consola";
-import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { TASK_DIR } from "../../constant/app.ts";
 import { deleteTask } from "../../task/deleteTask.ts";
-import { TaskSchema } from "../../task/type.ts";
 import { readTask } from "../../task/readTask.ts";
 
 export const del = async (): Promise<void> => {
@@ -25,11 +23,16 @@ export const del = async (): Promise<void> => {
     });
 
     for (const select of selected) {
-      const filePath = join(TASK_DIR, select);
+      try {
+        const filePath = join(TASK_DIR, select);
 
-      await deleteTask(`${filePath}.json`);
+        await deleteTask(`${filePath}.json`);
 
-      consola.success(`${filePath}, delete success!`);
+        consola.success(`${filePath}, delete success!`);
+      } catch (error) {
+        consola.error(error);
+        continue;
+      }
     }
   } catch (error) {
     consola.error(error);

@@ -2,11 +2,9 @@ import { input, select, checkbox } from "@inquirer/prompts";
 import { tagSave, type TagType } from "../../../tags/tagSave.ts";
 import { readFile } from "node:fs/promises";
 import { tagRead } from "../../../tags/tagRead.ts";
+import type { Task } from "../../../task/type.ts";
 
 export const tagChangeAction = async (filePath: string): Promise<TagType> => {
-  const reads = await readFile(filePath, "utf-8");
-  const task = JSON.parse(reads);
-
   const action = await select({
     message: "create or select?",
     choices: ["create", "select"],
@@ -32,6 +30,13 @@ export const tagChangeAction = async (filePath: string): Promise<TagType> => {
     const selectedTags = await checkbox({
       message: "select tags",
       choices: availableTags,
+      validate: (selected) => {
+        if (selected.length === 0) {
+          return "少なくとも一つ選択してください";
+        }
+
+        return true;
+      },
     });
 
     tags.push(...selectedTags);
