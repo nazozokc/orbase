@@ -1,15 +1,15 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { ROOT_DIR } from "../constant/app.ts";
+import { ROOT_DIR } from "../../constant/app.ts";
 import consola from "consola";
 import { z } from "zod";
-import { tagRead } from "./tagRead.ts";
+import { TaskTagRead } from "./TaskTagRead.ts";
 
 export const TagTypeSchema = z.array(z.string());
 export type TagType = z.infer<typeof TagTypeSchema>;
 
-export const tagSave = async (tags: TagType): Promise<void> => {
+export const TaskTagSave = async (tags: TagType): Promise<void> => {
   try {
-    const readtag = await tagRead();
+    const readtag = await TaskTagRead();
 
     for (const tag of tags) {
       if (!readtag.includes(tag)) {

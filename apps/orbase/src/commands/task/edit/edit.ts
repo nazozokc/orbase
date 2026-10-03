@@ -1,8 +1,6 @@
 import { input, select, checkbox } from "@inquirer/prompts";
-import { tagSave, type TagType } from "../../../tags/tagSave.ts";
-import { readFile } from "node:fs/promises";
-import { tagRead } from "../../../tags/tagRead.ts";
-import type { Task } from "../../../task/type.ts";
+import { TaskTagSave, type TagType } from "../../../task/tags/TaskTagSave.ts";
+import { TaskTagRead } from "../../../task/tags/TaskTagRead.ts";
 
 export const tagChangeAction = async (filePath: string): Promise<TagType> => {
   const action = await select({
@@ -19,13 +17,13 @@ export const tagChangeAction = async (filePath: string): Promise<TagType> => {
 
     const splitTags = tag.split(",").map((tag) => tag.trim());
 
-    await tagSave(splitTags);
+    await TaskTagSave(splitTags);
 
     tags.push(...splitTags);
   }
 
   if (action === "select") {
-    const availableTags = await tagRead();
+    const availableTags = await TaskTagRead();
 
     const selectedTags = await checkbox({
       message: "select tags",

@@ -1,9 +1,9 @@
 import { readFile } from "node:fs/promises";
-import { ROOT_DIR } from "../constant/app";
-import { TagTypeSchema, type TagType } from "./tagSave";
+import { ROOT_DIR } from "../../constant/app";
+import { TagTypeSchema, type TagType } from "./TaskTagSave.ts";
 import consola from "consola";
 
-export const tagRead = async (): Promise<TagType> => {
+export const TaskTagRead = async (): Promise<TagType> => {
   try {
     const tagsJson = await readFile(`${ROOT_DIR}/tags.json`, "utf-8");
     const parsedTags: unknown = JSON.parse(tagsJson);
