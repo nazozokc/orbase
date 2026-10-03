@@ -1,5 +1,5 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { NOTE_DIR } from "../constant/app.js";
+import { NOTE_DIR } from "../constant/app.ts";
 import openEditor from "open-editor";
 import { join } from "node:path";
 import matter from "gray-matter";
