@@ -27,7 +27,7 @@ export const noteCommand: Command = {
     tagdel: {
       name: "tagdel",
       args: {
-        tagdelarg: {
+        tagdel: {
           type: "string",
           description: "tagdelarg_name",
           required: true,
@@ -35,7 +35,7 @@ export const noteCommand: Command = {
       },
 
       async run(ctx) {
-        const tagdelctx = ctx.values.tagdelarg;
+        const tagdelctx = ctx.values.tagdel;
 
         await tagdel(tagdelctx);
       },

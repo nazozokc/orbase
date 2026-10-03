@@ -49,7 +49,7 @@ export const taskCommand: Command = {
     tagdel: {
       name: "tagdel",
       args: {
-        tagdelarg: {
+        tagdel: {
           type: "string",
           description: "tagdelarg_name",
           required: true,
@@ -57,7 +57,7 @@ export const taskCommand: Command = {
       },
 
       async run(ctx) {
-        const tagdelctx = ctx.values.tagdelarg;
+        const tagdelctx = ctx.values.tagdel;
 
         await tagdel(tagdelctx);
       },
