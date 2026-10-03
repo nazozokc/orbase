@@ -32,6 +32,27 @@ orbase task status
 
 登録済みのタスクを変更する場合は `orbase task edit` を実行します。タスクを選択し、各項目を対話的に更新できます。
 
+## タグを整理する
+
+タグはカンマ区切りの自由入力で新規作成するか、`~/.orbase/tags.json` に登録済みのタグから選びます。新規作成したタグ名は自動的に `tags.json` に追加されるので、次回以降の選択肢に現れます。
+
+```bash
+$ orbase task add
+? create or select? create
+? create and select tags 買い物, 家
+```
+
+次回以降のタスクでは `select` を選ぶと、この2件が候補として表示されます。
+
+```bash
+? create or select? select
+? select tags ◉ 買い物  ◯ 家
+```
+
+メモのタグは `orbase note add` で開いたエディタの中で front matter の `tags` を直接書きます。メモのタグは `tags.json` には登録されないため、`orbase search tags` はメモ側の front matter の値だけを照合します。
+
+必要になったタグは `~/.orbase/tags.json` を直接編集して追加できます。`orbase task tagdel` は現在使えないため、不要なタグは `tags.json` から手で削除します。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
+
 ## メモを作る
 
 ```bash
@@ -64,7 +85,21 @@ orbase search tags タグ名
 orbase calendar 2026 9
 ```
 
-年と月を指定すると、その月のカレンダーがターミナルにテーブル表示されます。日付の調整やスケジュールの確認に便利です。
+出力が2段になります。上の表が日付のカレンダー（表示中の月が今月の場合、今日の日付は角括弧で囲まれます）、下の表がその月の期限を持つタスクの一覧です。下の表の `tag` 列にタスクのタグが `,` 区切りで表示されます。
+
+**`month` は 0 始まりです。** `0` が1月、`11` が12月です。上の例は9月ではなく10月のカレンダーになります。
+
+```bash
+orbase calendar 2026 8   # 2026 年 9 月
+orbase calendar 2026     # 2026 年の今月
+orbase calendar          # 今日の年月
+```
+
+`month` を省略すると1月ではなく**今月**が表示されます。1月を表示したい場合は `orbase calendar 2026 0` のように明示してください。
+
+タスクの表は期限（`dueDate`）が指定した年月と一致するタスクだけが対象です。タグによる絞り込みは行いません。タグ別の絞り込みには `orbase search tags <tag>` を使ってください。詳しくは [タグが現れる場所](./tags#タグが現れる場所) を参照してください。
+
+カレンダーはタスクのみを読みます。メモと日記は表示されないため、メモや日記の予定は `orbase search string` で探します。
 
 ## テンプレートを使う
 

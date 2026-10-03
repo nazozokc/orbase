@@ -32,6 +32,7 @@ export default defineConfig({
           { text: "インストール", link: "/installation" },
           { text: "基本ガイド", link: "/guides" },
           { text: "コマンド一覧", link: "/commands" },
+          { text: "タグ", link: "/tags" },
           { text: "データ形式", link: "/data" },
           { text: "FAQ", link: "/faq" },
         ],
