@@ -45,9 +45,22 @@ export const taskCommand: Command = {
       name: "status",
       run: filterTasksByStatus,
     },
+
     tagdel: {
       name: "tagdel",
-      run: tagdel,
+      args: {
+        tagdelarg: {
+          type: "string",
+          description: "tagdelarg_name",
+          required: true,
+        },
+      },
+
+      async run(ctx) {
+        const tagdelctx = ctx.values.tagdelarg;
+
+        await tagdel(tagdelctx);
+      },
     },
   },
 };
