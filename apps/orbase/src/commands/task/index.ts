@@ -49,17 +49,16 @@ export const taskCommand: Command = {
     tagdel: {
       name: "tagdel",
       args: {
-        tagdel: {
+        tag: {
           type: "string",
-          description: "tagdelarg_name",
+          multiple: true,
+          description: "Tags to delete",
           required: true,
         },
       },
 
       async run(ctx) {
-        const tagdelctx = ctx.values.tagdel;
-
-        await tagdel(tagdelctx);
+        await tagdel(ctx.values.tag);
       },
     },
   },
