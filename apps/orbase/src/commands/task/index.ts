@@ -3,7 +3,7 @@ import { add } from "./add.ts";
 import { del } from "./del.ts";
 import { priority } from "./priority.ts";
 import { edit } from "./edit/index.ts";
-import { tagdel } from "./tags.ts";
+import { tagdel } from "./tagdel.ts";
 import { filterTasksByStatus } from "./status.ts";
 import { displayTaskTable } from "../../task/table.ts";
 
