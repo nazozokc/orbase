@@ -36,7 +36,7 @@ export const displayTasksForMonth = async (
         task.dueDate,
         task.tag.join(","),
         task.priority,
-        task.status,
+        statusLabel,
       ]);
     }
   }
