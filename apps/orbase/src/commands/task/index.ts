@@ -3,6 +3,7 @@ import { add } from "./add.ts";
 import { del } from "./del.ts";
 import { priority } from "./priority.ts";
 import { edit } from "./edit/index.ts";
+import { tagdel } from "./tags.ts";
 import { filterTasksByStatus } from "./status.ts";
 import { displayTaskTable } from "../../task/table.ts";
 
@@ -43,6 +44,10 @@ export const taskCommand: Command = {
     status: {
       name: "status",
       run: filterTasksByStatus,
+    },
+    tagdel: {
+      name: "tagdel",
+      run: tagdel,
     },
   },
 };
