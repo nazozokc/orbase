@@ -26,18 +26,7 @@ export const noteCommand: Command = {
 
     tagdel: {
       name: "tagdel",
-      args: {
-        tag: {
-          type: "string",
-          multiple: true,
-          description: "Tags to delete",
-          required: true,
-        },
-      },
-
-      async run(ctx) {
-        await tagdel(ctx.values.tag);
-      },
+      run: tagdel,
     },
   },
 };

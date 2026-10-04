@@ -5,8 +5,8 @@ import consola from "consola";
 
 export const NoteTagRead = async (): Promise<NoteTagType> => {
   try {
-    const tagsJson = await readFile(`${ROOT_DIR}/tags.json`, "utf-8");
-    const parsedTags: unknown = JSON.parse(tagsJson);
+    const tagsJson = await readFile(`${ROOT_DIR}/book.json`, "utf-8");
+    const parsedTags = JSON.parse(tagsJson);
 
     const result = NoteTypeSchema.safeParse(parsedTags);
 
@@ -15,7 +15,7 @@ export const NoteTagRead = async (): Promise<NoteTagType> => {
       return [];
     }
 
-    return result.data;
+    return result.data as NoteTagType;
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") {
       return [];
