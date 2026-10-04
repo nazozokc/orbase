@@ -1,16 +1,27 @@
 import consola from "consola";
-import { NOTE_DIR, ROOT_DIR } from "../../constant/app";
-import { mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { ROOT_DIR } from "../../constant/app";
+import { readFile, writeFile } from "node:fs/promises";
+import type { NoteTagType } from "../tags/NoteTagSave";
 
 export const bookSave = async (filename: string): Promise<void> => {
   try {
-    const path = join(NOTE_DIR, filename);
-    await mkdir(path, { recursive: true });
-    const bookJson = JSON.stringify(filename, null, 2);
-    await writeFile(`${ROOT_DIR}/book.json`, bookJson, "utf-8");
+    let books: string[] = [];
+
+    try {
+      const json = await readFile(`${ROOT_DIR}/book.json`, "utf-8");
+      books = JSON.parse(json);
+    } catch {}
+
+    if (!books.includes(filename)) {
+      books.push(filename);
+    }
+
+    await writeFile(
+      `${ROOT_DIR}/book.json`,
+      JSON.stringify(books, null, 2),
+      "utf-8",
+    );
   } catch (error) {
     consola.error(error);
-    return;
   }
 };
