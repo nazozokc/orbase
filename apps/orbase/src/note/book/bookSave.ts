@@ -1,7 +1,6 @@
 import consola from "consola";
 import { ROOT_DIR } from "../../constant/app";
 import { readFile, writeFile } from "node:fs/promises";
-import type { NoteTagType } from "../tags/NoteTagSave";
 
 export const bookSave = async (filename: string): Promise<void> => {
   try {
@@ -10,7 +9,9 @@ export const bookSave = async (filename: string): Promise<void> => {
     try {
       const json = await readFile(`${ROOT_DIR}/book.json`, "utf-8");
       books = JSON.parse(json);
-    } catch {}
+    } catch (error) {
+      consola.error(error);
+    }
 
     if (!books.includes(filename)) {
       books.push(filename);
