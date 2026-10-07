@@ -10,34 +10,36 @@ export const tagChangeAction = async (filePath: string): Promise<TagType> => {
 
   const tags: TagType = [];
 
-  if (action === "create") {
-    const tag = await input({
-      message: "create and select tags",
-    });
+  switch (action) {
+    case "create":
+      const tag = await input({
+        message: "create and select tags",
+      });
 
-    const splitTags = tag.split(",").map((tag) => tag.trim());
+      const splitTags = tag.split(",").map((tag) => tag.trim());
 
-    await TaskTagSave(splitTags);
+      await TaskTagSave(splitTags);
 
-    tags.push(...splitTags);
-  }
+      tags.push(...splitTags);
+      break;
 
-  if (action === "select") {
-    const availableTags = await TaskTagRead();
+    case "select":
+      const availableTags = await TaskTagRead();
 
-    const selectedTags = await checkbox({
-      message: "select tags",
-      choices: availableTags,
-      validate: (selected) => {
-        if (selected.length === 0) {
-          return "少なくとも一つ選択してください";
-        }
+      const selectedTags = await checkbox({
+        message: "select tags",
+        choices: availableTags,
+        validate: (selected) => {
+          if (selected.length === 0) {
+            return "少なくとも一つ選択してください";
+          }
 
-        return true;
-      },
-    });
+          return true;
+        },
+      });
 
-    tags.push(...selectedTags);
+      tags.push(...selectedTags);
+      break;
   }
 
   return tags;
