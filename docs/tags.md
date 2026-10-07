@@ -42,9 +42,9 @@ tags:
 
 ## タグを付ける
 
-`orbase task add` と `orbase task edit` は、どちらも `create or select?` と尋ねます。
+`orbase task add` は最初から、`orbase task edit` は `tag` 項目を選んだときに、どちらも `create or select?` と尋ねます。
 
-- `create` — 自由 입력。`,`（カンマ）で区切ると複数タグとして扱われ、入力したタグ名は `tags.json` に登録されます。
+- `create` — 自由入力。`,`（カンマ）で区切ると複数タグとして扱われ、入力したタグ名は `tags.json` に登録されます。
 - `select` — `tags.json` に登録済みのタグからチェックボックスで選びます。`task edit` では1つ以上を選ぶ必要があります。
 
 ```bash
@@ -87,16 +87,29 @@ orbase search tags 買い物
 
 ## タグを削除する
 
-`orbase task tagdel` は実装途中のため、現時点では利用できません。引数を受け取らず `TypeError: tagString.filter is not a function` で終了します。タグを整理したい場合は `~/.orbase/tags.json` を直接編集してください。
+`orbase task tagdel` は `~/.orbase/tags.json` に登録されたタグ名をチェックボックスで表示します。削除したいタグを選んで submit すると、**選ばれなかったタグだけが残った配列**で `tags.json` を書き直します。
 
 ```bash
-# tags.json から使わなくなったタグ名を手で削除する
+$ orbase task tagdel
+? select delete tags
+ ◉ 買い物
+ ◯ 家
+ ◯ 仕事
+```
+
+`tags.json` を手で編集しても結果は同じです。
+
+```bash
 nvim ~/.orbase/tags.json
 ```
 
-`tags.json` を編集しても、既存のタスクの `tag` 配列やメモの front matter は書き換えられません。タグが不要になったら、対象ファイル側も合わせて編集してください。
+どちらの方法でも、**既存のタスクの `tag` 配列やメモの front matter は書き換えられません。** タグを整理しきるには、対象ファイル側も合わせて編集してください。タグが不要になったら、付与済みのタスク JSON の `tag` 配列とメモの front matter の `tags` からも同じ名前を消します。
 
 `task add` / `task edit` の `select` で `tags.json` に無いタグを選ぶことはできません。`tags.json` を手で編集して追加してから実行します。
+
+### `note tagdel` はメモのタグを消しません
+
+`orbase note tagdel` はタグではなく `~/.orbase/book.json`（作成した本棚名の一覧）を操作します。削除できるのは本棚名の登録だけで、`~/.orbase/note/` 以下のディレクトリやメモ本体、front matter の `tags` には触れません。メモのタグを消すにはメモの front matter を直接編集してください。
 
 ## 関連ページ
 

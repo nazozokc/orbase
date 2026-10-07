@@ -10,7 +10,7 @@
 - **タスク管理** — タスクの追加・編集・削除・一覧表示（優先度・状態フィルタ付き）
 - **メモ管理** — 本棚（book）ごとに Markdown 形式のメモを追加・編集・削除
 - **日記** — 日付ごとの Markdown 日記を作成・編集・削除
-- **タグ** — タスクのタグを作成・選択し、メモとまとめてタグ検索
+- **タグ** — タスクのタグを作成・選択・削除し、メモとまとめてタグ検索
 - **検索** — キーワードでタスク・メモ・日記を横断検索
 - **カレンダー** — 指定した年月のカレンダーと、その月の期限のタスク一覧をターミナルに表示
 - **テンプレート** — よく使うファイルやディレクトリをカレントディレクトリへコピー
@@ -69,15 +69,15 @@ orbase note add
 
 タスクは `~/.orbase/task/<uuid>.json` に保存される。
 
-| コマンド               | 説明                                                                 |
-| :--------------------- | :------------------------------------------------------------------- |
-| `orbase task add`      | タスクを追加（見出し・本文・期限・優先度・タグ・状態を対話的に入力） |
-| `orbase task edit`     | タスクを選択して項目を対話的に編集                                   |
-| `orbase task del`      | タスクを複数選択して削除                                             |
-| `orbase task list`     | タスク一覧をテーブル表示                                             |
-| `orbase task priority` | 優先度でタスクをフィルタして表示                                     |
-| `orbase task status`   | 状態でタスクをフィルタして表示                                       |
-| `orbase task tagdel`   | タグ名の一覧から削除（**現在実装中・利用不可**）                     |
+| コマンド               | 説明                                                                  |
+| :--------------------- | :-------------------------------------------------------------------- |
+| `orbase task add`      | タスクを追加（見出し・本文・期限・優先度・タグ・状態を対話的に入力）  |
+| `orbase task edit`     | タスクを選択し、編集する項目を選びながら対話的に更新（`done` で保存） |
+| `orbase task del`      | タスクを複数選択して削除                                              |
+| `orbase task list`     | タスク一覧をテーブル表示                                              |
+| `orbase task priority` | 優先度でタスクをフィルタして表示                                      |
+| `orbase task status`   | 状態でタスクをフィルタして表示                                        |
+| `orbase task tagdel`   | タグ名の一覧からチェックボックスで選んだタグを `tags.json` から削除   |
 
 ```bash
 $ orbase task add
@@ -99,19 +99,32 @@ $ orbase task list
 
 `list` / `priority` / `status` は同じ列構成のテーブルを表示します。`status` 列は値によって色付きで出力されます。
 
+`edit` はタスクを選ぶと編集メニューを繰り返し表示する。項目を選んで値を更新してもその場では保存されず、メニューに戻る。`done` を選んだ時点でファイルに書き込んで終了する。途中で中断すると編集内容は保存されない。
+
+```bash
+$ orbase task edit
+? Select task to edit 買い物
+? what edit it? dueDate
+? change dueDate? 2026-10-10
+? what edit it? done
+```
+
 タスクのタグは `tag` 列に `,` 区切りで表示されます。タグは `~/.orbase/tags.json` に登録され、メモとまとめて `orbase search tags <tag>` で検索できます。詳しくは [タグ](#タグ) を参照してください。
 
 ### note — メモ管理
 
 メモは本棚ごとのディレクトリに、front matter（`date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
 
-| コマンド           | 説明                                           |
-| :----------------- | :--------------------------------------------- |
-| `orbase note add`  | ファイル名を入力してメモを作成しエディタで開く |
-| `orbase note edit` | メモを選択してエディタで編集                   |
-| `orbase note del`  | メモを複数選択して削除                         |
+| コマンド             | 説明                                                         |
+| :------------------- | :----------------------------------------------------------- |
+| `orbase note add`    | ファイル名を入力してメモを作成しエディタで開く               |
+| `orbase note edit`   | メモを選択してエディタで編集                                 |
+| `orbase note del`    | メモを複数選択して削除                                       |
+| `orbase note tagdel` | `book.json` に登録された本棚名をチェックボックスで選んで削除 |
 
 `note add` が作る front matter の `tags` は空配列です。タグを付ける場合は、開いたエディタで `tags` を直接編集する。
+
+`note tagdel` が削除するのは `~/.orbase/book.json` に登録された本棚名だけです。`~/.orbase/note/` 以下のディレクトリやメモ本体、front matter の `tags` は変わりません。
 
 ### diary — 日記
 
@@ -218,7 +231,7 @@ $ orbase calendar 2026 9
 
 #### タグを付ける
 
-`orbase task add` と `orbase task edit` はどちらも `create or select?` と尋ねる。
+`orbase task add` は最初から、`orbase task edit` は「what edit it?」メニューで `tag` を選んだときに、どちらも `create or select?` と尋ねる。
 
 - `create` — 自由入力。`,` 区切りで複数タグを指定でき、入力したタグ名は `~/.orbase/tags.json` に登録される。
 - `select` — `tags.json` に登録済みのタグからチェックボックスで選ぶ。`edit` では1つ以上選ぶ必要がある。
@@ -245,9 +258,22 @@ $ orbase task add
 
 #### タグを削除する
 
-`orbase task tagdel` は実装途中で、引数を受け取らず `TypeError: tagString.filter is not a function` で終了する。不要なタグは `~/.orbase/tags.json` を直接編集して削除する。
+`orbase task tagdel` は `~/.orbase/tags.json` に登録されたタグ名をチェックボックスで表示する。削除したいタグを選んで submit すると、選ばれなかったタグだけが残った配列で `tags.json` を書き直す。
 
-`tags.json` を編集しても、既存のタスクの `tag` 配列やメモの front matter は書き換わらない。対象ファイル側も併せて編集すること。
+```bash
+$ orbase task tagdel
+? select delete tags
+ ◉ 買い物
+ ◯ 家
+ ◯ 仕事
+```
+
+削除できるのはタグ名の候補一覧だけです。既存のタスクの `tag` 配列やメモの front matter は書き換わらないため、付与済みのタグを消すには対象ファイル側も併せて編集する。
+
+```bash
+# tags.json を手で直す場合
+nvim ~/.orbase/tags.json
+```
 
 ### template — テンプレートの再利用
 
@@ -293,7 +319,7 @@ orbase --version
 │           └── YYYY-MM-DD.md
 ├── template/        # テンプレート（任意）
 ├── tags.json        # タグ名の一覧 (JSON 配列)
-└── book.json        # 最後に作成した本棚名 (JSON 文字列)
+└── book.json        # 作成した本棚名の一覧 (JSON 配列)
 ```
 
 タスクの JSON は以下の形式。
@@ -325,7 +351,7 @@ tags:
 # 本文
 ```
 
-`book.json` には `orbase note add` で最後に作成した本棚名が1つだけ入る。本棚の一覧は `~/.orbase/note/` 以下のディレクトリが正です。
+`book.json` には `orbase note add` で新規作成した本棚名が重複なしで積まれていく JSON 配列が入る。同じ本棚を2回作成しても増えません。本棚の一覧の正は `~/.orbase/note/` 以下のディレクトリで、`book.json` は作成した本棚名の記録にあたる。`orbase note tagdel` はこの一覧から項目を削除する。
 
 ## 開発
 

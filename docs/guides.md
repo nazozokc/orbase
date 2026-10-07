@@ -30,7 +30,7 @@ orbase task status
 
 追加時に期限、優先度、タグを設定できます。タグを新規作成するか、既存のタグから選択できます。
 
-登録済みのタスクを変更する場合は `orbase task edit` を実行します。タスクを選択し、各項目を対話的に更新できます。
+登録済みのタスクを変更する場合は `orbase task edit` を実行します。タスクを選び、`title` / `detail` / `dueDate` / `priority` / `tag` / `status` / `done` のメニューから項目を選んで更新します。項目を変更するたびにメニューに戻り、`done` を選んだ時点でファイルに保存されます。
 
 ## タグを整理する
 
@@ -51,7 +51,7 @@ $ orbase task add
 
 メモのタグは `orbase note add` で開いたエディタの中で front matter の `tags` を直接書きます。メモのタグは `tags.json` には登録されないため、`orbase search tags` はメモ側の front matter の値だけを照合します。
 
-必要になったタグは `~/.orbase/tags.json` を直接編集して追加できます。`orbase task tagdel` は現在使えないため、不要なタグは `tags.json` から手で削除します。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
+候補に無いタグを足したいときは `~/.orbase/tags.json` を直接編集します。不要になったタグは `orbase task tagdel` で `tags.json` から削除できます。チェックボックスで選んだタグが一覧から消えます。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
 
 ## メモを作る
 

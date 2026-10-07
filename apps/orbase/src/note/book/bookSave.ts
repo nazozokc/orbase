@@ -1,9 +1,12 @@
 import consola from "consola";
-import { ROOT_DIR } from "../../constant/app";
-import { readFile, writeFile } from "node:fs/promises";
+import { NOTE_DIR, ROOT_DIR } from "../../constant/app";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 
 export const bookSave = async (filename: string): Promise<void> => {
   try {
+    await mkdir(join(NOTE_DIR, filename), { recursive: true });
+
     let books: string[] = [];
 
     try {

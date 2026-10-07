@@ -50,17 +50,25 @@ orbase task tagdel
 
 `add` ではタイトル、本文、期限、優先度（`Low` / `Medium` / `High` / `Extra-high`）、タグ、状態を入力します。`list` は一覧を表示し、`priority` は優先度、`status` は状態を選んで絞り込みます。
 
-`edit` は編集するタスクを選択したあと、タイトル、本文、期限、優先度、タグ、状態を順番に更新します。
+`edit` は編集するタスクを選択したあと、`title` / `detail` / `dueDate` / `priority` / `tag` / `status` / `done` のメニューを繰り返し表示します。項目を選んで値を更新しても保存されず、そのたびにメニューへ戻ります。**`done` を選んだ時点でファイルに書き込んで終了します。** 途中で中断すると編集内容は保存されません。
+
+```bash
+$ orbase task edit
+? Select task to edit 買い物
+? what edit it? dueDate
+? change dueDate? 2026-10-10
+? what edit it? done
+```
 
 `del` は削除するタスクを複数選択してまとめて削除します。
 
 状態は `Todo`（未着手）、`Pending`（保留）、`In-Progress`（進行中）、`Done`（完了）から選択します。`list` / `priority` / `status` は同じ列構成のテーブルを表示し、`status` 列は色付きで出力されます。
 
-`tagdel` はタグ名を `tags.json` から削除するコマンドとして実装されていますが、現時点では引数を受け取らず `TypeError` で終了します。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
+`tagdel` は `~/.orbase/tags.json` に登録されたタグ名をチェックボックスで表示し、選んだタグを一覧から削除します。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
 
 ### タグの入力
 
-`add` と `edit` はどちらも `create or select?` と尋ねます。
+`add` と `edit` はどちらも `create or select?` と尋ねます。`edit` では `tag` 項目を選んだときに尋ねられます。
 
 - `create` — 自由入力。`,` 区切りで複数タグを指定でき、入力したタグ名は `~/.orbase/tags.json` に登録されます。
 - `select` — `tags.json` に登録済みのタグから選択します。`edit` では1つ以上選ぶ必要があります。
@@ -89,13 +97,16 @@ $ orbase task list
 
 ## `note`
 
-メモを本棚ごとに Markdown で管理します。`add` はファイル名と本棚を尋ねて `~/.orbase/note/<book>/` にファイルを作成し、`$EDITOR` で開きます。`edit` は本棚と既存メモを選択して開き、`del` は本棚内のメモを複数選択して削除します。
+メモを本棚ごとに Markdown で管理します。`add` はファイル名と本棚を尋ねて `~/.orbase/note/<book>/` にファイルを作成し、`$EDITOR` で開きます。本棚は `create or select book?` で新規作成するか既存のものを選択でき、新規作成した本棚名は `~/.orbase/book.json` に記録されます。`edit` は本棚と既存メモを選択して開き、`del` は本棚内のメモを複数選択して削除します。
 
 ```bash
 orbase note add
 orbase note edit
 orbase note del
+orbase note tagdel
 ```
+
+`tagdel` は `~/.orbase/book.json` に登録された本棚名をチェックボックスで表示し、選んだ本棚名を一覧から削除します。**削除されるのは `book.json` の登録だけ**で、`~/.orbase/note/` 以下のディレクトリ、メモ本体、front matter の `tags` は変わりません。メモのタグを消すにはメモの front matter を直接編集してください。
 
 ## `diary`
 

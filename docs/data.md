@@ -20,7 +20,7 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
 │   └── YYYY/MM/YYYY-MM-DD.md
 ├── template/        # テンプレート（任意）
 ├── tags.json        # タグ名の一覧（JSON 配列）
-└── book.json        # 最後に作成した本棚名（JSON 文字列）
+└── book.json        # 作成した本棚名の一覧（JSON 配列）
 ```
 
 ## タスク
@@ -50,7 +50,7 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
 ["買い物", "家", "仕事"]
 ```
 
-文字列の配列で、重複は登録されません。`orbase task add` / `orbase task edit` の `create` 選択時のみ更新されます。メモの front matter のタグはここには登録されません。詳しくは [タグ](./tags) を参照してください。
+文字列の配列で、重複は登録されません。書き換わるのは `orbase task add` / `orbase task edit` の `create` 選択時（追加）と `orbase task tagdel`（削除）だけです。メモの front matter のタグはここには登録されません。詳しくは [タグ](./tags) を参照してください。
 
 ## メモ
 
@@ -68,7 +68,11 @@ tags:
 
 `orbase note add` は `tags` を空配列としてファイルを作り、以降は front matter を直接編集してタグを足します。`tags` は単一の文字列でも配列でも構いません。
 
-`book.json` には `orbase note add` で最後に作成した本棚名が1つだけ入ります。本棚の一覧は `~/.orbase/note/` 以下のディレクトリが正です。
+`book.json` には `orbase note add` で新規作成した本棚名が重複なしで積まれていく JSON 配列が入ります。同じ本棚を2回作成しても増えません。本棚の一覧の正は `~/.orbase/note/` 以下のディレクトリで、`book.json` は作成した本棚名の記録にあたります。`orbase note tagdel` はこの一覧から項目を削除します（ディレクトリやメモ本体は削除されません）。
+
+```json
+["personal", "memo"]
+```
 
 ## 日記
 

@@ -45,9 +45,13 @@ export EDITOR=nvim
 
 タスクで新規作成したタグだけが `~/.orbase/tags.json` に登録され、選択肢になります。メモの front matter に書いたタグや、`tags.json` に無い名前は候補に出ません。`~/.orbase/tags.json` にタグ名を手で追加すると候補に入ります。詳しくは [タグ](./tags) を参照してください。
 
-## `orbase task tagdel` でエラーになります
+## タグを消したいときは
 
-`orbase task tagdel` は実装途中で、現時点では引数を受け取らず `TypeError: tagString.filter is not a function` で終了します。不要なタグは `~/.orbase/tags.json` を直接編集して削除してください。
+`orbase task tagdel` を実行すると、`~/.orbase/tags.json` に登録されたタグ名がチェックボックスで表示されます。削除したいタグを選んで submit してください。選ばれなかったタグだけが `tags.json` に残ります。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
+
+## `orbase note tagdel` でメモのタグが消えません
+
+`note tagdel` が操作するのは `~/.orbase/book.json`（作成した本棚名の一覧）で、メモの front matter の `tags` には触れません。メモのタグを消すには、メモを開いて front matter の `tags` を直接編集してください。
 
 ## `tags.json` を編集してもタスクのタグが消えません
 
