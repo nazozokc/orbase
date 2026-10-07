@@ -239,6 +239,8 @@
               pkgs.jq
               # Git hooks 管理
               pkgs.lefthook
+              # typoチェック
+              pkgs.typos
             ];
             shellHook = ''
               echo "[devShell:orbase] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version), lefthook $(lefthook --version)"
