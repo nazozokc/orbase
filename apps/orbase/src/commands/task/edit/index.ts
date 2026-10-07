@@ -4,7 +4,6 @@ import { join } from "node:path";
 import { select, input } from "@inquirer/prompts";
 import { tagChangeAction } from "./edit.ts";
 import consola from "consola";
-import { TaskSchema, type Task } from "../../../task/type.ts";
 
 export const edit = async (): Promise<void> => {
   try {
@@ -45,23 +44,16 @@ export const edit = async (): Promise<void> => {
         ],
       });
 
-      let titleSelect = task.title;
-      let detailSelect = task.detail;
-      let dueDateSelect = task.dueDate;
-      let prioritySelect = task.priority;
-      let tagSelect = task.tag;
-      let statusSelect = task.status;
-
       switch (selects) {
         case "title":
-          titleSelect = await input({
+          task.title = await input({
             message: "change title?",
             default: task.title,
           });
           break;
 
         case "detail":
-          detailSelect = await input({
+          task.detail = await input({
             message: "change text?",
             default: task.detail,
           });
@@ -69,7 +61,7 @@ export const edit = async (): Promise<void> => {
           break;
 
         case "dueDate":
-          dueDateSelect = await input({
+          task.dueDate = await input({
             message: "change dueDate?",
             default: task.dueDate,
           });
@@ -77,7 +69,7 @@ export const edit = async (): Promise<void> => {
           break;
 
         case "priority":
-          prioritySelect = await select({
+          task.priority = await select({
             message: "change priority?",
             choices: [
               { name: "Low", value: "Low" },
@@ -92,11 +84,11 @@ export const edit = async (): Promise<void> => {
           break;
 
         case "tag":
-          tagSelect = await tagChangeAction(filePath);
+          task.tag = await tagChangeAction(filePath);
           break;
 
         case "status":
-          statusSelect = await select({
+          task.status = await select({
             message: "Select priority",
             choices: [
               { name: "To Do", value: "Todo" },
@@ -111,24 +103,7 @@ export const edit = async (): Promise<void> => {
           break;
 
         case "done":
-          const tasks: Task = {
-            id: task.id,
-            title: titleSelect,
-            detail: detailSelect,
-            dueDate: dueDateSelect,
-            priority: prioritySelect,
-            tag: tagSelect,
-            status: statusSelect,
-            createdAt: task.createdAt,
-          };
-          const result = TaskSchema.safeParse(tasks);
-
-          if (!result.success) {
-            consola.error(result.error);
-            return;
-          }
-
-          const taskJsonStringify = JSON.stringify(result.data, null, 2);
+          const taskJsonStringify = JSON.stringify(task, null, 2);
 
           await writeFile(filePath, taskJsonStringify, "utf-8");
 
