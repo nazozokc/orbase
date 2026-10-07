@@ -8,6 +8,8 @@ pre-commit:
     typecheck:
       glob: "*.ts"
       run: tsc --project apps/orbase/tsconfig.json --noEmit
+    typos:
+      run: typos {staged_files}
 
 pre-push:
   parallel: true
@@ -19,3 +21,5 @@ pre-push:
         if find . -path ./node_modules -prune -o -type f \( -name "*.test.ts" -o -name "*.spec.ts" \) -print | grep -q .; then
           bun test
         fi
+    typos:
+      run: typos
