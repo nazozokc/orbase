@@ -40,7 +40,7 @@ orbase のデータはすべて `~/.orbase/` 以下に保存されます。
 
 `priority` は `Low`、`Medium`、`High`、`Extra-high`、`status` は `Todo`、`Pending`、`In-Progress`、`Done` のいずれかです。`id` は作成時にランダムに付与される UUID です。
 
-`dueDate` は `YYYY-M-D` 形式の自由入力です。`orbase task add` の初期値は翌日日付で、`orbase calendar` はこの値を `YYYY-MM` として切り出して、表示中の年月に一致するタスクを絞り込みます。**カレンダーでの絞り込みは `dueDate` のみで行われ、`tag` は影響しません。**
+`dueDate` は `YYYY-M-D` 形式の自由入力です。`orbase task add` の初期値は当日の日付に 1 を足した値で、月をまたぐ日数計算は行われないため、月末（例: 1 月 31 日）には `2026-1-32` のような存在しない日付が入ります。`orbase calendar` はこの値を `YYYY-MM` として切り出して、表示中の年月に一致するタスクを絞り込みます。**カレンダーでの絞り込みは `dueDate` のみで行われ、`tag` は影響しません。**
 
 ## タグ名の一覧
 
@@ -68,6 +68,8 @@ tags:
 
 `orbase note add` は `tags` を空配列としてファイルを作り、以降は front matter を直接編集してタグを足します。`tags` は単一の文字列でも配列でも構いません。
 
+`note add` が作成するファイルの `date` は `'"2026-10-8"'` のように値ごと引用符で囲まれた `YYYY-M-D` 形式になります。上の例はエディタで書き換えた状態です。
+
 `book.json` には `orbase note add` で新規作成した本棚名が重複なしで積まれていく JSON 配列が入ります。同じ本棚を2回作成しても増えません。本棚の一覧の正は `~/.orbase/note/` 以下のディレクトリで、`book.json` は作成した本棚名の記録にあたります。`orbase note tagdel` はこの一覧から項目を削除します（ディレクトリやメモ本体は削除されません）。
 
 ```json
@@ -76,11 +78,11 @@ tags:
 
 ## 日記
 
-日記は `~/.orbase/diary/YYYY/MM/YYYY-MM-DD.md` に保存されます。front matter はなく、タグの概念もありません。`orbase search string` の対象にはなりますが、`orbase search tags` の対象にはなりません。
+日記は `~/.orbase/diary/YYYY/MM/YYYY-MM-DD.md` に保存されます。front matter はなく、タグの概念もありません。`orbase search tags` の対象になりません。`orbase search string` も現在のバージョンでは日記を検索できません（月ディレクトリの読み込みでエラーになるため）。
 
 ## テンプレート
 
-テンプレートは `~/.orbase/template/` にファイルまたはディレクトリとして配置します。`orbase template <name>` を実行すると、その内容がカレントディレクトリへコピーされます。
+テンプレートは `~/.orbase/template/` にファイルまたはディレクトリとして配置します。`orbase template --templateName <name>` を実行すると、その内容がカレントディレクトリへコピーされます。`--templateName` は必須です。
 
 ## 直接編集するときの注意
 
