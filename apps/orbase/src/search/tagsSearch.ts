@@ -8,50 +8,59 @@ import { TaskSchema } from "../task/type.ts";
 
 export const searchTags = async (tagName: string): Promise<void> => {
   const taskDir = await getTaskDir();
-  const taskFiles = await readdir(taskDir, "utf-8");
+  try {
+    const taskFiles = await readdir(taskDir, "utf-8");
+    for (const taskFile of taskFiles) {
+      const taskFilePath = join(taskDir, taskFile);
+      const taskJson = await readFile(taskFilePath, "utf-8");
+      const task = JSON.parse(taskJson);
 
-  for (const taskFile of taskFiles) {
-    const taskFilePath = join(taskDir, taskFile);
-    const taskJson = await readFile(taskFilePath, "utf-8");
-    const task = JSON.parse(taskJson);
-
-    const result = TaskSchema.safeParse(task);
-
-    if (!result.success) {
-      consola.error(`Invalid file ${taskFilePath}`);
-      consola.error(result.error);
-      continue;
-    }
-
-    const tags = result.data.tag;
-
-    if (tags.includes(tagName)) {
-      consola.log(taskFilePath);
-    }
-  }
-
-  const noteDir = await getNoteDir();
-  const noteBooks = await readdir(noteDir, "utf-8");
-
-  for (const bookName of noteBooks) {
-    const bookPath = join(noteDir, bookName);
-    const noteFileNames = await readdir(bookPath, "utf-8");
-
-    for (const noteFileName of noteFileNames) {
-      const noteFilePath = join(bookPath, noteFileName);
-      const content = await readFile(noteFilePath);
-      const parsedMarkdown = matter(content);
-      const result = MarkdownMetaSchema.safeParse(parsedMarkdown.data);
+      const result = TaskSchema.safeParse(task);
 
       if (!result.success) {
-        consola.error(`Invalid file ${noteFilePath}`);
+        consola.error(`Invalid file ${taskFilePath}`);
         consola.error(result.error);
         continue;
       }
 
-      if (result.data.tags.includes(tagName)) {
-        consola.log(noteFilePath);
+      const tags = result.data.tag;
+
+      if (tags.includes(tagName)) {
+        consola.log(taskFilePath);
       }
     }
+  } catch (error) {
+    consola.error("no task file");
+    consola.error(error);
+  }
+
+  const noteDir = await getNoteDir();
+  try {
+    const noteBooks = await readdir(noteDir, "utf-8");
+
+    for (const bookName of noteBooks) {
+      const bookPath = join(noteDir, bookName);
+      const noteFileNames = await readdir(bookPath, "utf-8");
+
+      for (const noteFileName of noteFileNames) {
+        const noteFilePath = join(bookPath, noteFileName);
+        const content = await readFile(noteFilePath);
+        const parsedMarkdown = matter(content);
+        const result = MarkdownMetaSchema.safeParse(parsedMarkdown.data);
+
+        if (!result.success) {
+          consola.error(`Invalid file ${noteFilePath}`);
+          consola.error(result.error);
+          continue;
+        }
+
+        if (result.data.tags.includes(tagName)) {
+          consola.log(noteFilePath);
+        }
+      }
+    }
+  } catch (error) {
+    consola.error("No note files");
+    consola.error(error);
   }
 };
