@@ -28,7 +28,7 @@ export const add = async (): Promise<void> => {
       });
 
       selected = createSel;
-      bookSave(createSel);
+      await bookSave(createSel);
     } else {
       selected = "home";
     }
