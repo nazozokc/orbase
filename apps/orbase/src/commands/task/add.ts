@@ -64,12 +64,13 @@ export const add = async (
     }));
 
   const now = new Date();
+  const getDate = String(now.getDate()).padStart(2, "0");
 
   const dueDate =
     dueDateArg ??
     (await input({
       message: "goal date",
-      default: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+      default: `${now.getFullYear()}-${now.getMonth() + 1}-${getDate}`,
     }));
 
   const priority =
