@@ -2,79 +2,101 @@ import { input, select, checkbox } from "@inquirer/prompts";
 import { writeTask } from "../../task/writeTask.ts";
 import { TaskTagSave, type TagType } from "../../task/tags/TaskTagSave.ts";
 import { TaskTagRead } from "../../task/tags/TaskTagRead.ts";
-import type { TaskCreate } from "../../task/type.ts";
+import type { Task, TaskCreate } from "../../task/type.ts";
 
-export const tagAction = async (): Promise<TagType> => {
-  const action = await select({
-    message: "create or select?",
-    choices: ["create", "select"],
-  });
-
-  const tags: TagType = [];
-
-  if (action === "create") {
-    const tag = await input({
-      message: "create and select tags",
+export const tagAction = async (tagArg?: TagType): Promise<TagType> => {
+  if (tagArg !== undefined) {
+    await TaskTagSave(tagArg);
+    return tagArg;
+  } else {
+    const action = await select({
+      message: "create or select?",
+      choices: ["create", "select"],
     });
 
-    const splitTags = tag.split(",").map((tag) => tag.trim());
+    const tags: TagType = [];
 
-    await TaskTagSave(splitTags);
+    if (action === "create") {
+      const tag = await input({
+        message: "create and select tags",
+      });
 
-    tags.push(...splitTags);
+      const splitTags = tag.split(",").map((tag) => tag.trim());
+
+      await TaskTagSave(splitTags);
+
+      tags.push(...splitTags);
+    }
+
+    if (action === "select") {
+      const availableTags = await TaskTagRead();
+
+      const selectedTags = await checkbox({
+        message: "select tags",
+        choices: availableTags,
+      });
+
+      tags.push(...selectedTags);
+    }
+
+    return tags;
   }
-
-  if (action === "select") {
-    const availableTags = await TaskTagRead();
-
-    const selectedTags = await checkbox({
-      message: "select tags",
-      choices: availableTags,
-    });
-
-    tags.push(...selectedTags);
-  }
-
-  return tags;
 };
 
-export const add = async (): Promise<void> => {
-  const title = await input({
-    message: "task title",
-  });
+export const add = async (
+  titleArg?: string,
+  detailArg?: string,
+  dueDateArg?: string,
+  priorityArg?: Task["priority"],
+  tagArg?: TagType,
+  statusArg?: Task["status"],
+): Promise<void> => {
+  const title =
+    titleArg ??
+    (await input({
+      message: "task title",
+    }));
 
-  const detail = await input({
-    message: "task detail",
-  });
+  const detail =
+    detailArg ??
+    (await input({
+      message: "task detail",
+    }));
 
   const now = new Date();
 
-  const dueDate = await input({
-    message: "goal date",
-    default: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate() + 1}`,
-  });
+  const dueDate =
+    dueDateArg ??
+    (await input({
+      message: "goal date",
+      default: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
+    }));
 
-  const priority = await select({
-    message: "Select priority",
-    choices: [
-      { name: "Low", value: "Low" },
-      { name: "Medium", value: "Medium" },
-      { name: "High", value: "High" },
-      { name: "Extra High", value: "Extra-high" },
-    ],
-  });
+  const priority =
+    priorityArg ??
+    (await select({
+      message: "Select priority",
+      choices: [
+        { name: "Low", value: "Low" },
+        { name: "Medium", value: "Medium" },
+        { name: "High", value: "High" },
+        { name: "Extra High", value: "Extra-high" },
+      ],
+    }));
 
-  const tag = await tagAction();
+  const tag = await tagAction(tagArg);
 
-  const status = await select({
-    message: "Select status",
-    choices: [
-      { name: "To Do", value: "Todo" },
-      { name: "Pending", value: "Pending" },
-      { name: "In Progress", value: "In-Progress" },
-      { name: "Done", value: "Done" },
-    ],
-  });
+  const status =
+    statusArg ??
+    (await select({
+      message: "Select status",
+      choices: [
+        { name: "To Do", value: "Todo" },
+        { name: "Pending", value: "Pending" },
+        { name: "In Progress", value: "In-Progress" },
+        { name: "Done", value: "Done" },
+      ],
+    }));
 
   const task: TaskCreate = {
     title,
