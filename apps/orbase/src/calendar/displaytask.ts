@@ -12,7 +12,10 @@ export const displayTasksForMonth = async (
   });
   for (const task of tasks) {
     const [taskYear, taskMonth] = task.dueDate.split("-");
-    if (taskYear === year && taskMonth === String(+month + 1)) {
+    if (
+      taskYear === year &&
+      taskMonth === String(+month + 1).padStart(2, "0")
+    ) {
       let statusLabel;
       if (task.status === "Todo") {
         statusLabel = "\x1b[44m\x1b[30m Todo \x1b[0m";
