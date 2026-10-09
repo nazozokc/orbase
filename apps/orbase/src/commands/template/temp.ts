@@ -3,6 +3,7 @@ import { readdir, cp, stat } from "node:fs/promises";
 import process from "node:process";
 import { join, resolve, sep } from "node:path";
 import consola from "consola";
+import { select } from "@inquirer/prompts";
 
 export const copyTemplate = async (templateName: string): Promise<void> => {
   const destinationDirectory = process.cwd();
@@ -10,10 +11,8 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
   const templateRoot = resolve(TEMPLATE_DIR);
 
   // sepはセパレーターのこと、linux,macOSは”/”,windowsは"\"
-  if (
-    templatePath !== templateRoot &&
-    !templatePath.startsWith(`${templateRoot}${sep}`)
-  ) {
+  if (!templatePath.startsWith(`${templateRoot}${sep}`)) {
+    return;
   }
   // statで情報を手に入れる
   const templateStats = await stat(templatePath);
@@ -24,11 +23,34 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
       const sourceEntryPath = join(templatePath, entryName);
       const destinationEntryPath = join(destinationDirectory, entryName);
 
-      await cp(sourceEntryPath, destinationEntryPath, { recursive: true });
+      const allow = await select({
+        message: "copy template file?",
+        choices: [
+          { name: "yes", value: "yes" },
+          { name: "no", value: "no" },
+        ],
+      });
+
+      if (allow === "yes") {
+        await cp(sourceEntryPath, destinationEntryPath, { recursive: true });
+      } else {
+        consola.error("stop copy template file");
+      }
     }
   } else {
     const destinationPath = join(destinationDirectory, templateName);
-    await cp(templatePath, destinationPath, { recursive: true });
+    const allow = await select({
+      message: "copy template file?",
+      choices: [
+        { name: "yes", value: "yes" },
+        { name: "no", value: "no" },
+      ],
+    });
+    if (allow === "yes") {
+      await cp(templatePath, destinationPath, { recursive: true });
+    } else {
+      consola.error("stop copy template file");
+    }
   }
 
   consola.success("success template file");
