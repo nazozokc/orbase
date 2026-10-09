@@ -51,6 +51,11 @@ export const add = async (
   tagArg?: TagType,
   statusArg?: Task["status"],
 ): Promise<void> => {
+  process.on("SIGINT", () => {
+    console.log("\n処理をキャンセルした");
+    process.exit(0);
+  });
+
   const title =
     titleArg ??
     (await input({
