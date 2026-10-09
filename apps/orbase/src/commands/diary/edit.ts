@@ -21,7 +21,7 @@ export const edit = async (): Promise<void> => {
   const filename = join(
     await getDiaryDir(),
     String(year),
-    String(month),
+    String(month).padStart(2, "0"),
     `${year}-${month}-${date}.md`,
   );
 
