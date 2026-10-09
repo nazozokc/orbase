@@ -5,6 +5,13 @@ import { TaskTagRead } from "../../task/tags/TaskTagRead.ts";
 import type { Task, TaskCreate } from "../../task/type.ts";
 import { consola } from "consola";
 
+const controller = new AbortController();
+
+process.on("SIGINT", () => {
+  controller.abort();
+  process.exitCode = 130;
+});
+
 export const tagAction = async (tagArg?: TagType): Promise<TagType> => {
   if (tagArg !== undefined) {
     await TaskTagSave(tagArg);
@@ -113,8 +120,7 @@ export const add = async (
     await writeTask(task);
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
-      process.exitCode = 130;
-      consola.info("exit");
+      consola.info("キャンセルした");
     } else {
       throw error;
     }
