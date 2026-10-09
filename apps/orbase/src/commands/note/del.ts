@@ -1,13 +1,14 @@
 import { checkbox, select } from "@inquirer/prompts";
 import { deleteNote } from "../../note/deletenote.ts";
-import { NOTE_DIR } from "../../constant/app.ts";
+import { getNoteDir } from "../../constant/app.ts";
 import { readdir } from "node:fs/promises";
 import { consola } from "consola";
 import { join } from "node:path";
 
 export const del = async (): Promise<void> => {
   try {
-    const noteDirs = await readdir(NOTE_DIR);
+    const noteDir = await getNoteDir();
+    const noteDirs = await readdir(noteDir);
     const bookChoices = [];
 
     for (const bookName of noteDirs) {
@@ -22,7 +23,7 @@ export const del = async (): Promise<void> => {
       choices: bookChoices,
     });
 
-    const noteFilesPath = join(NOTE_DIR, selectedBooks);
+    const noteFilesPath = join(noteDir, selectedBooks);
     const noteFiles = await readdir(noteFilesPath);
     const noteChoices = [];
 

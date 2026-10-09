@@ -1,4 +1,4 @@
-import { DIARY_DIR } from "../../constant/app.ts";
+import { getDiaryDir } from "../../constant/app.ts";
 import { join } from "path";
 import { access } from "node:fs/promises";
 import consola from "consola";
@@ -19,7 +19,7 @@ export const edit = async (): Promise<void> => {
   });
 
   const filename = join(
-    DIARY_DIR,
+    await getDiaryDir(),
     String(year),
     String(month),
     `${year}-${month}-${date}.md`,

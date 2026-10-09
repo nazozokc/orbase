@@ -1,12 +1,12 @@
 import { TaskSchema, type Task } from "./type.ts";
-import { TASK_DIR } from "../constant/app.ts";
+import { getTaskDir } from "../constant/app.ts";
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "node:path";
 import consola from "consola";
 
 export const readTask = async (): Promise<Task[]> => {
   try {
-    const taskDir = TASK_DIR;
+    const taskDir = await getTaskDir();
     const files = await readdir(taskDir);
     const tasks = [];
 

@@ -1,11 +1,25 @@
 import { join } from "node:path";
-import { homedir } from "node:os";
 import { readConfig } from "../config/configRead.ts";
 
 export const CLI_COMMAND_NAME = "orbase";
-const config = await readConfig();
-export const ROOT_DIR = join(config.save_directory);
-export const TASK_DIR = join(ROOT_DIR, "task");
-export const NOTE_DIR = join(ROOT_DIR, "note");
-export const DIARY_DIR = join(ROOT_DIR, "diary");
-export const TEMPLATE_DIR = join(ROOT_DIR, "template");
+
+export const getRootDir = async (): Promise<string> => {
+  const config = await readConfig();
+  return join(config.save_directory);
+};
+
+export const getTaskDir = async (): Promise<string> => {
+  return join(String(await getRootDir()), "task");
+};
+
+export const getDiaryDir = async (): Promise<string> => {
+  return join(String(await getRootDir()), "diary");
+};
+
+export const getTemplateDir = async (): Promise<string> => {
+  return join(String(await getRootDir()), "template");
+};
+
+export const getNoteDir = async (): Promise<string> => {
+  return join(String(await getRootDir()), "note");
+};

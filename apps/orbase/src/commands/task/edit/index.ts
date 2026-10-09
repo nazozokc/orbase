@@ -1,5 +1,5 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
-import { TASK_DIR } from "../../../constant/app.ts";
+import { getTaskDir } from "../../../constant/app.ts";
 import { join } from "node:path";
 import { select, input } from "@inquirer/prompts";
 import { tagChangeAction } from "./edit.ts";
@@ -7,11 +7,12 @@ import consola from "consola";
 
 export const edit = async (): Promise<void> => {
   try {
-    const files = await readdir(TASK_DIR);
+    const taskDir = await getTaskDir();
+    const files = await readdir(taskDir);
     const choices = [];
 
     for (const file of files) {
-      const filePath = join(TASK_DIR, file);
+      const filePath = join(taskDir, file);
       const content = await readFile(filePath, "utf-8");
       const task = JSON.parse(content);
 
@@ -26,7 +27,7 @@ export const edit = async (): Promise<void> => {
       choices,
     });
 
-    const filePath = join(TASK_DIR, selected);
+    const filePath = join(taskDir, selected);
     const taskRead = await readFile(filePath, "utf-8");
     const task = JSON.parse(taskRead);
 

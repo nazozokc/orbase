@@ -1,4 +1,4 @@
-import { TEMPLATE_DIR } from "../../constant/app.ts";
+import { getTemplateDir } from "../../constant/app.ts";
 import { readdir, cp, stat } from "node:fs/promises";
 import process from "node:process";
 import { join, resolve, sep } from "node:path";
@@ -6,9 +6,10 @@ import consola from "consola";
 import { select } from "@inquirer/prompts";
 
 export const copyTemplate = async (templateName: string): Promise<void> => {
+  const tempDir = await getTemplateDir();
   const destinationDirectory = process.cwd();
-  const templatePath = resolve(TEMPLATE_DIR, templateName);
-  const templateRoot = resolve(TEMPLATE_DIR);
+  const templatePath = resolve(tempDir, templateName);
+  const templateRoot = resolve(tempDir);
 
   // sepはセパレーターのこと、linux,macOSは”/”,windowsは"\"
   if (!templatePath.startsWith(`${templateRoot}${sep}`)) {

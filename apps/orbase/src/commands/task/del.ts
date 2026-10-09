@@ -1,7 +1,7 @@
 import { checkbox } from "@inquirer/prompts";
 import consola from "consola";
 import { join } from "node:path";
-import { TASK_DIR } from "../../constant/app.ts";
+import { getTaskDir } from "../../constant/app.ts";
 import { deleteTask } from "../../task/deleteTask.ts";
 import { readTask } from "../../task/readTask.ts";
 
@@ -24,7 +24,7 @@ export const del = async (): Promise<void> => {
 
     for (const select of selected) {
       try {
-        const filePath = join(TASK_DIR, select);
+        const filePath = join(await getTaskDir(), select);
 
         await deleteTask(`${filePath}.json`);
 

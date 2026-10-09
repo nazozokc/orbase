@@ -1,17 +1,18 @@
-import { NOTE_DIR } from "../../constant/app.ts";
+import { getNoteDir } from "../../constant/app.ts";
 import { readdir } from "node:fs/promises";
 import { select } from "@inquirer/prompts";
 import { join } from "node:path";
 import openeditor from "open-editor";
 
 export const edit = async (): Promise<void> => {
-  const bookNames = await readdir(NOTE_DIR);
+  const noteDir = await getNoteDir();
+  const bookNames = await readdir(noteDir);
   const selectedBook = await select({
     message: "select book",
     choices: bookNames,
   });
 
-  const Path = join(NOTE_DIR, selectedBook);
+  const Path = join(noteDir, selectedBook);
 
   const selectedFile = await readdir(Path);
 
@@ -22,7 +23,7 @@ export const edit = async (): Promise<void> => {
 
   await openeditor([
     {
-      file: join(NOTE_DIR, selectedBook, selected),
+      file: join(noteDir, selectedBook, selected),
       line: 1,
       column: 1,
     },

@@ -1,10 +1,11 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { TaskSchema, TaskSchemaCreate, type TaskCreate } from "./type.ts";
-import { TASK_DIR } from "../constant/app.ts";
+import { getTaskDir } from "../constant/app.ts";
 import { randomUUID } from "crypto";
 import consola from "consola";
 
 export const writeTask = async (task: TaskCreate): Promise<void> => {
+  const taskDir = await getTaskDir();
   const resultCreateSchema = TaskSchemaCreate.safeParse(task);
 
   if (!resultCreateSchema.success) {
@@ -26,10 +27,10 @@ export const writeTask = async (task: TaskCreate): Promise<void> => {
   }
 
   try {
-    await mkdir(TASK_DIR, { recursive: true });
+    await mkdir(taskDir, { recursive: true });
     const taskJson = JSON.stringify(resultDoneSchema.data, null, 2);
     await writeFile(
-      `${TASK_DIR}/${resultDoneSchema.data.id}.json`,
+      `${taskDir}/${resultDoneSchema.data.id}.json`,
       taskJson,
       "utf-8",
     );

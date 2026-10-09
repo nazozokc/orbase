@@ -1,11 +1,11 @@
 import { readFile } from "node:fs/promises";
-import { ROOT_DIR } from "../../constant/app";
+import { getRootDir } from "../../constant/app";
 import { NoteTypeSchema, type NoteTagType } from "./NoteTagSave.ts";
 import consola from "consola";
 
 export const NoteTagRead = async (): Promise<NoteTagType> => {
   try {
-    const tagsJson = await readFile(`${ROOT_DIR}/book.json`, "utf-8");
+    const tagsJson = await readFile(`${await getRootDir()}/book.json`, "utf-8");
     const parsedTags = JSON.parse(tagsJson);
 
     const result = NoteTypeSchema.safeParse(parsedTags);

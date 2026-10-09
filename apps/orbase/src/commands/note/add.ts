@@ -2,12 +2,13 @@ import { addNote } from "../../note/addnote.ts";
 import { input } from "@inquirer/prompts";
 import { readdir } from "node:fs/promises";
 import { select } from "@inquirer/prompts";
-import { NOTE_DIR } from "../../constant/app.ts";
+import { getNoteDir } from "../../constant/app.ts";
 import consola from "consola";
 import { bookSave } from "../../note/book/bookSave.ts";
 
 export const add = async (): Promise<void> => {
   try {
+    const notedir = await getNoteDir();
     let selected: string;
     const filename = await input({
       message: "Enter a file name",
@@ -32,7 +33,7 @@ export const add = async (): Promise<void> => {
       selected = "home";
     }
     if (CreateOrSelect === "select") {
-      const choices = await readdir(NOTE_DIR);
+      const choices = await readdir(notedir);
 
       selected = await select({
         message: "select book",

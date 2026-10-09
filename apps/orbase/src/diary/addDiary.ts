@@ -1,5 +1,5 @@
 import { writeFile, mkdir } from "node:fs/promises";
-import { DIARY_DIR } from "../constant/app.ts";
+import { getDiaryDir } from "../constant/app.ts";
 import openEditor from "open-editor";
 import { join } from "node:path";
 
@@ -10,7 +10,7 @@ export const addDiary = async (): Promise<void> => {
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
 
-  const diaryDir = join(DIARY_DIR, year, month);
+  const diaryDir = join(await getDiaryDir(), year, month);
   const filename = join(diaryDir, `${year}-${month}-${day}.md`);
 
   await mkdir(diaryDir, { recursive: true });

@@ -1,16 +1,17 @@
-import { TASK_DIR, NOTE_DIR, DIARY_DIR } from "../constant/app.ts";
+import { getTaskDir, getNoteDir, getDiaryDir } from "../constant/app.ts";
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "path";
 import { consola } from "consola";
 import { TaskSchema } from "../task/type.ts";
 
 export const searchString = async (searchTerm: string): Promise<void> => {
-  const taskFiles = await readdir(TASK_DIR, "utf-8");
+  const taskDir = await getTaskDir();
+  const taskFiles = await readdir(taskDir, "utf-8");
 
   if (taskFiles !== undefined) {
     for (const taskFileName of taskFiles) {
       if (taskFileName.endsWith(".json")) {
-        const taskFilePath = join(TASK_DIR);
+        const taskFilePath = join(taskDir);
         const taskContent = await readFile(taskFilePath, "utf-8");
         const parsedTask = JSON.parse(taskContent);
 
@@ -30,11 +31,12 @@ export const searchString = async (searchTerm: string): Promise<void> => {
     }
   }
 
-  const noteBooks = await readdir(NOTE_DIR, "utf-8");
+  const noteDir = await getNoteDir();
+  const noteBooks = await readdir(noteDir, "utf-8");
 
   if (noteBooks !== undefined) {
     for (const bookName of noteBooks) {
-      const bookPath = join(NOTE_DIR, bookName);
+      const bookPath = join(noteDir, bookName);
       const noteFileNames = await readdir(bookPath, "utf-8");
 
       for (const noteFileName of noteFileNames) {
@@ -50,13 +52,14 @@ export const searchString = async (searchTerm: string): Promise<void> => {
     consola.error("0 note books");
   }
 
-  const diaryYears = await readdir(DIARY_DIR, "utf-8");
+  const diaryDir = await getDiaryDir();
+  const diaryYears = await readdir(diaryDir, "utf-8");
 
   if (diaryYears !== undefined) {
     for (const year of diaryYears) {
-      const diaryMonthNames = await readdir(join(DIARY_DIR, year));
+      const diaryMonthNames = await readdir(join(diaryDir, year));
       for (const month of diaryMonthNames) {
-        const diaryFilePath = join(DIARY_DIR, year, month);
+        const diaryFilePath = join(diaryDir, year, month);
         const diaryContent = await readFile(diaryFilePath, "utf-8");
 
         if (diaryContent.includes(searchTerm)) {

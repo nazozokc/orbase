@@ -1,4 +1,4 @@
-import { TASK_DIR, NOTE_DIR } from "../constant/app.ts";
+import { getTaskDir, getNoteDir } from "../constant/app.ts";
 import { MarkdownMetaSchema, type MarkdownMeta } from "../note/type.ts";
 import { readFile, readdir } from "node:fs/promises";
 import { join } from "path";
@@ -7,10 +7,11 @@ import matter from "gray-matter";
 import { TaskSchema } from "../task/type.ts";
 
 export const searchTags = async (tagName: string): Promise<void> => {
-  const taskFiles = await readdir(TASK_DIR, "utf-8");
+  const taskDir = await getTaskDir();
+  const taskFiles = await readdir(taskDir, "utf-8");
 
   for (const taskFile of taskFiles) {
-    const taskFilePath = join(TASK_DIR, taskFile);
+    const taskFilePath = join(taskDir, taskFile);
     const taskJson = await readFile(taskFilePath, "utf-8");
     const task = JSON.parse(taskJson);
 
@@ -29,10 +30,11 @@ export const searchTags = async (tagName: string): Promise<void> => {
     }
   }
 
-  const noteBooks = await readdir(NOTE_DIR, "utf-8");
+  const noteDir = await getNoteDir();
+  const noteBooks = await readdir(noteDir, "utf-8");
 
   for (const bookName of noteBooks) {
-    const bookPath = join(NOTE_DIR, bookName);
+    const bookPath = join(noteDir, bookName);
     const noteFileNames = await readdir(bookPath, "utf-8");
 
     for (const noteFileName of noteFileNames) {
