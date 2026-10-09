@@ -16,6 +16,7 @@ export const bookSave = async (filename: string): Promise<void> => {
       books = JSON.parse(json);
     } catch (error) {
       consola.error(error);
+      return;
     }
 
     if (!books.includes(filename)) {
