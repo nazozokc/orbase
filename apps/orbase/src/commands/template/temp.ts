@@ -49,10 +49,9 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
     });
     if (allow === "yes") {
       await cp(templatePath, destinationPath, { recursive: true });
+      consola.success("success template file");
     } else {
       consola.error("stop copy template file");
     }
   }
-
-  consola.success("success template file");
 };
