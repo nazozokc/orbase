@@ -59,70 +59,62 @@ export const add = async (
   tagArg?: TagType,
   statusArg?: Task["status"],
 ): Promise<void> => {
-  try {
-    const title =
-      titleArg ??
-      (await input({
-        message: "task title",
-      }));
+  const title =
+    titleArg ??
+    (await input({
+      message: "task title",
+    }));
 
-    const detail =
-      detailArg?.padStart(2, "0") ??
-      (await input({
-        message: "task detail",
-      }));
+  const detail =
+    detailArg?.padStart(2, "0") ??
+    (await input({
+      message: "task detail",
+    }));
 
-    const now = new Date();
-    const getDate = String(now.getDate()).padStart(2, "0");
+  const now = new Date();
+  const getDate = String(now.getDate()).padStart(2, "0");
 
-    const dueDate =
-      dueDateArg ??
-      (await input({
-        message: "goal date",
-        default: `${now.getFullYear()}-${now.getMonth() + 1}-${getDate}`,
-      }));
+  const dueDate =
+    dueDateArg ??
+    (await input({
+      message: "goal date",
+      default: `${now.getFullYear()}-${now.getMonth() + 1}-${getDate}`,
+    }));
 
-    const priority =
-      priorityArg ??
-      (await select({
-        message: "Select priority",
-        choices: [
-          { name: "Low", value: "Low" },
-          { name: "Medium", value: "Medium" },
-          { name: "High", value: "High" },
-          { name: "Extra High", value: "Extra-high" },
-        ],
-      }));
+  const priority =
+    priorityArg ??
+    (await select({
+      message: "Select priority",
+      choices: [
+        { name: "Low", value: "Low" },
+        { name: "Medium", value: "Medium" },
+        { name: "High", value: "High" },
+        { name: "Extra High", value: "Extra-high" },
+      ],
+    }));
 
-    const tag = await tagAction(tagArg);
+  const tag = await tagAction(tagArg);
 
-    const status =
-      statusArg ??
-      (await select({
-        message: "Select status",
-        choices: [
-          { name: "To Do", value: "Todo" },
-          { name: "Pending", value: "Pending" },
-          { name: "In Progress", value: "In-Progress" },
-          { name: "Done", value: "Done" },
-        ],
-      }));
+  const status =
+    statusArg ??
+    (await select({
+      message: "Select status",
+      choices: [
+        { name: "To Do", value: "Todo" },
+        { name: "Pending", value: "Pending" },
+        { name: "In Progress", value: "In-Progress" },
+        { name: "Done", value: "Done" },
+      ],
+    }));
 
-    const task: TaskCreate = {
-      title,
-      detail,
-      dueDate,
-      priority,
-      tag,
-      status,
-    };
+  const task: TaskCreate = {
+    title,
+    detail,
+    dueDate,
+    priority,
+    tag,
+    status,
+  };
 
-    await writeTask(task);
-  } catch (error) {
-    if (error instanceof Error && error.name === "AbortError") {
-      consola.info("キャンセルした");
-    } else {
-      throw error;
-    }
-  }
+  await writeTask(task);
 };
