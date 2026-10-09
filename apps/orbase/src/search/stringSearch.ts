@@ -18,6 +18,7 @@ export const searchString = async (searchTerm: string): Promise<void> => {
       if (!parsedTaskResult.success) {
         consola.error(`Invalid file ${taskFilePath}`);
         consola.error(parsedTaskResult.error);
+        continue;
       }
 
       if (taskContent.includes(searchTerm)) {
