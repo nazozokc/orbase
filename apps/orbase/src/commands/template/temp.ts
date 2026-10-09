@@ -34,6 +34,7 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
 
       if (allow === "yes") {
         await cp(sourceEntryPath, destinationEntryPath, { recursive: true });
+        consola.success("success template directory");
       } else {
         consola.error("stop copy template file");
       }
