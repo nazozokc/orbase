@@ -18,7 +18,50 @@ export const taskCommand: Command = {
   subCommands: {
     add: {
       name: "add",
-      run: add,
+      args: {
+        title: {
+          type: "string",
+          short: "t",
+          description: "Task title",
+          required: false,
+        },
+        detail: {
+          type: "string",
+          short: "t",
+          description: "Task Detail",
+          required: false,
+        },
+        dueDate: {
+          type: "string",
+          short: "d",
+          description: "Task DueDate",
+          required: false,
+        },
+        priority: {
+          type: "string",
+          short: "d",
+          description: "Task priority",
+          required: false,
+        },
+        tag: {
+          type: "string[]",
+          short: "d",
+          description: "Task tag",
+          required: false,
+        },
+        status: {
+          type: "string",
+          short: "d",
+          description: "Task tag",
+          required: false,
+        },
+      },
+
+      run: (ctx) => {
+        const { title, detail, dueDate, priority, tag, status } = ctx.values;
+
+        add(title, detail, dueDate, priority, tag, status);
+      },
     },
 
     edit: {
