@@ -5,30 +5,34 @@ import { consola } from "consola";
 import { TaskSchema } from "../task/type.ts";
 
 export const searchString = async (searchTerm: string): Promise<void> => {
-  try {
-    const taskFiles = await readdir(TASK_DIR, "utf-8");
+  const taskFiles = await readdir(TASK_DIR, "utf-8");
 
+  if (taskFiles !== undefined) {
     for (const taskFileName of taskFiles) {
-      const taskFilePath = join(TASK_DIR, taskFileName);
-      const taskContent = await readFile(taskFilePath, "utf-8");
-      const parsedTask = JSON.parse(taskContent);
+      if (taskFileName.endsWith(".json")) {
+        const taskFilePath = join(TASK_DIR);
+        const taskContent = await readFile(taskFilePath, "utf-8");
+        const parsedTask = JSON.parse(taskContent);
 
-      const parsedTaskResult = TaskSchema.safeParse(parsedTask);
+        const parsedTaskResult = TaskSchema.safeParse(parsedTask);
 
-      if (!parsedTaskResult.success) {
-        consola.error(`Invalid file ${taskFilePath}`);
-        consola.error(parsedTaskResult.error);
-        continue;
-      }
+        if (!parsedTaskResult.success) {
+          consola.error(`Invalid file ${taskFilePath}`);
+          consola.error(parsedTaskResult.error);
+          continue;
+        }
 
-      if (taskContent.includes(searchTerm)) {
-        consola.log(taskFilePath);
-        consola.log(taskContent);
+        if (taskContent.includes(searchTerm)) {
+          consola.log(taskFilePath);
+          consola.log(taskContent);
+        }
       }
     }
+  }
 
-    const noteBooks = await readdir(NOTE_DIR, "utf-8");
+  const noteBooks = await readdir(NOTE_DIR, "utf-8");
 
+  if (noteBooks !== undefined) {
     for (const bookName of noteBooks) {
       const bookPath = join(NOTE_DIR, bookName);
       const noteFileNames = await readdir(bookPath, "utf-8");
@@ -42,9 +46,13 @@ export const searchString = async (searchTerm: string): Promise<void> => {
         }
       }
     }
+  } else {
+    consola.error("0 note books");
+  }
 
-    const diaryYears = await readdir(DIARY_DIR, "utf-8");
+  const diaryYears = await readdir(DIARY_DIR, "utf-8");
 
+  if (diaryYears !== undefined) {
     for (const year of diaryYears) {
       const diaryMonthNames = await readdir(join(DIARY_DIR, year));
       for (const month of diaryMonthNames) {
@@ -57,7 +65,5 @@ export const searchString = async (searchTerm: string): Promise<void> => {
         }
       }
     }
-  } catch (error) {
-    consola.error(error);
   }
 };
