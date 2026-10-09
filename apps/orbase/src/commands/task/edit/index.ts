@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { select, input } from "@inquirer/prompts";
 import { tagChangeAction } from "./edit.ts";
 import consola from "consola";
+import { TaskSchemaCreate } from "../../../task/type.ts";
 
 export const edit = async (): Promise<void> => {
   try {
@@ -14,10 +15,15 @@ export const edit = async (): Promise<void> => {
     for (const file of files) {
       const filePath = join(taskDir, file);
       const content = await readFile(filePath, "utf-8");
-      const task = JSON.parse(content);
+      const result = TaskSchemaCreate.safeParse(JSON.parse(content));
+
+      if (!result.success) {
+        consola.error(`Invalid file ${file}`);
+        continue;
+      }
 
       choices.push({
-        name: task.title,
+        name: result.data.title,
         value: file,
       });
     }
