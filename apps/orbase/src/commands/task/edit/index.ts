@@ -90,7 +90,7 @@ export const edit = async (): Promise<void> => {
 
         case "status":
           task.status = await select({
-            message: "Select priority",
+            message: "Select status",
             choices: [
               { name: "To Do", value: "Todo" },
               { name: "Pending", value: "Pending" },
