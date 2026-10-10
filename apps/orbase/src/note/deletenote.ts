@@ -1,6 +1,6 @@
 import { unlink } from "node:fs/promises";
-import { join } from "path";
-import { getNoteDir } from "../constant/app.js";
+import { join } from "node:path";
+import { getNoteDir } from "../constant/app.ts";
 
 export const deleteNote = async (
   name: string,

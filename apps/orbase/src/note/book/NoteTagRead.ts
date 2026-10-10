@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { getRootDir } from "../../constant/app";
+import { getRootDir } from "../../constant/app.ts";
 import { NoteTypeSchema, type NoteTagType } from "./NoteTagSave.ts";
 import consola from "consola";
 

@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { getRootDir } from "../../constant/app";
+import { getRootDir } from "../../constant/app.ts";
 import { TagTypeSchema, type TagType } from "./TaskTagSave.ts";
 import consola from "consola";
 
