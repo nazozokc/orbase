@@ -7,7 +7,7 @@
   "license": "MIT",
   "author": "nazozokc",
   "bin": {
-    "orbase": "./dist/index.mjs"
+    "mybase": "./dist/index.mjs"
   },
   "scripts": {
     "build": "bunx tsdown"
