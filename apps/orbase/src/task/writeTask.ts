@@ -1,7 +1,8 @@
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, rename } from "node:fs/promises";
 import { TaskSchema, TaskSchemaCreate, type TaskCreate } from "./type.ts";
 import { getTaskDir } from "../constant/app.ts";
 import { randomUUID } from "crypto";
+import { join } from "node:path";
 import consola from "consola";
 
 export const writeTask = async (task: TaskCreate): Promise<void> => {
@@ -29,11 +30,10 @@ export const writeTask = async (task: TaskCreate): Promise<void> => {
   try {
     await mkdir(taskDir, { recursive: true });
     const taskJson = JSON.stringify(resultDoneSchema.data, null, 2);
-    await writeFile(
-      `${taskDir}/${resultDoneSchema.data.id}.json`,
-      taskJson,
-      "utf-8",
-    );
+    const tmpPath = join(taskDir, `{resultDoneSchema.data.id}.json.tmp`);
+    const filePath = join(taskDir, `{resultDoneSchema.data.id}.json`);
+    await writeFile(tmpPath, taskJson, "utf-8");
+    await rename(tmpPath, filePath);
   } catch (error) {
     consola.error(error);
     return;

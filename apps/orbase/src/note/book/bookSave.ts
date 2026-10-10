@@ -1,6 +1,6 @@
 import consola from "consola";
 import { getNoteDir, getRootDir } from "../../constant/app.ts";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, rename, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 export const bookSave = async (filename: string): Promise<void> => {
@@ -22,12 +22,10 @@ export const bookSave = async (filename: string): Promise<void> => {
     if (!books.includes(filename)) {
       books.push(filename);
     }
-
-    await writeFile(
-      `${rootDir}/book.json`,
-      JSON.stringify(books, null, 2),
-      "utf-8",
-    );
+    const tmpPath = join(rootDir, "book.json.tmp");
+    const FilePath = join(rootDir, "book.json");
+    await writeFile(tmpPath, JSON.stringify(books, null, 2), "utf-8");
+    await rename(tmpPath, FilePath);
   } catch (error) {
     consola.error(error);
   }
