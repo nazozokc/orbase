@@ -5,7 +5,7 @@ import { join } from "path";
 import { writeFile, mkdir } from "node:fs/promises";
 
 const defaultSchema: ConfigType = {
-  save_directory: join(`${homedir()}`, ".orbase"),
+  save_directory: join(`${homedir()}`, ".mybase"),
 };
 
 export const generateConfig = async (): Promise<void> => {

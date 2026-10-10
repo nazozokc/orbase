@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: orbase
+  name: mybase-cli
   text: ターミナルから始める、ローカルなライフ管理
   tagline: タスク・メモ・日記をシンプルに管理する CLI
   actions:
@@ -17,49 +17,49 @@ features:
   - title: CLI-first
     details: 対話的なプロンプトで、タスク・メモ・日記をターミナルから管理。マウスに触れずに終わります。
   - title: Local-first
-    details: データはすべて ~/.orbase/ に保存。サーバー、アカウント、テレメトリーは一切ありません。
+    details: データはすべて ~/.mybase/ に保存。サーバー、アカウント、テレメトリーは一切ありません。
   - title: Plain text
     details: JSON と Markdown で保存。エディタや Git で直接編集でき、データの鎖はつながります。
 ---
 
 タスク・メモ・日記をローカルで管理する CLI ツールです。
 
-すべてのデータは `~/.orbase/` に JSON または Markdown として保存されます。
+すべてのデータは `~/.mybase/` に JSON または Markdown として保存されます。
 
 ## クイックスタート
 
 ```bash
-nix run github:nazozokc/orbase
+nix run github:nazozokc/mybase
 ```
 
 または npm / Bun からインストールできます。
 
 ```bash
-npm install -g @nazozokc/orbase
+npm install -g mybase-cli
 # または
-bun add -g @nazozokc/orbase
+bun add -g mybase-cli
 ```
 
 インストール後は次のコマンドでタスクを作成できます。
 
 ```bash
-orbase task add
-orbase task list
+mybase-cli task add
+mybase-cli task list
 ```
 
-`orbase` の各コマンドは対話形式です。タスクは JSON、メモと日記は Markdown として `~/.orbase/` に保存されるため、使い始めるときにアカウント登録やデータベースの準備は必要ありません。
+`mybase-cli` の各コマンドは対話形式です。タスクは JSON、メモと日記は Markdown として `~/.mybase/` に保存されるため、使い始めるときにアカウント登録やデータベースの準備は必要ありません。
 
 ## まず覚えるコマンド
 
-| やりたいこと           | コマンド                               |
-| ---------------------- | -------------------------------------- |
-| タスクを追加・確認する | `orbase task add` / `orbase task list` |
-| メモを作成する         | `orbase note add`                      |
-| 今日の日記を書く       | `orbase diary add`                     |
-| キーワードを探す       | `orbase search string <キーワード>`    |
-| タグを探す             | `orbase search tags <タグ>`            |
-| カレンダーを表示する   | `orbase calendar [<year>] [<month>]`   |
-| 操作方法を確認する     | `orbase --help`                        |
+| やりたいこと           | コマンド                                       |
+| ---------------------- | ---------------------------------------------- |
+| タスクを追加・確認する | `mybase-cli task add` / `mybase-cli task list` |
+| メモを作成する         | `mybase-cli note add`                          |
+| 今日の日記を書く       | `mybase-cli diary add`                         |
+| キーワードを探す       | `mybase-cli search string <キーワード>`        |
+| タグを探す             | `mybase-cli search tags <タグ>`                |
+| カレンダーを表示する   | `mybase-cli calendar [<year>] [<month>]`       |
+| 操作方法を確認する     | `mybase-cli --help`                            |
 
 ## 主な機能
 

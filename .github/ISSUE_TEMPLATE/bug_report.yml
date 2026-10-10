@@ -1,5 +1,5 @@
 name: バグ報告
-description: mybase の不具合を報告する
+description: mybase-cli の不具合を報告する
 labels: ["bug"]
 body:
   - type: textarea
@@ -15,7 +15,7 @@ body:
       label: 再現手順
       description: 不具合が再現する手順を記述してください。
       placeholder: |
-        1. `mybase task add` を実行
+        1. `mybase-cli task add` を実行
         2. タイトルに「テスト」を入力
         3. エラーが発生
     validations:
@@ -48,8 +48,8 @@ body:
     attributes:
       label: インストール方法
       options:
-        - npm (`npm install -g mybase`)
-        - bun (`bun add -g mybase`)
+        - npm (`npm install -g mybase-cli`)
+        - bun (`bun add -g mybase-cli`)
         - Nix flake (`nix run` / `nix profile install`)
         - ソースから (`bun run src/index.ts`)
     validations:
@@ -60,7 +60,7 @@ body:
       label: バージョン
       description: 各コマンドの出力を貼り付けてください。
       placeholder: |
-        $ mybase --version
+        $ mybase-cli --version
         x.y.z
         $ bun --version
         1.x.x

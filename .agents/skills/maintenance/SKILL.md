@@ -1,18 +1,18 @@
 ---
 name: maintenance
-description: Maintain and safely evolve the orbase Bun/TypeScript CLI while preserving its data formats, structure, and local development workflow.
+description: Maintain and safely evolve the mybase-cli Bun/TypeScript CLI while preserving its data formats, structure, and local development workflow.
 ---
 
-# Orbase Maintenance
+# Mybase-cli Maintenance
 
-Use this skill for bug fixes, refactors, dependency updates, small improvements, and compatibility work. Start by reading `CLAUDE.md`, `CONTRIBUTING.md`, the applicable `apps/orbase/CLAUDE.md`, and relevant docs/source.
+Use this skill for bug fixes, refactors, dependency updates, small improvements, and compatibility work. Start by reading `CLAUDE.md`, `CONTRIBUTING.md`, the applicable `apps/mybase/CLAUDE.md`, and relevant docs/source.
 
 ## Preserve the project contract
 
-- Keep implementation in TypeScript under `apps/orbase/src`; register new CLI commands in `src/index.ts` and keep modules focused.
+- Keep implementation in TypeScript under `apps/mybase/src`; register new CLI commands in `src/index.ts` and keep modules focused.
 - Prefer Bun APIs and commands (`bun`, `bun test`, `bun run build`); avoid unnecessary Node ecosystem tools and dependencies.
 - Keep code simple, readable, and consistent with nearby patterns. Avoid speculative abstractions.
-- Treat `~/.orbase` as a compatibility boundary: task JSON, note front matter Markdown, diary paths, and tags JSON must remain readable. Consider missing or malformed local data when changing readers/writers.
+- Treat `~/.mybase` as a compatibility boundary: task JSON, note front matter Markdown, diary paths, and tags JSON must remain readable. Consider missing or malformed local data when changing readers/writers.
 - Update relevant docs for data or CLI changes, and keep Nix/Bun metadata coherent; dependency changes require checking `bun.lock` and root `bun.nix`.
 
 ## Safe workflow

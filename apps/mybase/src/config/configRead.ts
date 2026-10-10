@@ -7,7 +7,7 @@ import path from "node:path";
 import consola from "consola";
 
 const defaultConfig: ConfigType = {
-  save_directory: join(`${homedir()}`, ".orbase"),
+  save_directory: join(`${homedir()}`, ".mybase"),
 };
 
 export const readConfig = async (): Promise<ConfigType> => {

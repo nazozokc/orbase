@@ -25,7 +25,7 @@ body:
       label: 提案する機能
       description: どのような機能・改善が欲しいか記述してください。コマンド例があると助かります。
       placeholder: |
-        `mybase task done <id>` でタスクを完了にしたい。
+        `mybase-cli task done <id>` でタスクを完了にしたい。
     validations:
       required: true
   - type: textarea

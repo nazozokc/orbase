@@ -2,10 +2,10 @@ import { defineConfig } from "vitepress";
 
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
-  title: "orbase",
+  title: "mybase-cli",
   description: "ローカルで使えるライフ管理 CLI",
-  // GitHub Pages serves this project under https://nazozokc.github.io/orbase/.
-  base: "/orbase/",
+  // GitHub Pages serves this project under https://nazozokc.github.io/mybase/.
+  base: "/mybase/",
   head: [
     [
       "link",
@@ -39,7 +39,7 @@ export default defineConfig({
       },
     ],
     socialLinks: [
-      { icon: "github", link: "https://github.com/nazozokc/orbase" },
+      { icon: "github", link: "https://github.com/nazozokc/mybase" },
     ],
     footer: {
       message: "Local-first life management CLI",

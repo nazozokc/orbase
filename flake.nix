@@ -109,20 +109,23 @@
             '';
 
             buildPhase = ''
-              bun build ./apps/mybase/src/index.ts --outfile ./orbase.js --target bun
+              bun build ./apps/mybase/src/index.ts --outfile ./mybase-cli.js --target bun
             '';
 
             installPhase = ''
-              install -Dm755 mybase.js $out/libexec/orbase/orbase.js
-              makeWrapper ${pkgs.bun}/bin/bun $out/bin/mybase \
-                --add-flags "$out/libexec/mybase/orbase.js"
+              install -Dm755 mybase-cli.js $out/libexec/mybase-cli/mybase-cli.js
+              # version.ts がバンドルから "../package.json" を読むため、
+              # エントリの1つ上に package.json を配置する
+              install -Dm644 ./apps/mybase/package.json $out/libexec/package.json
+              makeWrapper ${pkgs.bun}/bin/bun $out/bin/mybase-cli \
+                --add-flags "$out/libexec/mybase-cli/mybase-cli.js"
             '';
 
             meta = {
               description = "Personal CLI tool for managing life";
               homepage = "https://github.com/nazozokc/mybase";
               license = pkgs.lib.licenses.mit;
-              mainProgram = "mybase";
+              mainProgram = "mybase-cli";
               platforms = pkgs.lib.platforms.all;
             };
           };

@@ -1,11 +1,11 @@
 ---
 name: commit-message
-description: Draft clear, repository-aligned Git commit messages for orbase changes from the actual diff and validation results.
+description: Draft clear, repository-aligned Git commit messages for mybase-cli changes from the actual diff and validation results.
 ---
 
 # Commit Message
 
-Use this skill when proposing or writing a commit message for orbase. Inspect the staged diff (or requested change if nothing is staged), separate unrelated changes, and never infer purpose from filenames alone.
+Use this skill when proposing or writing a commit message for mybase-cli. Inspect the staged diff (or requested change if nothing is staged), separate unrelated changes, and never infer purpose from filenames alone.
 
 Prefer a Conventional Commit subject: `<type>(<scope>): <imperative summary>`. Use concise English unless the user or local convention calls for Japanese. Useful types are `feat`, `fix`, `refactor`, `docs`, `test`, `build`, and `chore`; scopes may be `task`, `note`, `diary`, `search`, `template`, `cli`, or `nix`. Keep the subject specific, without a period, and describe the outcome.
 
