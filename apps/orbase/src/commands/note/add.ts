@@ -3,12 +3,14 @@ import { input } from "@inquirer/prompts";
 import { readdir } from "node:fs/promises";
 import { select } from "@inquirer/prompts";
 import { getNoteDir } from "../../constant/app.ts";
+import { mkdir } from "node:fs/promises";
 import consola from "consola";
 import { bookSave } from "../../note/book/bookSave.ts";
 
 export const add = async (): Promise<void> => {
   try {
     const notedir = await getNoteDir();
+    await mkdir(notedir, { recursive: true });
     let selected: string;
     const filename = await input({
       message: "Enter a file name",
@@ -33,11 +35,11 @@ export const add = async (): Promise<void> => {
       selected = "home";
     }
     if (CreateOrSelect === "select") {
-      const choices = await readdir(notedir);
+      const choices = await readdir(notedir, { withFileTypes: true });
 
       selected = await select({
         message: "select book",
-        choices,
+        choices: choices.map((map) => map.name),
       });
     }
 
