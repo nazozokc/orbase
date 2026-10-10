@@ -41,12 +41,12 @@ jobs:
 
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Bump apps/orbase/package.json version
+      - name: Bump apps/mybase/package.json version
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           bun -e '
-            const file = "apps/orbase/package.json";
+            const file = "apps/mybase/package.json";
             const pkg = await Bun.file(file).json();
 
             pkg.version = process.env.VERSION;
@@ -63,9 +63,9 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build
-        working-directory: apps/orbase
+        working-directory: apps/mybase
         run: bun run build
 
       - name: Publish to npm
-        working-directory: apps/orbase
+        working-directory: apps/mybase
         run: npm publish --access public

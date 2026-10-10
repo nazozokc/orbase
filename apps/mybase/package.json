@@ -1,5 +1,5 @@
 {
-  "name": "@nazozokc/orbase",
+  "name": "mybase-cli",
   "module": "src/index.ts",
   "type": "module",
   "version": "0.6.3",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "author": "nazozokc",
   "bin": {
-    "orbase": "./dist/index.mjs"
+    "mybase": "./dist/index.mjs"
   },
   "scripts": {
     "build": "bunx tsdown"
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nazozokc/orbase.git"
+    "url": "https://github.com/nazozokc/mybase.git"
   },
   "files": [
     "dist",

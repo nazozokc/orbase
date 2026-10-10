@@ -1,5 +1,5 @@
 {
-  description = "orbase — Personal CLI tool";
+  description = "mybase — Personal CLI tool";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -46,7 +46,7 @@
         }:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          # ルートの bun.lock / package.json と apps/orbase だけをソースに含める。
+          # ルートの bun.lock / package.json と apps/mybase だけをソースに含める。
           # docs は vitepress の依存が bun.lock に含まれず sandbox 内の
           # オフライン install を壊すため除外する。
           src = pkgs.lib.cleanSourceWith {
@@ -56,14 +56,14 @@
               let
                 rel = pkgs.lib.removePrefix (toString ./. + "/") (toString path);
               in
-              builtins.match "package.json|bun.lock|apps/orbase/tsconfig.json" rel != null
+              builtins.match "package.json|bun.lock|apps/mybase/tsconfig.json" rel != null
               || (
-                builtins.match "apps(/orbase(/.*)?)?" rel != null
+                builtins.match "apps(/mybase(/.*)?)?" rel != null
                 && builtins.match ".*/node_modules(/.*)?" rel == null
               );
           };
           # package.json を唯一のバージョン情報源にする
-          version = (pkgs.lib.importJSON ./apps/orbase/package.json).version;
+          version = (pkgs.lib.importJSON ./apps/mybase/package.json).version;
           bun2nix' = bun2nix.packages.${system}.bun2nix;
           # bun.nix から作った bun 互換キャッシュ（sandbox 内のオフライン install 用）
           # bun.nix はルートの bun.lock から生成する（bun2nix は workspace パッケージを
@@ -75,7 +75,7 @@
           # packages
           # -----------------------------------------------------------------
           packages.default = pkgs.stdenv.mkDerivation {
-            pname = "orbase";
+            pname = "mybase";
             inherit src version bunDeps;
 
             nativeBuildInputs = [
@@ -109,20 +109,20 @@
             '';
 
             buildPhase = ''
-              bun build ./apps/orbase/src/index.ts --outfile ./orbase.js --target bun
+              bun build ./apps/mybase/src/index.ts --outfile ./orbase.js --target bun
             '';
 
             installPhase = ''
-              install -Dm755 orbase.js $out/libexec/orbase/orbase.js
-              makeWrapper ${pkgs.bun}/bin/bun $out/bin/orbase \
-                --add-flags "$out/libexec/orbase/orbase.js"
+              install -Dm755 mybase.js $out/libexec/orbase/orbase.js
+              makeWrapper ${pkgs.bun}/bin/bun $out/bin/mybase \
+                --add-flags "$out/libexec/mybase/orbase.js"
             '';
 
             meta = {
               description = "Personal CLI tool for managing life";
-              homepage = "https://github.com/nazozokc/orbase";
+              homepage = "https://github.com/nazozokc/mybase";
               license = pkgs.lib.licenses.mit;
-              mainProgram = "orbase";
+              mainProgram = "mybase";
               platforms = pkgs.lib.platforms.all;
             };
           };
@@ -139,7 +139,7 @@
           # リポジトリのルートで実行することを前提にしている。
           apps.update = {
             type = "app";
-            program = pkgs.writeShellScript "orbase-update-bun-nix" ''
+            program = pkgs.writeShellScript "mybase-update-bun-nix" ''
               set -euo pipefail
               ${pkgs.lib.getExe bun2nix'} -l bun.lock -o bun.nix
             '';
@@ -152,7 +152,7 @@
           checks.build = self'.packages.default;
 
           checks.tests = pkgs.stdenv.mkDerivation {
-            pname = "orbase-tests";
+            pname = "mybase-tests";
             inherit src version bunDeps;
 
             nativeBuildInputs = [
@@ -188,7 +188,7 @@
           };
 
           checks.typecheck = pkgs.stdenv.mkDerivation {
-            pname = "orbase-typecheck";
+            pname = "mybase-typecheck";
             inherit src version bunDeps;
 
             nativeBuildInputs = [
@@ -207,7 +207,7 @@
             '';
 
             checkPhase = ''
-              tsc --project apps/orbase/tsconfig.json --noEmit
+              tsc --project apps/mybase/tsconfig.json --noEmit
             '';
 
             installPhase = ''
@@ -221,7 +221,7 @@
           # mkShellNoCC: コンパイラ不要の shell なので stdenvNoCC を使い、
           # gcc/binutils 等のダウンロードを避けて direnv の読み込みを高速化する
           devShells.default = pkgs.mkShellNoCC {
-            name = "orbase";
+            name = "mybase";
             packages = [
               # ランタイム & パッケージマネージャ
               pkgs.bun
@@ -243,7 +243,7 @@
               pkgs.typos
             ];
             shellHook = ''
-              echo "[devShell:orbase] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version), lefthook $(lefthook --version)"
+              echo "[devShell:mybase] bun $(bun --version), tsc $(tsc --version), treefmt $(treefmt --version), lefthook $(lefthook --version)"
               # Git hooks を自動インストール
               if [ -d .git ] && [ -f lefthook.yml ]; then
                 lefthook install
@@ -260,7 +260,7 @@
             programs.prettier.enable = true;
             settings.global.excludes = [
               # bun.lock は trailing comma を含む JSON なので prettier 不可
-              "apps/orbase/bun.lock"
+              "apps/mybase/bun.lock"
               # bun.nix は bun2nix の生成物なので nixfmt しない
               "bun.nix"
             ];

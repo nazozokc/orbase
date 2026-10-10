@@ -1,7 +1,7 @@
 import { join } from "node:path";
 import { readConfig } from "../config/configRead.ts";
 
-export const CLI_COMMAND_NAME = "orbase";
+export const CLI_COMMAND_NAME = "mybase";
 
 export const getRootDir = async (): Promise<string> => {
   const config = await readConfig();

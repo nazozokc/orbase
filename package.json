@@ -1,5 +1,5 @@
 {
-  "name": "orbase",
+  "name": "mybase",
   "type": "module",
   "devDependencies": {
     "@types/bun": "latest"
