@@ -11,7 +11,7 @@ export const searchString = async (searchTerm: string): Promise<void> => {
   if (taskFiles !== undefined) {
     for (const taskFileName of taskFiles) {
       if (taskFileName.endsWith(".json")) {
-        const taskFilePath = join(taskDir);
+        const taskFilePath = join(taskDir, taskFileName);
         const taskContent = await readFile(taskFilePath, "utf-8");
         const parsedTask = JSON.parse(taskContent);
 
