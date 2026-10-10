@@ -2,7 +2,7 @@ import type { Command } from "gunshi";
 import { add } from "./add.ts";
 import { del } from "./del.ts";
 import { edit } from "./edit.ts";
-import { tagdel } from "./tagdel.ts";
+import { bookdel } from "./bookdel.ts";
 
 export const noteCommand: Command = {
   name: "note",
@@ -24,9 +24,9 @@ export const noteCommand: Command = {
       run: del,
     },
 
-    tagdel: {
-      name: "tagdel",
-      run: tagdel,
+    bookdel: {
+      name: "bookdel",
+      run: bookdel,
     },
   },
 };

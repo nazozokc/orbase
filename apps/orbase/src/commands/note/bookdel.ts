@@ -1,8 +1,8 @@
-import { NoteTagRead } from "../../note/tags/NoteTagRead.ts";
+import { NoteTagRead } from "../../note/book/NoteTagRead.ts";
 import { checkbox } from "@inquirer/prompts";
-import { NoteTagWrite } from "../../note/tags/NoteTagWrite.ts";
+import { NoteTagWrite } from "../../note/book/NoteTagWrite.ts";
 
-export const tagdel = async (): Promise<void> => {
+export const bookdel = async (): Promise<void> => {
   const choices = await NoteTagRead();
   const selected = await checkbox({
     message: "select delete tags",

@@ -1,5 +1,5 @@
 import consola from "consola";
-import { getNoteDir, getRootDir } from "../../constant/app";
+import { getNoteDir, getRootDir } from "../../constant/app.ts";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
