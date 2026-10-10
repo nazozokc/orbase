@@ -7,7 +7,7 @@
   "license": "MIT",
   "author": "nazozokc",
   "bin": {
-    "mybase": "./dist/index.mjs"
+    "mybase-cli": "./dist/index.mjs"
   },
   "scripts": {
     "build": "bunx tsdown"

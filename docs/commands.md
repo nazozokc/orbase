@@ -1,11 +1,11 @@
 ---
 title: コマンド一覧
-description: orbase CLI のコマンドリファレンス。
+description: mybase-cli CLI のコマンドリファレンス。
 ---
 
 # コマンド一覧
 
-各コマンドは対話形式で実行します。`orbase --help` や `orbase <command> --help` でも確認できます。
+各コマンドは対話形式で実行します。`mybase-cli --help` や `mybase-cli <command> --help` でも確認できます。
 
 ## コマンド早見表
 
@@ -37,23 +37,23 @@ description: orbase CLI のコマンドリファレンス。
 ## `task`
 
 ```bash
-orbase task add
-orbase task edit
-orbase task del
-orbase task list
-orbase task priority
-orbase task status
-orbase task tagdel
+mybase-cli task add
+mybase-cli task edit
+mybase-cli task del
+mybase-cli task list
+mybase-cli task priority
+mybase-cli task status
+mybase-cli task tagdel
 ```
 
-タスクを管理します。タスクは `~/.orbase/task/` に `<uuid>.json` として保存されます。
+タスクを管理します。タスクは `~/.mybase/task/` に `<uuid>.json` として保存されます。
 
 `add` ではタイトル、本文、期限、優先度（`Low` / `Medium` / `High` / `Extra-high`）、タグ、状態を入力します。`list` は一覧を表示し、`priority` は優先度、`status` は状態を選んで絞り込みます。
 
 `edit` は編集するタスクを選択したあと、`title` / `detail` / `dueDate` / `priority` / `tag` / `status` / `done` のメニューを繰り返し表示します。項目を選んで値を更新しても保存されず、そのたびにメニューへ戻ります。**`done` を選んだ時点でファイルに書き込んで終了します。** 途中で中断すると編集内容は保存されません。
 
 ```bash
-$ orbase task edit
+$ mybase-cli task edit
 ? Select task to edit 買い物
 ? what edit it? dueDate
 ? change dueDate? 2026-10-10
@@ -64,17 +64,17 @@ $ orbase task edit
 
 状態は `Todo`（未着手）、`Pending`（保留）、`In-Progress`（進行中）、`Done`（完了）から選択します。`list` / `priority` / `status` は同じ列構成のテーブルを表示し、`status` 列は色付きで出力されます。
 
-`tagdel` は `~/.orbase/tags.json` に登録されたタグ名をチェックボックスで表示し、選んだタグを一覧から削除します。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
+`tagdel` は `~/.mybase/tags.json` に登録されたタグ名をチェックボックスで表示し、選んだタグを一覧から削除します。詳しくは [タグを削除する](./tags#タグを削除する) を参照してください。
 
 ### タグの入力
 
 `add` と `edit` はどちらも `create or select?` と尋ねます。`edit` では `tag` 項目を選んだときに尋ねられます。
 
-- `create` — 自由入力。`,` 区切りで複数タグを指定でき、入力したタグ名は `~/.orbase/tags.json` に登録されます。
+- `create` — 自由入力。`,` 区切りで複数タグを指定でき、入力したタグ名は `~/.mybase/tags.json` に登録されます。
 - `select` — `tags.json` に登録済みのタグから選択します。`edit` では1つ以上選ぶ必要があります。
 
 ```bash
-$ orbase task add
+$ mybase-cli task add
 ? task title 買い物
 ? task detail 牛乳と卵を買う
 ? goal date 2026-10-05
@@ -85,7 +85,7 @@ $ orbase task add
 ```
 
 ```bash
-$ orbase task list
+$ mybase-cli task list
 ┌────────┬────────────────┬────────────┬───────────┬──────────┬────────┐
 │ title  │ detail         │ dueDate    │ tag       │ priority │ status │
 ├────────┼────────────────┼────────────┼───────────┼──────────┼────────┤
@@ -97,51 +97,51 @@ $ orbase task list
 
 ## `note`
 
-メモを本棚ごとに Markdown で管理します。`add` はファイル名と本棚を尋ねて `~/.orbase/note/<book>/` にファイルを作成し、`$EDITOR` で開きます。本棚は `create or select book?` で新規作成するか既存のものを選択でき、新規作成した本棚名は `~/.orbase/book.json` に記録されます。`edit` は本棚と既存メモを選択して開き、`del` は本棚内のメモを複数選択して削除します。
+メモを本棚ごとに Markdown で管理します。`add` はファイル名と本棚を尋ねて `~/.mybase/note/<book>/` にファイルを作成し、`$EDITOR` で開きます。本棚は `create or select book?` で新規作成するか既存のものを選択でき、新規作成した本棚名は `~/.mybase/book.json` に記録されます。`edit` は本棚と既存メモを選択して開き、`del` は本棚内のメモを複数選択して削除します。
 
 ```bash
-orbase note add
-orbase note edit
-orbase note del
-orbase note tagdel
+mybase-cli note add
+mybase-cli note edit
+mybase-cli note del
+mybase-cli note tagdel
 ```
 
-`tagdel` は `~/.orbase/book.json` に登録された本棚名をチェックボックスで表示し、選んだ本棚名を一覧から削除します。**削除されるのは `book.json` の登録だけ**で、`~/.orbase/note/` 以下のディレクトリ、メモ本体、front matter の `tags` は変わりません。メモのタグを消すにはメモの front matter を直接編集してください。
+`tagdel` は `~/.mybase/book.json` に登録された本棚名をチェックボックスで表示し、選んだ本棚名を一覧から削除します。**削除されるのは `book.json` の登録だけ**で、`~/.mybase/note/` 以下のディレクトリ、メモ本体、front matter の `tags` は変わりません。メモのタグを消すにはメモの front matter を直接編集してください。
 
 ## `diary`
 
 ```bash
-orbase diary add
-orbase diary edit
-orbase diary del
+mybase-cli diary add
+mybase-cli diary edit
+mybase-cli diary del
 ```
 
 日記を管理します。`add` は今日の日記を作成して `$EDITOR` で開きます。`edit` と `del` では年・月・日を入力します。
 
-パスは `~/.orbase/diary/YYYY/MM/` 以下に入力値をそのまま繋げて組み立てるため、月・日はファイル名と同じゼロ埋め 2 桁（例: `08`、`01`）で入力します。`8` のように桁が足りないと `No such file or directory` になります。
+パスは `~/.mybase/diary/YYYY/MM/` 以下に入力値をそのまま繋げて組み立てるため、月・日はファイル名と同じゼロ埋め 2 桁（例: `08`、`01`）で入力します。`8` のように桁が足りないと `No such file or directory` になります。
 
 ## `search`
 
 ```bash
-orbase search string <keyword>
-orbase search tags <tag>
+mybase-cli search string <keyword>
+mybase-cli search tags <tag>
 ```
 
 `string` はタスク・メモの内容を横断して検索し、ファイルパスと内容を表示します。タスクがヒットした場合は JSON の全文、メモがヒットした場合はファイルの全文が出力されます。
 `tags` はタグが一致するタスク・メモのパスを表示します。メモは front matter の `tags` を、タスクは JSON の `tag` 配列を照合します。日記にはタグがないため対象になりません。
 
-**日記は `string` の検索対象になりません。** 現在のバージョンでは `~/.orbase/diary/YYYY/MM/` の月ディレクトリをファイルとして読もうとしてエラーになるため、日記の本文はキーワード検索にヒットしません。日記を探すには `~/.orbase/diary/` 以下を直接開いてください。
+**日記は `string` の検索対象になりません。** 現在のバージョンでは `~/.mybase/diary/YYYY/MM/` の月ディレクトリをファイルとして読もうとしてエラーになるため、日記の本文はキーワード検索にヒットしません。日記を探すには `~/.mybase/diary/` 以下を直接開いてください。
 
 検索語はコマンド引数として渡します。空白を含む場合は引用符で囲んでください。
 
 ```bash
-orbase search string "買い物 メモ"
+mybase-cli search string "買い物 メモ"
 ```
 
 ```bash
-$ orbase search tags 買い物
-/home/user/.orbase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
-/home/user/.orbase/note/personal/買い物.md
+$ mybase-cli search tags 買い物
+/home/user/.mybase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
+/home/user/.mybase/note/personal/買い物.md
 ```
 
 メモの front matter で `tags` を単一の文字列（`tags: 買い物`）で書いている場合、`search tags` は部分一致で判定します。
@@ -149,7 +149,7 @@ $ orbase search tags 買い物
 ## `calendar`
 
 ```bash
-orbase calendar [<year>] [<month>]
+mybase-cli calendar [<year>] [<month>]
 ```
 
 出力は2段構えです。上の表が日付のカレンダー、下の表がその月の期限を持つタスクの一覧です。
@@ -158,13 +158,13 @@ orbase calendar [<year>] [<month>]
 
 `year` と `month` はどちらも省略できます。省略時の既定値には注意が必要です。
 
-| 実行例                   | 表示される年月    |
-| ------------------------ | ----------------- |
-| `orbase calendar`        | 今日の年月        |
-| `orbase calendar 2027`   | 2027 年の**今月** |
-| `orbase calendar 2026 9` | **2026 年 10 月** |
+| 実行例                       | 表示される年月    |
+| ---------------------------- | ----------------- |
+| `mybase-cli calendar`        | 今日の年月        |
+| `mybase-cli calendar 2027`   | 2027 年の**今月** |
+| `mybase-cli calendar 2026 9` | **2026 年 10 月** |
 
-**`month` は 0 始まりです。** `0` が1月、`11` が12月に対応します。したがって `orbase calendar 2026 9` が表示するのは9月ではなく10月です。
+**`month` は 0 始まりです。** `0` が1月、`11` が12月に対応します。したがって `mybase-cli calendar 2026 9` が表示するのは9月ではなく10月です。
 
 `month` だけを省略すると、1月ではなく現在の月が表示されます。
 
@@ -179,7 +179,7 @@ orbase calendar [<year>] [<month>]
 `tag` 列はタスクの `tag` 配列を `,` で連結した文字列です。
 
 ```bash
-$ orbase calendar 2026 9
+$ mybase-cli calendar 2026 9
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │ Sun │ Mon │ Tue │ Wed │ Thu │ Fri │ Sat │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -200,24 +200,24 @@ $ orbase calendar 2026 9
 └────────┴────────────────┴────────────┴───────────┴──────────┴────────┘
 ```
 
-対象タスクがない場合もヘッダだけの表が表示されます。カレンダーは `~/.orbase/task/` のタスクしか読みません。メモと日記は表示されません。
+対象タスクがない場合もヘッダだけの表が表示されます。カレンダーは `~/.mybase/task/` のタスクしか読みません。メモと日記は表示されません。
 
 ## `template`
 
-`~/.orbase/template/` にテンプレート用のファイルまたはディレクトリを手動で作成しておくと、指定したテンプレートをカレントディレクトリへコピーできます。`template` に登録・削除用のサブコマンドはありません。
+`~/.mybase/template/` にテンプレート用のファイルまたはディレクトリを手動で作成しておくと、指定したテンプレートをカレントディレクトリへコピーできます。`template` に登録・削除用のサブコマンドはありません。
 
 ```bash
-orbase template --templateName project
+mybase-cli template --templateName project
 ```
 
-テンプレート名は `--templateName` に指定します。このオプションは必須で、`orbase template project` のように位置引数で渡すと `Optional argument '--templateName' is required` で失敗します。
+テンプレート名は `--templateName` に指定します。このオプションは必須で、`mybase-cli template project` のように位置引数で渡すと `Optional argument '--templateName' is required` で失敗します。
 
 ## `init`
 
-`~/.config/orbase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は実行してください。
+`~/.config/mybase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は実行してください。
 
 ```bash
-orbase init
+mybase-cli init
 ```
 
 ## エディタの設定
@@ -233,7 +233,7 @@ export EDITOR=vim
 ## ヘルプとバージョン
 
 ```bash
-orbase --help
-orbase task --help
-orbase --version
+mybase-cli --help
+mybase-cli task --help
+mybase-cli --version
 ```
