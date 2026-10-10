@@ -6,7 +6,7 @@ export const templateCommand = define({
   description: "copy a template",
   args: {
     templateName: {
-      type: "string",
+      type: "positional",
       description: "template_name",
       required: true,
     },
