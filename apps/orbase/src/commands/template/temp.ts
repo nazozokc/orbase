@@ -13,10 +13,12 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
 
   // sepはセパレーターのこと、linux,macOSは”/”,windowsは"\"
   if (!templatePath.startsWith(`${templateRoot}${sep}`)) {
+    consola.error("Detecting a path outside the allowed directory");
     return;
   }
   // statで情報を手に入れる
   const templateStats = await stat(templatePath);
+  const read = await readdir(destinationDirectory);
 
   if (templateStats.isDirectory()) {
     const templateEntries = await readdir(templatePath);
@@ -32,8 +34,11 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
         ],
       });
 
-      if (allow === "yes") {
-        await cp(sourceEntryPath, destinationEntryPath, { recursive: true });
+      if (allow === "yes" && !read.includes(entryName)) {
+        await cp(sourceEntryPath, destinationEntryPath, {
+          recursive: true,
+          force: false,
+        });
         consola.success("success template directory");
       } else {
         consola.error("stop copy template file");
@@ -48,8 +53,12 @@ export const copyTemplate = async (templateName: string): Promise<void> => {
         { name: "no", value: "no" },
       ],
     });
-    if (allow === "yes") {
-      await cp(templatePath, destinationPath, { recursive: true });
+
+    if (allow === "yes" && !read.includes(templateName)) {
+      await cp(templatePath, destinationPath, {
+        recursive: true,
+        force: false,
+      });
       consola.success("success template file");
     } else {
       consola.error("stop copy template file");
