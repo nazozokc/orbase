@@ -13,7 +13,7 @@
     },
     "apps/mybase": {
       "name": "mybase-cli",
-      "version": "0.6.3",
+      "version": "0.6.4",
       "bin": {
         "mybase-cli": "./dist/index.mjs",
       },
