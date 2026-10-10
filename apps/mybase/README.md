@@ -1,9 +1,9 @@
-# orbase
+# mybase
 
-[![Publish](https://github.com/nazozokc/orbase/actions/workflows/publish.yml/badge.svg)](https://github.com/nazozokc/orbase/actions/workflows/publish.yml)<br>
+[![Publish](https://github.com/nazozokc/mybase/actions/workflows/publish.yml/badge.svg)](https://github.com/nazozokc/orbase/actions/workflows/publish.yml)<br>
 タスク・メモ・日記を CLI から管理する個人用ライフ管理ツール。
 
-すべてのデータはローカルの `~/.orbase/` にプレーンテキスト形式で保存される。エディタで直接編集することもできる。
+すべてのデータはローカルの `~/.mybase/` にプレーンテキスト形式で保存される。エディタで直接編集することもできる。
 
 ## 特徴
 
@@ -14,9 +14,9 @@
 - **検索** — キーワードでタスク・メモを横断検索、タグでタスク・メモを検索
 - **カレンダー** — 指定した年月のカレンダーと、その月の期限のタスク一覧をターミナルに表示
 - **テンプレート** — よく使うファイルやディレクトリをカレントディレクトリへコピー
-- **初期設定** — orbase の設定ファイルを作成
+- **初期設定** — mybase の設定ファイルを作成
 - **エディタ連携** — 編集は `$EDITOR` でファイルを直接開く
-- **データは全てローカル** — `~/.orbase/` 配下に JSON / Markdown で保存
+- **データは全てローカル** — `~/.mybase/` 配下に JSON / Markdown で保存
 
 ## インストール
 
@@ -25,62 +25,62 @@
 Node.js 22 以上が必要。
 
 ```bash
-npm install -g @nazozokc/orbase
+npm install -g @nazozokc/mybase
 # または
-bun add -g @nazozokc/orbase
+bun add -g @nazozokc/mybase
 ```
 
 ### Nix flake
 
 ```bash
 # 一時的に実行
-nix run github:nazozokc/orbase
+nix run github:nazozokc/mybase
 
 # プロファイルへインストール
-nix profile install github:nazozokc/orbase
+nix profile install github:nazozokc/mybase
 ```
 
 ## 使い方
 
 ```bash
-orbase <command> [subcommand] [arguments]
+mybase <command> [subcommand] [arguments]
 ```
 
 主なコマンドは次のとおり。
 
 | コマンド                                | 説明                                               |
 | :-------------------------------------- | :------------------------------------------------- |
-| `orbase task`                           | タスクを管理                                       |
-| `orbase note`                           | 本棚ごとのメモを管理                               |
-| `orbase diary`                          | 日記を管理                                         |
-| `orbase search`                         | タスク・メモを検索                                 |
-| `orbase calendar [<year>] [<month>]`    | カレンダーと、その月の期限のタスク一覧を表示       |
-| `orbase template --templateName <name>` | 登録したテンプレートをカレントディレクトリへコピー |
-| `orbase init`                           | 設定ファイルを作成                                 |
+| `mybase task`                           | タスクを管理                                       |
+| `mybase note`                           | 本棚ごとのメモを管理                               |
+| `mybase diary`                          | 日記を管理                                         |
+| `mybase search`                         | タスク・メモを検索                                 |
+| `mybase calendar [<year>] [<month>]`    | カレンダーと、その月の期限のタスク一覧を表示       |
+| `mybase template --templateName <name>` | 登録したテンプレートをカレントディレクトリへコピー |
+| `mybase init`                           | 設定ファイルを作成                                 |
 
 メモや日記の編集には環境変数 `$EDITOR` に設定されたエディタが使われる。未設定の場合は、利用するエディタを設定してから実行する。
 
 ```bash
 export EDITOR=vim
-orbase note add
+mybase note add
 ```
 
 ### task — タスク管理
 
-タスクは `~/.orbase/task/<uuid>.json` に保存される。
+タスクは `~/.mybase/task/<uuid>.json` に保存される。
 
 | コマンド               | 説明                                                                  |
 | :--------------------- | :-------------------------------------------------------------------- |
-| `orbase task add`      | タスクを追加（見出し・本文・期限・優先度・タグ・状態を対話的に入力）  |
-| `orbase task edit`     | タスクを選択し、編集する項目を選びながら対話的に更新（`done` で保存） |
-| `orbase task del`      | タスクを複数選択して削除                                              |
-| `orbase task list`     | タスク一覧をテーブル表示                                              |
-| `orbase task priority` | 優先度でタスクをフィルタして表示                                      |
-| `orbase task status`   | 状態でタスクをフィルタして表示                                        |
-| `orbase task tagdel`   | タグ名の一覧からチェックボックスで選んだタグを `tags.json` から削除   |
+| `mybase task add`      | タスクを追加（見出し・本文・期限・優先度・タグ・状態を対話的に入力）  |
+| `mybase task edit`     | タスクを選択し、編集する項目を選びながら対話的に更新（`done` で保存） |
+| `mybase task del`      | タスクを複数選択して削除                                              |
+| `mybase task list`     | タスク一覧をテーブル表示                                              |
+| `mybase task priority` | 優先度でタスクをフィルタして表示                                      |
+| `mybase task status`   | 状態でタスクをフィルタして表示                                        |
+| `mybase task tagdel`   | タグ名の一覧からチェックボックスで選んだタグを `tags.json` から削除   |
 
 ```bash
-$ orbase task add
+$ mybase task add
 ? task title 買い物
 ? task detail 牛乳と卵を買う
 ? goal date 2026-10-05
@@ -89,7 +89,7 @@ $ orbase task add
 ? create and select tags 買い物, 家
 ? Select status To Do
 
-$ orbase task list
+$ mybase task list
 ┌────────┬────────────────┬────────────┬───────────┬──────────┬────────┐
 │ title  │ detail         │ dueDate    │ tag       │ priority │ status │
 ├────────┼────────────────┼────────────┼───────────┼──────────┼────────┤
@@ -102,45 +102,45 @@ $ orbase task list
 `edit` はタスクを選ぶと編集メニューを繰り返し表示する。項目を選んで値を更新してもその場では保存されず、メニューに戻る。`done` を選んだ時点でファイルに書き込んで終了する。途中で中断すると編集内容は保存されない。
 
 ```bash
-$ orbase task edit
+$ mybase task edit
 ? Select task to edit 買い物
 ? what edit it? dueDate
 ? change dueDate? 2026-10-10
 ? what edit it? done
 ```
 
-タスクのタグは `tag` 列に `,` 区切りで表示されます。タグは `~/.orbase/tags.json` に登録され、メモとまとめて `orbase search tags <tag>` で検索できます。詳しくは [タグ](#タグ) を参照してください。
+タスクのタグは `tag` 列に `,` 区切りで表示されます。タグは `~/.mybase/tags.json` に登録され、メモとまとめて `orbase search tags <tag>` で検索できます。詳しくは [タグ](#タグ) を参照してください。
 
 ### note — メモ管理
 
-メモは本棚ごとのディレクトリに、front matter（`date` / `tags`）付きの Markdown として `~/.orbase/note/<book>/*.md` に保存される。
+メモは本棚ごとのディレクトリに、front matter（`date` / `tags`）付きの Markdown として `~/.mybase/note/<book>/*.md` に保存される。
 
 | コマンド             | 説明                                                         |
 | :------------------- | :----------------------------------------------------------- |
-| `orbase note add`    | ファイル名を入力してメモを作成しエディタで開く               |
-| `orbase note edit`   | メモを選択してエディタで編集                                 |
-| `orbase note del`    | メモを複数選択して削除                                       |
-| `orbase note tagdel` | `book.json` に登録された本棚名をチェックボックスで選んで削除 |
+| `mybase note add`    | ファイル名を入力してメモを作成しエディタで開く               |
+| `mybase note edit`   | メモを選択してエディタで編集                                 |
+| `mybase note del`    | メモを複数選択して削除                                       |
+| `mybase note tagdel` | `book.json` に登録された本棚名をチェックボックスで選んで削除 |
 
 `note add` が作る front matter の `tags` は空配列です。タグを付ける場合は、開いたエディタで `tags` を直接編集する。
 
-`note tagdel` が削除するのは `~/.orbase/book.json` に登録された本棚名だけです。`~/.orbase/note/` 以下のディレクトリやメモ本体、front matter の `tags` は変わりません。
+`note tagdel` が削除するのは `~/.mybase/book.json` に登録された本棚名だけです。`~/.orbase/note/` 以下のディレクトリやメモ本体、front matter の `tags` は変わりません。
 
 ### diary — 日記
 
-日記は `~/.orbase/diary/YYYY/MM/YYYY-MM-DD.md` に保存される。
+日記は `~/.mybase/diary/YYYY/MM/YYYY-MM-DD.md` に保存される。
 
 | コマンド            | 説明                             |
 | :------------------ | :------------------------------- |
-| `orbase diary add`  | 今日の日記を作成しエディタで開く |
-| `orbase diary edit` | 年・月・日を入力して日記を編集   |
-| `orbase diary del`  | 年・月・日を入力して日記を削除   |
+| `mybase diary add`  | 今日の日記を作成しエディタで開く |
+| `mybase diary edit` | 年・月・日を入力して日記を編集   |
+| `mybase diary del`  | 年・月・日を入力して日記を削除   |
 
 `edit` / `del` の月・日はファイル名と同じゼロ埋め 2 桁（`08`、`01`）で入力する。`8` のように桁が足りないと `No such file or directory` になる。
 
 ```bash
-$ orbase diary add
-# ~/.orbase/diary/2026/08/2026-08-20.md がエディタで開く
+$ mybase diary add
+# ~/.mybase/diary/2026/08/2026-08-20.md がエディタで開く
 ```
 
 ### search — 横断検索
@@ -149,12 +149,12 @@ $ orbase diary add
 
 | コマンド                         | 説明                                       |
 | :------------------------------- | :----------------------------------------- |
-| `orbase search string <keyword>` | タスク・メモの内容を横断してキーワード検索 |
-| `orbase search tags <tag>`       | タグが一致するタスク・メモのパスを表示     |
+| `mybase search string <keyword>` | タスク・メモの内容を横断してキーワード検索 |
+| `mybase search tags <tag>`       | タグが一致するタスク・メモのパスを表示     |
 
 ```bash
-$ orbase search string 牛乳を買う
-/home/user/.orbase/note/personal/買い物.md
+$ mybase search string 牛乳を買う
+/home/user/.mybase/note/personal/買い物.md
 ---
 date: "2026-8-20"
 tags:
@@ -165,40 +165,40 @@ tags:
 
 牛乳を買う
 
-$ orbase search tags 買い物
-/home/user/.orbase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
-/home/user/.orbase/note/personal/買い物.md
+$ mybase search tags 買い物
+/home/user/.mybase/task/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx.json
+/home/user/.mybase/note/personal/買い物.md
 ```
 
 `string` はパスと内容を表示します。タスクがヒットした場合は JSON の全文、メモがヒットした場合はファイルの全文が出力されます。
 `tags` はパスのみを表示します。日記にはタグがないため、`tags` の対象はタスクとメモだけです。
 
-**日記は `string` の検索結果に現れません。** 現在のバージョンでは `~/.orbase/diary/YYYY/MM/` の月ディレクトリをファイルとして読もうとしてエラーになるため、日記の本文はキーワード検索にヒットしません。日記を探すには `~/.orbase/diary/` 以下を直接開いてください。
+**日記は `string` の検索結果に現れません。** 現在のバージョンでは `~/.mybase/diary/YYYY/MM/` の月ディレクトリをファイルとして読もうとしてエラーになるため、日記の本文はキーワード検索にヒットしません。日記を探すには `~/.orbase/diary/` 以下を直接開いてください。
 
 ### calendar — カレンダー表示
 
 出力は2段構えです。上の表が日付のカレンダー、下の表がその月の期限を持つタスクの一覧です。
 
 ```bash
-orbase calendar [<year>] [<month>]
+mybase calendar [<year>] [<month>]
 ```
 
 #### 引数はどちらも省略可
 
 | 実行例                   | 表示される年月    |
 | :----------------------- | :---------------- |
-| `orbase calendar`        | 今日の年月        |
-| `orbase calendar 2027`   | 2027 年の**今月** |
-| `orbase calendar 2026 9` | **2026 年 10 月** |
+| `mybase calendar`        | 今日の年月        |
+| `mybase calendar 2027`   | 2027 年の**今月** |
+| `mybase calendar 2026 9` | **2026 年 10 月** |
 
-**`month` は 0 始まりです。** `0` が1月、`11` が12月に対応します。`orbase calendar 2026 9` が表示するのは9月ではなく10月です。`month` を省略すると1月ではなく現在の月が表示されます。1月を見たい場合は `orbase calendar 2026 0` のように明示する。
+**`month` は 0 始まりです。** `0` が1月、`11` が12月に対応します。`mybase calendar 2026 9` が表示するのは9月ではなく10月です。`month` を省略すると1月ではなく現在の月が表示されます。1月を見たい場合は `orbase calendar 2026 0` のように明示する。
 
 #### カレンダーの表
 
 日曜始まりの7列で、その月の1日から月末日までを配置する。表示中の月が今月の場合、今日の日付は `[3]` のように角括弧で囲まれる。
 
 ```bash
-$ orbase calendar 2026 9
+$ mybase calendar 2026 9
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │ Sun │ Mon │ Tue │ Wed │ Thu │ Fri │ Sat │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -223,19 +223,19 @@ $ orbase calendar 2026 9
 
 カレンダーの下に表示されるタスク表は、**期限（`dueDate`）の年月が指定した年月と一致するタスク**に絞ったものです。絞り込み条件は `dueDate` のみで、**タグは条件になりません**。
 
-`tag` 列はタスクの `tag` 配列を `,` で連結した文字列です。タグの絞り込みには `orbase task list` か `orbase search tags <tag>` を使ってください。
+`tag` 列はタスクの `tag` 配列を `,` で連結した文字列です。タグの絞り込みには `mybase task list` か `orbase search tags <tag>` を使ってください。
 
-対象タスクがない場合もヘッダだけの表が表示される。カレンダーは `~/.orbase/task/` のタスクしか読み込まないため、メモと日記は表示されない。
+対象タスクがない場合もヘッダだけの表が表示される。カレンダーは `~/.mybase/task/` のタスクしか読み込まないため、メモと日記は表示されない。
 
 ### タグ
 
-タグはタスクとメモに付けられ、`orbase search tags` でまとめて検索できる。保存先が異なる2系統の構造になっている。
+タグはタスクとメモに付けられ、`mybase search tags` でまとめて検索できる。保存先が異なる2系統の構造になっている。
 
 | 対象         | 保存先                                                   | 形式             |
 | :----------- | :------------------------------------------------------- | :--------------- |
-| タグ名の一覧 | `~/.orbase/tags.json`                                    | 文字列の配列     |
-| タスクの付与 | `~/.orbase/task/<uuid>.json` の `tag`                    | 文字列の配列     |
-| メモの付与   | `~/.orbase/note/<book>/<name>.md` の front matter `tags` | 文字列または配列 |
+| タグ名の一覧 | `~/.mybase/tags.json`                                    | 文字列の配列     |
+| タスクの付与 | `~/.mybase/task/<uuid>.json` の `tag`                    | 文字列の配列     |
+| メモの付与   | `~/.mybase/note/<book>/<name>.md` の front matter `tags` | 文字列または配列 |
 | 日記の付与   | なし                                                     | —                |
 
 ```json
@@ -244,37 +244,37 @@ $ orbase calendar 2026 9
 
 #### タグを付ける
 
-`orbase task add` は最初から、`orbase task edit` は「what edit it?」メニューで `tag` を選んだときに、どちらも `create or select?` と尋ねる。
+`mybase task add` は最初から、`orbase task edit` は「what edit it?」メニューで `tag` を選んだときに、どちらも `create or select?` と尋ねる。
 
-- `create` — 自由入力。`,` 区切りで複数タグを指定でき、入力したタグ名は `~/.orbase/tags.json` に登録される。
+- `create` — 自由入力。`,` 区切りで複数タグを指定でき、入力したタグ名は `~/.mybase/tags.json` に登録される。
 - `select` — `tags.json` に登録済みのタグからチェックボックスで選ぶ。`edit` では1つ以上選ぶ必要がある。
 
 ```bash
-$ orbase task add
+$ mybase task add
 ? create or select? create
 ? create and select tags 買い物, 家
 
-$ orbase task add
+$ mybase task add
 ? create or select? select
 ? select tags ◉ 買い物  ◯ 家
 ```
 
-メモのタグは `orbase note add` で開いたエディタの中で front matter の `tags` を直接書く。メモのタグは `tags.json` には登録されないため、`orbase search tags` はメモ側の front matter の値だけを照合する。
+メモのタグは `mybase note add` で開いたエディタの中で front matter の `tags` を直接書く。メモのタグは `tags.json` には登録されないため、`orbase search tags` はメモ側の front matter の値だけを照合する。
 
 #### タグが現れる場所
 
 | 出力先                                     | 対象データ    | タグの扱い                                       |
 | :----------------------------------------- | :------------ | :----------------------------------------------- |
-| `orbase task list` / `priority` / `status` | タスク        | `tag` 配列を `,` 区切りで連結して `tag` 列に表示 |
-| `orbase calendar <year> <month>`           | タスク        | カレンダー下のタスク表の `tag` 列に表示          |
-| `orbase search tags <tag>`                 | タスク + メモ | タグが一致したファイルのパスを表示               |
+| `mybase task list` / `priority` / `status` | タスク        | `tag` 配列を `,` 区切りで連結して `tag` 列に表示 |
+| `mybase calendar <year> <month>`           | タスク        | カレンダー下のタスク表の `tag` 列に表示          |
+| `mybase search tags <tag>`                 | タスク + メモ | タグが一致したファイルのパスを表示               |
 
 #### タグを削除する
 
-`orbase task tagdel` は `~/.orbase/tags.json` に登録されたタグ名をチェックボックスで表示する。削除したいタグを選んで submit すると、選ばれなかったタグだけが残った配列で `tags.json` を書き直す。
+`mybase task tagdel` は `~/.orbase/tags.json` に登録されたタグ名をチェックボックスで表示する。削除したいタグを選んで submit すると、選ばれなかったタグだけが残った配列で `tags.json` を書き直す。
 
 ```bash
-$ orbase task tagdel
+$ mybase task tagdel
 ? select delete tags
  ◉ 買い物
  ◯ 家
@@ -285,42 +285,42 @@ $ orbase task tagdel
 
 ```bash
 # tags.json を手で直す場合
-nvim ~/.orbase/tags.json
+nvim ~/.mybase/tags.json
 ```
 
 ### template — テンプレートの再利用
 
-よく使うファイルやディレクトリをあらかじめ `~/.orbase/template/` にテンプレートとして登録しておくと、名前を指定してカレントディレクトリへコピーできる。同じ構成のファイルを複数のプロジェクトで使い回したい場合に利用する。
+よく使うファイルやディレクトリをあらかじめ `~/.mybase/template/` にテンプレートとして登録しておくと、名前を指定してカレントディレクトリへコピーできる。同じ構成のファイルを複数のプロジェクトで使い回したい場合に利用する。
 
 ```bash
-orbase template --templateName project
+mybase template --templateName project
 ```
 
-テンプレート名は `~/.orbase/template/` 配下のファイルまたはディレクトリ名で、`--templateName` に指定します。このオプションは必須で、位置引数としては渡せません。テンプレートはあらかじめ手動で配置してください。
+テンプレート名は `~/.mybase/template/` 配下のファイルまたはディレクトリ名で、`--templateName` に指定します。このオプションは必須で、位置引数としては渡せません。テンプレートはあらかじめ手動で配置してください。
 
 ### init — 初期設定
 
-`~/.config/orbase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は、最初に実行してください。
+`~/.config/mybase/config.json` に既定の設定ファイルを作成します。データ保存先を変更する場合は、最初に実行してください。
 
 ```bash
-orbase init
+mybase init
 ```
 
 ### ヘルプ / バージョン
 
 ```bash
-orbase --help
-orbase --version
+mybase --help
+mybase --version
 ```
 
 ## データの保存場所
 
-すべてのデータは `~/.orbase/` 配下に保存される。
+すべてのデータは `~/.mybase/` 配下に保存される。
 
-設定ファイルは `~/.config/orbase/config.json` に保存される。
+設定ファイルは `~/.config/mybase/config.json` に保存される。
 
 ```
-~/.orbase/
+~/.mybase/
 ├── task/            # タスク (JSON)
 │   └── <uuid>.json
 ├── note/            # メモ (Markdown + front matter)
@@ -364,7 +364,7 @@ tags:
 # 本文
 ```
 
-`book.json` には `orbase note add` で新規作成した本棚名が重複なしで積まれていく JSON 配列が入る。同じ本棚を2回作成しても増えません。本棚の一覧の正は `~/.orbase/note/` 以下のディレクトリで、`book.json` は作成した本棚名の記録にあたる。`orbase note tagdel` はこの一覧から項目を削除する。
+`book.json` には `mybase note add` で新規作成した本棚名が重複なしで積まれていく JSON 配列が入る。同じ本棚を2回作成しても増えません。本棚の一覧の正は `~/.orbase/note/` 以下のディレクトリで、`book.json` は作成した本棚名の記録にあたる。`orbase note tagdel` はこの一覧から項目を削除する。
 
 ## 開発
 
@@ -381,11 +381,11 @@ bun install
 # bun.nix はリポジトリルートに置く（bun2nix は workspace パッケージを bun.nix からの相対パスで参照する）
 cd .. && bun2nix -l bun.lock -o bun.nix
 
-# ビルド (apps/orbase/dist/index.mjs を生成)
-bun run --cwd apps/orbase build
+# ビルド (apps/mybase/dist/index.mjs を生成)
+bun run --cwd apps/mybase build
 
 # ローカルで実行
-bun run apps/orbase/src/index.ts --help
+bun run apps/mybase/src/index.ts --help
 
 # フォーマット / チェック
 nix fmt
@@ -396,10 +396,10 @@ nix flake check
 
 テストは `bun test` で実行する。
 
-パッケージ単体で開発する場合は `apps/orbase` で次のように実行できる。
+パッケージ単体で開発する場合は `apps/mybase` で次のように実行できる。
 
 ```bash
-cd apps/orbase
+cd apps/mybase
 bun run src/index.ts --help
 ```
 
