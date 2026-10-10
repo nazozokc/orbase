@@ -60,11 +60,17 @@ export const searchString = async (searchTerm: string): Promise<void> => {
       const diaryMonthNames = await readdir(join(diaryDir, year));
       for (const month of diaryMonthNames) {
         const diaryFilePath = join(diaryDir, year, month);
-        const diaryContent = await readFile(diaryFilePath, "utf-8");
+        const diaryFile = await readdir(join(diaryDir, year, month));
+        for (const diaryMdFile of diaryFile) {
+          if (diaryMdFile.endsWith(".md")) {
+            const diaryMDFileDir = join(diaryDir, year, month, diaryMdFile);
+            const diaryContent = await readFile(diaryMDFileDir, "utf-8");
 
-        if (diaryContent.includes(searchTerm)) {
-          consola.log(diaryFilePath);
-          consola.log(diaryContent);
+            if (diaryContent.includes(searchTerm)) {
+              consola.log(diaryFilePath);
+              consola.log(diaryContent);
+            }
+          }
         }
       }
     }
