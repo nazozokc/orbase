@@ -9,7 +9,7 @@ export const calendar = async (
   try {
     const now = new Date();
     const displayYear = year ?? now.getFullYear();
-    const displayMonth = month ?? now.getMonth();
+    const displayMonth = month !== undefined ? month - 1 : now.getMonth();
 
     const firstDayOfMonth = new Date(displayYear, displayMonth, 1).getDay();
     const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
