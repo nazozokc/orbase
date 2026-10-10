@@ -1,4 +1,4 @@
-# mybase-cli
+# mybase
 
 [![Publish](https://github.com/nazozokc/mybase/actions/workflows/publish.yml/badge.svg)](https://github.com/nazozokc/mybase/actions/workflows/publish.yml)<br>
 タスク・メモ・日記を CLI から管理する個人用ライフ管理ツール。
